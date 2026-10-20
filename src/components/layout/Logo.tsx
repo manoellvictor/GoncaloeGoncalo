@@ -1,8 +1,11 @@
+import Image from "next/image";
 import Link from "next/link";
+import logoSelo from "../../../public/images/logo-selo.png";
 
 /**
- * Logo — monograma "G" + nome por extenso (design-system.md §7.1).
- * Placeholder tipográfico até o escritório fornecer o arquivo de marca oficial.
+ * Logo — selo oficial (monograma "G" com legenda circular) + nome por extenso
+ * (design-system.md §7.1). O selo é um PNG com fundo transparente e traço
+ * branco/dourado, pensado para fundo navy; sobre fundo claro ganha um disco navy.
  */
 export function Logo({
   onDark = true,
@@ -17,19 +20,18 @@ export function Logo({
       className="group inline-flex items-center gap-3"
       aria-label="Gonçalo & Gonçalo Advogados Associados — ir para a página inicial"
     >
-      <span
+      <Image
+        src={logoSelo}
+        alt=""
         aria-hidden="true"
+        priority
+        sizes="64px"
         className={[
-          "flex size-11 shrink-0 items-center justify-center rounded-sm border",
-          "font-display text-2xl leading-none",
-          "transition-colors duration-200 ease-brand",
-          onDark
-            ? "border-gold-500 text-gold-500 group-hover:bg-gold-500 group-hover:text-primary-900"
-            : "border-gold-700 text-gold-700 group-hover:bg-gold-700 group-hover:text-white",
+          "size-16 shrink-0 rounded-full",
+          "transition-transform duration-200 ease-brand group-hover:scale-105",
+          onDark ? "" : "bg-primary-900",
         ].join(" ")}
-      >
-        G
-      </span>
+      />
 
       <span className="flex flex-col leading-tight">
         <span

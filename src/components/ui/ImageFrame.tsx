@@ -1,10 +1,11 @@
 import Image from "next/image";
+import logoSelo from "../../../public/images/logo-selo.png";
 
 /**
  * Quadro de imagem com placeholder de marca.
  *
  * Enquanto o escritório não fornece a fotografia final (ver
- * public/images/PENDENTES.md), renderiza um bloco navy com o monograma em vez
+ * public/images/PENDENTES.md), renderiza um bloco navy com o selo da marca em vez
  * de imagem externa — mantém o tom "quiet luxury" e evita requisição a
  * terceiros. Assim que `src` existir, a imagem real assume sem mudar o layout.
  *
@@ -60,7 +61,12 @@ export function ImageFrame({
           aria-hidden="true"
           className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary-900 to-primary-800"
         >
-          <span className="font-display text-5xl text-gold-500/25">G</span>
+          <Image
+            src={logoSelo}
+            alt=""
+            sizes="160px"
+            className="w-1/3 max-w-40 opacity-25"
+          />
         </div>
       )}
 
