@@ -23,6 +23,7 @@
 
   /* --- Tipografia (design-system.md §3) --- */
   --font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-editorial: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-sans: var(--font-inter), Inter, system-ui, -apple-system, sans-serif;
 
   --text-display: clamp(2.5rem, 5vw, 4rem); /* 40 → 64px */

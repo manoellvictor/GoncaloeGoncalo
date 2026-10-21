@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/Button";
+import Link from "next/link";
 import heroRecepcao from "../../../public/images/home-hero-recepcao.jpg";
 
 /**
@@ -33,16 +33,18 @@ export function HeroSection() {
             className="object-cover object-[100%_35%] lg:object-[25%_35%]"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-900/90 via-primary-900/85 to-primary-900/75 lg:bg-gradient-to-r lg:from-primary-900 lg:from-[45%] lg:via-primary-900/70 lg:via-[68%] lg:to-primary-900/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-900/90 via-primary-900/85 to-primary-900/75 lg:bg-gradient-to-r lg:from-primary-900 lg:from-[45%] lg:via-primary-900/55 lg:via-[66%] lg:to-primary-900/15" />
       </div>
 
       <div className="container-site">
-        <div className="flex min-h-[560px] max-w-3xl flex-col justify-center py-24 lg:min-h-[640px] lg:py-32">
-          <p className="text-eyebrow font-semibold uppercase text-gold-300">
+        <div className="flex min-h-[560px] max-w-3xl flex-col justify-center py-24 lg:min-h-[720px] lg:py-32">
+          <span aria-hidden="true" className="block h-px w-12 bg-gold-500" />
+
+          <p className="mt-6 text-eyebrow font-semibold uppercase tracking-[0.2em] text-gold-300">
             Gonçalo &amp; Gonçalo Advogados Associados
           </p>
 
-          <h1 className="mt-6 text-display uppercase text-white">
+          <h1 className="mt-5 font-editorial text-[clamp(2.75rem,5.5vw,4.75rem)] font-light leading-[1.08] text-white">
             Soluções jurídicas com estratégia, ética e resultados.
           </h1>
 
@@ -52,22 +54,27 @@ export function HeroSection() {
           </p>
 
           <div className="mt-10">
-            <Button href="/contato" onDark>
+            <Link
+              href="/contato"
+              className="group inline-flex items-center gap-3 rounded-sm border border-gold-500 px-6 py-3.5 text-xs font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-200 ease-brand hover:bg-gold-500 hover:text-primary-900"
+            >
               Fale com um especialista
-            </Button>
+              <span
+                aria-hidden="true"
+                className="transition-transform duration-200 ease-brand group-hover:translate-x-1"
+              >
+                →
+              </span>
+            </Link>
           </div>
 
-          <ul className="mt-14 flex flex-wrap items-center gap-x-4 gap-y-3">
-            {POSITIONING_TAGS.map((tag, index) => (
-              <li key={tag} className="flex items-center gap-4">
-                {index > 0 ? (
-                  <span aria-hidden="true" className="text-gold-500">
-                    •
-                  </span>
-                ) : null}
-                <span className="text-eyebrow font-semibold uppercase text-gold-300">
-                  {tag}
-                </span>
+          <ul className="mt-14 flex flex-wrap items-center gap-x-8 gap-y-3">
+            {POSITIONING_TAGS.map((tag) => (
+              <li
+                key={tag}
+                className="text-xs uppercase tracking-[0.2em] text-white/70"
+              >
+                {tag}
               </li>
             ))}
           </ul>
