@@ -1,5 +1,6 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
-import { ImageFrame } from "@/components/ui/ImageFrame";
+import heroRecepcao from "../../../public/images/home-hero-recepcao.jpg";
 
 /**
  * Hero — exclusivo da Homepage (padroes-de-projeto.md §3.1).
@@ -7,23 +8,32 @@ import { ImageFrame } from "@/components/ui/ImageFrame";
  *
  * Estrutura: H1 + subheadline + CTA primário + tags de posicionamento, sobre
  * imagem com overlay navy obrigatório para legibilidade do texto sobreposto.
+ *
+ * Fundo: recepção do escritório, já recortada (parede, marca e balcão) e
+ * dessaturada no arquivo. No desktop a foto ocupa a direita e o degradê navy
+ * vai de opaco à esquerda (área do texto) a translúcido à direita; no celular
+ * ela cobre a seção inteira, sob um overlay mais denso, enquadrando o lado
+ * direito da recepção para a marca da parede não ficar atrás do título. A marca já
+ * identifica o escritório, por isso não há marca-d'água aqui.
  */
 const POSITIONING_TAGS = ["Tradição", "Estratégia", "Confiança", "Resultados"];
 
-export function HeroSection({ imageUrl }: { imageUrl?: string | null }) {
+export function HeroSection() {
   return (
-    <section className="relative isolate bg-primary-900">
-      {/* Imagem de fundo com overlay (design-system.md §6) */}
-      <div className="absolute inset-0 -z-10">
-        <ImageFrame
-          src={imageUrl}
-          alt=""
-          ratio="wide"
-          overlay
-          priority
-          sizes="100vw"
-          className="size-full"
-        />
+    <section className="relative isolate overflow-hidden bg-primary-900">
+      <div aria-hidden="true" className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 lg:left-[45%]">
+          <Image
+            src={heroRecepcao}
+            alt=""
+            fill
+            priority
+            placeholder="blur"
+            sizes="(min-width: 1024px) 62vw, 100vw"
+            className="object-cover object-[100%_35%] lg:object-[25%_35%]"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-900/90 via-primary-900/85 to-primary-900/75 lg:bg-gradient-to-r lg:from-primary-900 lg:from-[45%] lg:via-primary-900/70 lg:via-[68%] lg:to-primary-900/40" />
       </div>
 
       <div className="container-site">

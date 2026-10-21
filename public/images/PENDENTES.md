@@ -16,7 +16,7 @@ corporativos e arquitetônicos. Sem imagens "de banco" genéricas ou coloridas d
 
 | Arquivo esperado | Onde aparece | Observação |
 |---|---|---|
-| `home-hero-advogado-escadaria.jpg` | Hero da homepage | Full-bleed com overlay navy. **Maior impacto visual do site** — priorizar. Mín. 2000px de largura. |
+| ~~`home-hero-advogado-escadaria.jpg`~~ | Hero da homepage | **Fornecida:** `home-hero-recepcao.jpg` (recepção do escritório, já recortada e dessaturada). |
 | `home-institucional-escritorio.jpg` | Seção "Quem Somos" da home | Proporção 4:3. |
 | `quem-somos-historia-equipe.jpg` | Página Quem Somos | Proporção 3:4 (retrato). |
 | `estrutura-ambiente-recepcao.jpg` | Página Estrutura | Proporção 4:3. |
