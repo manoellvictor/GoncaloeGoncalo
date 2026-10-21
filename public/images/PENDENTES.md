@@ -21,7 +21,7 @@ corporativos e arquitetônicos. Sem imagens "de banco" genéricas ou coloridas d
 | `quem-somos-historia-equipe.jpg` | Página Quem Somos | **Fornecida** (foto da equipe, 3:4). |
 | `estrutura-ambiente-recepcao.jpg` | Página Estrutura | **Fornecida** (recepção, 4:3). |
 | ~~`cta-banner-colunas-classicas.jpg`~~ | Banner de CTA (todas as páginas) | **Fornecida:** `cta-banner-escritorio.jpg` (sala de espera, escurecida sob overlay navy). |
-| Fotos dos 4 cards de Áreas da home | Home → Áreas de Atuação | **Pendente.** Direito Empresarial, Civil, Trabalhista e Tributário mostram o selo enquanto não houver foto. Proporção 4:3. |
+| Fotos dos 6 cards de Áreas da home | Home → Áreas de Atuação | **Pendente.** Tributário, Cível, Contratual, Empresarial, Administrativo e Previdenciário mostram o selo enquanto não houver foto. Proporção 4:3. |
 
 Para usar: coloque o arquivo em `public/images/` e passe `src="/images/nome.jpg"`
 no `ImageFrame` correspondente.

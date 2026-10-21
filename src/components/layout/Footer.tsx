@@ -13,7 +13,7 @@ import {
   contact,
   footerNav,
   mapsUrl,
-  practiceAreaFallback,
+  practiceAreas,
   siteConfig,
   social,
 } from "@/lib/site-config";
@@ -96,7 +96,7 @@ export function Footer() {
 
           <Column
             title="Áreas de Atuação"
-            links={practiceAreaFallback.map((area) => ({
+            links={practiceAreas.map((area) => ({
               label: area.title,
               href: `/areas-de-atuacao/${area.slug}`,
             }))}

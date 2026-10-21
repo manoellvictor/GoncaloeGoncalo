@@ -12,6 +12,30 @@ export const metadata = pageMetadata({
   path: "/quem-somos",
 });
 
+/** Valores do escritório. */
+const VALUES = [
+  {
+    title: "Velocidade e ação",
+    text: "Entre planejar e fazer, fazemos. Demanda recebida é demanda iniciada.",
+  },
+  {
+    title: "Sem procrastinar",
+    text: "O que pode ser feito hoje não fica para amanhã. Prazo interno vence antes do prazo legal.",
+  },
+  {
+    title: "Proatividade",
+    text: "Agimos antes de sermos cobrados, seja pelo cliente, pelo sócio ou pelo tribunal.",
+  },
+  {
+    title: "Cultura dos fazedores",
+    text: "Sábio não é quem sabe, é quem faz. Valorizamos quem entrega.",
+  },
+  {
+    title: "Ética, excelência e integridade",
+    text: "O resultado só vale se for alcançado do jeito certo.",
+  },
+];
+
 /** Indicadores de credibilidade (prd.md §6.2). Valores placeholder. */
 const STATS = [
   { value: "+20", label: "Anos de experiência" },
@@ -35,22 +59,23 @@ export default function QuemSomosPage() {
           <div className="grid gap-14 lg:grid-cols-2 lg:items-start lg:gap-20">
             <div>
               <Eyebrow>Nossa História</Eyebrow>
-              <h2 className="mt-4 text-h2">Duas décadas ao lado de quem decide</h2>
+              <h2 className="mt-4 text-h2">Visão estratégica para decisões importantes</h2>
               <div aria-hidden="true" className="mt-6 h-px w-16 bg-gold-500" />
 
               <div className="mt-8 flex flex-col gap-6 text-body-lg text-neutral-700">
                 <p>
-                  O Gonçalo &amp; Gonçalo nasceu da união entre a experiência de
-                  quem construiu carreira no contencioso tradicional e a visão de
-                  quem entende o ritmo dos negócios contemporâneos. Dessa
-                  combinação surgiu um escritório que fala a língua do cliente
-                  sem abrir mão do rigor técnico.
+                  O Gonçalo &amp; Gonçalo é um escritório de advocacia que existe para
+                  tirar o problema das mãos do cliente. Atuamos em Direito Tributário,
+                  Cível, Contratual, Empresarial, Administrativo e Previdenciário, com
+                  soluções jurídicas estratégicas e personalizadas.
                 </p>
                 <p>
-                  Ao longo de mais de vinte anos, acompanhamos empresas em
-                  momentos decisivos — reestruturações, sucessões, disputas que
-                  definiriam o futuro do negócio — e famílias em questões que
-                  exigem tanto competência quanto discrição.
+                  Nosso diferencial é a atuação técnica e presencial junto ao Tribunal
+                  de Justiça do Maranhão (TJMA) e ao Tribunal Regional Federal (TRF).
+                  Temos ampla experiência em despachos com desembargadores e
+                  interlocução qualificada com os gabinetes. Essa proximidade nos
+                  permite antecipar riscos, agir com agilidade e aumentar as chances
+                  de êxito.
                 </p>
               </div>
 
@@ -62,19 +87,24 @@ export default function QuemSomosPage() {
               </p>
 
               <h2 className="mt-10 text-h3">Valores</h2>
-              <ul className="mt-4 flex flex-col gap-3 text-neutral-700">
-                {[
-                  "Excelência técnica em cada parecer e cada peça.",
-                  "Transparência sobre custos, prazos e riscos desde o primeiro contato.",
-                  "Discrição absoluta no tratamento das informações do cliente.",
-                  "Compromisso com o resultado, não com o volume de processos.",
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-gold-500" />
-                    {item}
+              <ol className="mt-6 flex flex-col gap-5 text-neutral-700">
+                {VALUES.map((value, index) => (
+                  <li key={value.title} className="flex items-start gap-4">
+                    <span
+                      aria-hidden="true"
+                      className="mt-0.5 font-editorial text-[1.25rem] leading-none text-gold-700"
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <p>
+                      <strong className="font-semibold text-primary-900">
+                        {value.title}
+                      </strong>{" "}
+                      — {value.text}
+                    </p>
                   </li>
                 ))}
-              </ul>
+              </ol>
             </div>
 
             <ImageFrame

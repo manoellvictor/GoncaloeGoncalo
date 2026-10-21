@@ -6,7 +6,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Logo } from "./Logo";
 import { Button } from "@/components/ui/Button";
 import { ChevronDownIcon, CloseIcon, MenuIcon, SearchIcon } from "@/components/ui/Icons";
-import { mainNav, practiceAreaFallback } from "@/lib/site-config";
+import { mainNav, practiceAreas } from "@/lib/site-config";
 
 /**
  * Header global — instância única em app/layout.tsx, nunca copiada por página
@@ -146,7 +146,7 @@ export function Header() {
                           </Link>
                         </li>
                         <li aria-hidden="true" className="my-2 border-t border-border-light" />
-                        {practiceAreaFallback.map((area) => (
+                        {practiceAreas.map((area) => (
                           <li key={area.slug}>
                             <Link
                               href={`/areas-de-atuacao/${area.slug}`}
@@ -261,7 +261,7 @@ export function Header() {
             Áreas de Atuação
           </p>
           <ul className="flex flex-col gap-1">
-            {practiceAreaFallback.map((area) => (
+            {practiceAreas.map((area) => (
               <li key={area.slug}>
                 <Link
                   href={`/areas-de-atuacao/${area.slug}`}

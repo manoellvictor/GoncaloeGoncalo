@@ -1,5 +1,6 @@
 import { getSupabaseClient } from "./server";
 import type { Article, Faq, PracticeArea, TeamMember } from "./database.types";
+import { practiceAreas } from "@/lib/site-config";
 
 /**
  * Consultas de leitura do conteúdo público.
@@ -15,15 +16,46 @@ function logFailure(scope: string, error: { message: string }) {
 
 /* ------------------------------------------------------------ Áreas de atuação */
 
-export async function getPracticeAreas(): Promise<PracticeArea[]> {
+/**
+ * As áreas exibidas são as de `practiceAreas` (site-config.ts), nessa ordem.
+ * A linha do banco com o mesmo slug, se houver, fornece o conteúdo (texto,
+ * serviços, imagem, meta description); sem ela, a área usa os dados estáticos.
+ * O título vem sempre da lista oficial, para menu e página dizerem o mesmo.
+ */
+type OfficialArea = (typeof practiceAreas)[number];
+
+function mergeArea(
+  official: OfficialArea,
+  index: number,
+  row: PracticeArea | undefined,
+): PracticeArea {
+  if (row) return { ...row, title: official.title, sort_order: index };
+  return {
+    id: official.slug,
+    slug: official.slug,
+    title: official.title,
+    short_description: official.shortDescription,
+    icon: official.icon,
+    body: null,
+    services: [],
+    image_url: null,
+    meta_description: null,
+    is_featured: false,
+    published: true,
+    sort_order: index,
+    created_at: "",
+    updated_at: "",
+  };
+}
+
+async function getPublishedAreaRows(): Promise<PracticeArea[]> {
   const supabase = getSupabaseClient();
   if (!supabase) return [];
 
   const { data, error } = await supabase
     .from("practice_areas")
     .select("*")
-    .eq("published", true)
-    .order("sort_order", { ascending: true });
+    .eq("published", true);
 
   if (error) {
     logFailure("getPracticeAreas", error);
@@ -32,44 +64,36 @@ export async function getPracticeAreas(): Promise<PracticeArea[]> {
   return data ?? [];
 }
 
-/** As 4 áreas de destaque da homepage (prd.md §6.1). */
-export async function getFeaturedPracticeAreas(): Promise<PracticeArea[]> {
-  const supabase = getSupabaseClient();
-  if (!supabase) return [];
-
-  const { data, error } = await supabase
-    .from("practice_areas")
-    .select("*")
-    .eq("published", true)
-    .eq("is_featured", true)
-    .order("sort_order", { ascending: true })
-    .limit(4);
-
-  if (error) {
-    logFailure("getFeaturedPracticeAreas", error);
-    return [];
-  }
-  return data ?? [];
+export async function getPracticeAreas(): Promise<PracticeArea[]> {
+  const rows = await getPublishedAreaRows();
+  const bySlug = new Map(rows.map((row) => [row.slug, row]));
+  return practiceAreas.map((official, index) =>
+    mergeArea(official, index, bySlug.get(official.slug)),
+  );
 }
 
 export async function getPracticeAreaBySlug(
   slug: string,
 ): Promise<PracticeArea | null> {
+  const index = practiceAreas.findIndex((area) => area.slug === slug);
+  if (index < 0) return null;
+
   const supabase = getSupabaseClient();
-  if (!supabase) return null;
+  let row: PracticeArea | undefined;
 
-  const { data, error } = await supabase
-    .from("practice_areas")
-    .select("*")
-    .eq("published", true)
-    .eq("slug", slug)
-    .maybeSingle();
+  if (supabase) {
+    const { data, error } = await supabase
+      .from("practice_areas")
+      .select("*")
+      .eq("published", true)
+      .eq("slug", slug)
+      .maybeSingle();
 
-  if (error) {
-    logFailure(`getPracticeAreaBySlug(${slug})`, error);
-    return null;
+    if (error) logFailure(`getPracticeAreaBySlug(${slug})`, error);
+    row = data ?? undefined;
   }
-  return data;
+
+  return mergeArea(practiceAreas[index], index, row);
 }
 
 /* -------------------------------------------------------------------- Artigos */

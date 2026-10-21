@@ -31,7 +31,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
     ...areas.map((area) => ({
       url: `${siteConfig.url}/areas-de-atuacao/${area.slug}`,
-      lastModified: new Date(area.updated_at),
+      // Área sem linha no banco não tem data de atualização própria.
+      ...(area.updated_at ? { lastModified: new Date(area.updated_at) } : {}),
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),

@@ -57,19 +57,50 @@ export const social: readonly {
 ];
 
 /**
- * Áreas de atuação — fallback estático usado quando o Supabase não responde.
- * A fonte de verdade é a tabela `practice_areas`; esta lista garante que o menu
- * e as rotas funcionem mesmo sem banco (build offline, primeiro deploy).
+ * Áreas de atuação oficiais — define QUAIS áreas o site mostra e em que ordem
+ * (menu, rodapé, home, /areas-de-atuacao e rotas /areas-de-atuacao/[slug]).
+ *
+ * O Supabase (`practice_areas`) só complementa o conteúdo de cada área (texto,
+ * serviços, imagem) quando houver uma linha com o mesmo slug; área do banco que
+ * não está nesta lista não é exibida. Sem banco, as páginas usam os dados daqui.
  */
-export const practiceAreaFallback = [
-  { slug: "direito-empresarial", title: "Direito Empresarial" },
-  { slug: "direito-civil", title: "Direito Civil" },
-  { slug: "direito-trabalhista", title: "Direito Trabalhista" },
-  { slug: "direito-tributario", title: "Direito Tributário" },
-  { slug: "direito-imobiliario", title: "Direito Imobiliário" },
-  { slug: "direito-administrativo", title: "Direito Administrativo" },
-  { slug: "compliance-e-lgpd", title: "Compliance e LGPD" },
-  { slug: "direito-do-consumidor", title: "Direito do Consumidor" },
+export const practiceAreas = [
+  {
+    slug: "direito-tributario",
+    title: "Direito Tributário",
+    shortDescription: "Planejamento e defesa fiscal para empresas e pessoas físicas.",
+    icon: "receipt",
+  },
+  {
+    slug: "direito-civil",
+    title: "Direito Cível",
+    shortDescription: "Obrigações, responsabilidade civil e proteção patrimonial.",
+    icon: "scale",
+  },
+  {
+    slug: "direito-contratual",
+    title: "Direito Contratual",
+    shortDescription: "Elaboração, revisão e negociação de contratos.",
+    icon: "shield-check",
+  },
+  {
+    slug: "direito-empresarial",
+    title: "Direito Empresarial",
+    shortDescription: "Societário, governança e o dia a dia jurídico da empresa.",
+    icon: "briefcase",
+  },
+  {
+    slug: "direito-administrativo",
+    title: "Direito Administrativo",
+    shortDescription: "Atuação perante a administração pública e em licitações.",
+    icon: "landmark",
+  },
+  {
+    slug: "direito-previdenciario",
+    title: "Direito Previdenciário",
+    shortDescription: "Benefícios, aposentadorias e revisões junto ao INSS.",
+    icon: "users",
+  },
 ] as const;
 
 /** Menu principal — ordem fixa em todas as páginas (padroes-de-projeto.md §4). */

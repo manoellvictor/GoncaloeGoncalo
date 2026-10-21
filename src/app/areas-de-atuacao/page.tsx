@@ -7,7 +7,7 @@ import { getPracticeAreas } from "@/lib/supabase/queries";
 export const metadata = pageMetadata({
   title: "Áreas de Atuação",
   description:
-    "Direito empresarial, civil, trabalhista, tributário, imobiliário, administrativo, compliance e consumidor: conheça todas as especialidades do escritório.",
+    "Direito tributário, cível, contratual, empresarial, administrativo e previdenciário: conheça as áreas de atuação do escritório Gonçalo & Gonçalo.",
   path: "/areas-de-atuacao",
 });
 

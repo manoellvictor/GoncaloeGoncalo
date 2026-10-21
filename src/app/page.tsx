@@ -11,6 +11,7 @@ import { FaqAccordion } from "@/components/ui/FaqAccordion";
 import { ArticleCard } from "@/components/cards/ArticleCard";
 import { JsonLd } from "@/components/JsonLd";
 import { legalServiceJsonLd } from "@/lib/seo";
+import { practiceAreas } from "@/lib/site-config";
 import { getArticles, getFaqs } from "@/lib/supabase/queries";
 import escritorio from "../../public/images/home-institucional-escritorio.jpg";
 
@@ -35,33 +36,6 @@ const VALUES = [
     icon: "scale",
     title: "Ética e Transparência",
     description: "Custos, prazos e riscos comunicados com clareza desde o início.",
-  },
-];
-
-/**
- * Áreas em destaque na home — fixas, para a vitrine não depender do banco.
- * Os slugs são os das rotas existentes em /areas-de-atuacao/[slug].
- */
-const FEATURED_AREAS = [
-  {
-    slug: "direito-empresarial",
-    title: "Direito Empresarial",
-    subtitle: "Contratos, societário e governança.",
-  },
-  {
-    slug: "direito-civil",
-    title: "Direito Civil",
-    subtitle: "Obrigações, responsabilidade e patrimônio.",
-  },
-  {
-    slug: "direito-trabalhista",
-    title: "Direito Trabalhista",
-    subtitle: "Prevenção e defesa nas relações de trabalho.",
-  },
-  {
-    slug: "direito-tributario",
-    title: "Direito Tributário",
-    subtitle: "Planejamento e defesa fiscal.",
   },
 ];
 
@@ -104,12 +78,22 @@ export default async function HomePage() {
                 <span className="block">Advogados Associados</span>
               </h2>
 
-              <p className="mt-8 text-body-lg text-neutral-700">
-                Somos um escritório boutique: atendemos menos clientes para
-                atender melhor cada um. Essa escolha nos permite conhecer a fundo
-                o negócio e a história de quem nos procura — e é dela que nasce a
-                estratégia jurídica.
-              </p>
+              <div className="mt-8 flex flex-col gap-5 text-body-lg text-neutral-700">
+                <p>
+                  O Gonçalo &amp; Gonçalo é um escritório de advocacia que existe para
+                  tirar o problema das mãos do cliente. Atuamos em Direito Tributário,
+                  Cível, Contratual, Empresarial, Administrativo e Previdenciário, com
+                  soluções jurídicas estratégicas e personalizadas.
+                </p>
+                <p>
+                  Nosso diferencial é a atuação técnica e presencial junto ao Tribunal
+                  de Justiça do Maranhão (TJMA) e ao Tribunal Regional Federal (TRF).
+                  Temos ampla experiência em despachos com desembargadores e
+                  interlocução qualificada com os gabinetes. Essa proximidade nos
+                  permite antecipar riscos, agir com agilidade e aumentar as chances
+                  de êxito.
+                </p>
+              </div>
 
               <div className="mt-10">
                 <Button href="/quem-somos" variant="gold-outline" arrow>
@@ -180,15 +164,15 @@ export default async function HomePage() {
             </ArrowLink>
           </div>
 
-          <ul className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {FEATURED_AREAS.map((area) => (
+          <ul className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {practiceAreas.map((area) => (
               <li key={area.slug}>
                 <article className="group relative flex h-full flex-col overflow-hidden rounded-sm border border-border-light bg-white transition-shadow duration-200 ease-brand hover:shadow-elevated">
                   <ImageFrame
                     src={null}
                     alt=""
                     ratio="landscape"
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   />
                   <div className="flex flex-1 flex-col p-7">
                     <h3 className="font-editorial text-[1.5rem] font-medium leading-tight text-primary-900">
@@ -199,7 +183,9 @@ export default async function HomePage() {
                         {area.title}
                       </Link>
                     </h3>
-                    <p className="mt-2 flex-1 text-small text-neutral-600">{area.subtitle}</p>
+                    <p className="mt-2 flex-1 text-small text-neutral-600">
+                      {area.shortDescription}
+                    </p>
                     <span
                       aria-hidden="true"
                       className="mt-5 text-gold-700 transition-transform duration-200 ease-brand group-hover:translate-x-1"
