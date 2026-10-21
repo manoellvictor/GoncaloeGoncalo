@@ -142,7 +142,7 @@ export function ContactForm() {
           name="phone"
           type="tel"
           autoComplete="tel"
-          placeholder="(11) 99999-9999"
+          placeholder="(98) 99999-9999"
           defaultValue={values.phone}
           className={inputClasses("phone")}
           {...a11y("phone")}

@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <section className="bg-primary-900">
       <div className="container-site flex min-h-[60vh] flex-col justify-center py-24">
-        <p className="text-eyebrow font-semibold uppercase text-gold-300">
+        <p className="text-eyebrow font-semibold uppercase text-gold-400">
           Erro 404
         </p>
 

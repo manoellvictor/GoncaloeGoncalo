@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 /**
  * Eyebrow — rótulo curto em caixa alta (máx. 3 palavras, padroes-de-projeto.md §5).
- * Sobre fundo claro usa gold-700 por contraste; sobre navy, gold-300.
+ * Sobre fundo claro usa gold-700 por contraste; sobre navy, gold-400.
  */
 export function Eyebrow({
   children,
@@ -17,7 +17,7 @@ export function Eyebrow({
     <p
       className={[
         "text-eyebrow font-semibold uppercase",
-        onDark ? "text-gold-300" : "text-gold-700",
+        onDark ? "text-gold-400" : "text-gold-700",
         className,
       ]
         .filter(Boolean)

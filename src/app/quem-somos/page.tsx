@@ -78,8 +78,8 @@ export default function QuemSomosPage() {
             </div>
 
             <ImageFrame
-              src={null}
-              alt=""
+              src="/images/quem-somos-historia-equipe.jpg"
+              alt="Equipe do escritório Gonçalo & Gonçalo Advogados Associados"
               ratio="portrait"
               className="rounded-lg lg:sticky lg:top-28"
               sizes="(min-width: 1024px) 50vw, 100vw"

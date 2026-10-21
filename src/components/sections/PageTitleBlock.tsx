@@ -36,13 +36,13 @@ export function PageTitleBlock({
                       </span>
                     ) : null}
                     {isLast ? (
-                      <span aria-current="page" className="text-gold-300">
+                      <span aria-current="page" className="text-gold-400">
                         {crumb.name}
                       </span>
                     ) : (
                       <Link
                         href={crumb.path}
-                        className="transition-colors duration-200 ease-brand hover:text-gold-300"
+                        className="transition-colors duration-200 ease-brand hover:text-gold-400"
                       >
                         {crumb.name}
                       </Link>
@@ -54,7 +54,7 @@ export function PageTitleBlock({
           </nav>
         ) : null}
 
-        <p className="text-eyebrow font-semibold uppercase text-gold-300">
+        <p className="text-eyebrow font-semibold uppercase text-gold-400">
           {eyebrow}
         </p>
 

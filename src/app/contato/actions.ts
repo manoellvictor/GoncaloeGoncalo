@@ -21,7 +21,7 @@ const schema = z.object({
     .string()
     .trim()
     .min(1, "Informe seu e-mail.")
-    .email("Informe um e-mail válido, como nome@empresa.com.br.")
+    .email("Informe um e-mail válido, como nome@empresa.com.")
     .max(160, "E-mail muito longo."),
   phone: z
     .string()
@@ -32,7 +32,7 @@ const schema = z.object({
         const digits = value.replace(/\D/g, "");
         return digits.length >= 10 && digits.length <= 13;
       },
-      "Informe um telefone válido com DDD, como (11) 99999-9999.",
+      "Informe um telefone válido com DDD, como (98) 99999-9999.",
     ),
   company: z.string().trim().max(120, "Nome da empresa muito longo.").optional(),
   message: z

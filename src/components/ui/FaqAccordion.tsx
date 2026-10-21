@@ -55,7 +55,7 @@ export function FaqAccordion({
                   "flex w-full items-start justify-between gap-6 py-6 text-left",
                   "text-body-lg transition-colors duration-200 ease-brand",
                   onDark
-                    ? "text-white hover:text-gold-300"
+                    ? "text-white hover:text-gold-400"
                     : "text-primary-900 hover:text-gold-700",
                 ].join(" ")}
               >
@@ -63,7 +63,7 @@ export function FaqAccordion({
                 <span
                   className={[
                     "mt-0.5 shrink-0",
-                    onDark ? "text-gold-300" : "text-gold-700",
+                    onDark ? "text-gold-400" : "text-gold-700",
                   ].join(" ")}
                 >
                   {isOpen ? (

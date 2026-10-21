@@ -73,7 +73,7 @@ export function CookieBanner() {
           experiência. Você pode recusar sem prejuízo à navegação. Saiba mais na{" "}
           <Link
             href="/politicas#cookies"
-            className="text-gold-300 underline underline-offset-2"
+            className="text-gold-400 underline underline-offset-2"
           >
             Política de Cookies
           </Link>
@@ -91,7 +91,7 @@ export function CookieBanner() {
           <button
             type="button"
             onClick={() => writeConsent("accepted")}
-            className="rounded-md bg-gold-500 px-6 py-3 text-sm font-semibold text-primary-900 transition-colors duration-200 ease-brand hover:bg-gold-300"
+            className="rounded-md bg-gold-500 px-6 py-3 text-sm font-semibold text-primary-900 transition-colors duration-200 ease-brand hover:bg-gold-600"
           >
             Aceitar
           </button>

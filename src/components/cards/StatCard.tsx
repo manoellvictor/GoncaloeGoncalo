@@ -19,7 +19,7 @@ export function StatCard({
       <p
         className={[
           "font-display text-h2 font-semibold",
-          onDark ? "text-gold-300" : "text-gold-700",
+          onDark ? "text-gold-400" : "text-gold-700",
         ].join(" ")}
       >
         {value}

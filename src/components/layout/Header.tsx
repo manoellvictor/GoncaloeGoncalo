@@ -94,7 +94,11 @@ export function Header() {
   }
 
   const linkBase =
-    "text-sm transition-colors duration-200 ease-brand hover:text-gold-300";
+    "text-sm transition-colors duration-200 ease-brand hover:text-gold-400";
+
+  // Item ativo: dourado com sublinhado fino abaixo do rótulo.
+  const activeUnderline =
+    "relative text-gold-400 after:absolute after:inset-x-0 after:-bottom-2 after:h-px after:bg-gold-500";
 
   return (
     <header className="sticky top-0 z-50 bg-primary-900">
@@ -114,7 +118,7 @@ export function Header() {
                       aria-controls={dropdownId}
                       onClick={() => setDropdownOpen((open) => !open)}
                       className={`flex items-center gap-1.5 ${linkBase} ${
-                        isActive(item.href) ? "text-gold-300" : "text-white"
+                        isActive(item.href) ? activeUnderline : "text-white"
                       }`}
                     >
                       {item.label}
@@ -161,7 +165,7 @@ export function Header() {
                       href={item.href}
                       aria-current={isActive(item.href) ? "page" : undefined}
                       className={`${linkBase} ${
-                        isActive(item.href) ? "text-gold-300" : "text-white"
+                        isActive(item.href) ? activeUnderline : "text-white"
                       }`}
                     >
                       {item.label}
@@ -180,7 +184,7 @@ export function Header() {
               aria-expanded={searchOpen}
               aria-controls={searchId}
               aria-label={searchOpen ? "Fechar busca" : "Abrir busca"}
-              className="rounded-sm p-2 text-white transition-colors duration-200 ease-brand hover:text-gold-300"
+              className="rounded-sm p-2 text-white transition-colors duration-200 ease-brand hover:text-gold-400"
             >
               {searchOpen ? (
                 <CloseIcon width={20} height={20} />
@@ -189,9 +193,12 @@ export function Header() {
               )}
             </button>
 
-            <Button href="/contato" onDark className="hidden sm:inline-flex">
-              Fale Conosco
-            </Button>
+            {/* Wrapper: `hidden` direto no Button perde para o `inline-flex` dele. */}
+            <div className="hidden sm:block">
+              <Button href="/contato" variant="gold-outline" onDark>
+                Fale Conosco
+              </Button>
+            </div>
 
             <button
               type="button"
@@ -199,7 +206,7 @@ export function Header() {
               aria-expanded={mobileOpen}
               aria-controls={mobileId}
               aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
-              className="rounded-sm p-2 text-white transition-colors duration-200 ease-brand hover:text-gold-300 lg:hidden"
+              className="rounded-sm p-2 text-white transition-colors duration-200 ease-brand hover:text-gold-400 lg:hidden"
             >
               {mobileOpen ? <CloseIcon /> : <MenuIcon />}
             </button>
@@ -241,7 +248,7 @@ export function Header() {
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={`block border-b border-white/10 py-4 text-body-lg ${
-                    isActive(item.href) ? "text-gold-300" : "text-white"
+                    isActive(item.href) ? "text-gold-400" : "text-white"
                   }`}
                 >
                   {item.label}
@@ -250,7 +257,7 @@ export function Header() {
             ))}
           </ul>
 
-          <p className="mt-8 mb-3 text-eyebrow font-semibold uppercase text-gold-300">
+          <p className="mt-8 mb-3 text-eyebrow font-semibold uppercase text-gold-400">
             Áreas de Atuação
           </p>
           <ul className="flex flex-col gap-1">
@@ -266,7 +273,7 @@ export function Header() {
             ))}
           </ul>
 
-          <Button href="/contato" onDark className="mt-10 w-full">
+          <Button href="/contato" variant="gold-outline" onDark className="mt-10 w-full">
             Fale Conosco
           </Button>
         </nav>

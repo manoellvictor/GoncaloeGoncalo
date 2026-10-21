@@ -26,7 +26,7 @@ export function ArrowLink({
         "group inline-flex items-center gap-2 text-sm font-semibold",
         "transition-colors duration-200 ease-brand",
         onDark
-          ? "text-gold-500 hover:text-gold-300"
+          ? "text-gold-500 hover:text-gold-400"
           : "text-gold-700 hover:text-primary-900",
         className,
       ]

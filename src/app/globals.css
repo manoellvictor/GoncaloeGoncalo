@@ -8,18 +8,19 @@
 
 @theme {
   /* --- Cores primárias (design-system.md §2.1) --- */
-  --color-primary-900: #0b1e33; /* navy: header, hero, footer, faixas */
-  --color-primary-800: #122a45; /* cards sobre navy */
-  --color-gold-500: #c9a227; /* accent: só sobre navy, ou não-texto sobre claro */
-  --color-gold-300: #d8be6e; /* apoio sobre fundo escuro */
-  --color-gold-700: #856814; /* NOVO: texto dourado sobre fundo claro (4,84:1) */
+  --color-primary-900: #0a1526; /* navy profundo: header, hero, footer, faixas */
+  --color-primary-800: #111f36; /* cards sobre navy */
+  --color-gold-400: #d4b98a; /* champanhe claro: textos dourados sobre navy */
+  --color-gold-500: #c5a46d; /* champanhe/bronze: accent; texto só sobre navy */
+  --color-gold-600: #b8935a; /* hover do dourado */
+  --color-gold-700: #7c6237; /* bronze escuro: texto dourado sobre fundo claro (5,49:1) */
 
   /* --- Neutras (design-system.md §2.2) --- */
-  --color-cream-100: #f8f5ef; /* fundo de seções claras */
+  --color-cream-100: #fafaf8; /* off-white neutro: fundo de seções claras */
   --color-neutral-700: #4a4a4a; /* corpo de texto sobre claro */
   --color-neutral-600: #6b6b6b; /* NOVO: texto secundário acessível (4,90:1) */
   --color-neutral-500: #7a7a7a; /* só texto grande/decorativo — reprova AA a 14px */
-  --color-border-light: #e4e0d6;
+  --color-border-light: #e6e4df;
 
   /* --- Tipografia (design-system.md §3) --- */
   --font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
@@ -56,8 +57,8 @@
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 16px;
-  --shadow-card: 0 4px 16px rgba(11, 30, 51, 0.08);
-  --shadow-elevated: 0 8px 32px rgba(11, 30, 51, 0.16);
+  --shadow-card: 0 4px 16px rgba(10, 21, 38, 0.08);
+  --shadow-elevated: 0 8px 32px rgba(10, 21, 38, 0.16);
 
   /* --- Motion (design-system.md §9): 150–250ms ease-out, sem bounce --- */
   --ease-brand: cubic-bezier(0.16, 1, 0.3, 1);

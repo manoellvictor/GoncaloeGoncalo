@@ -64,25 +64,26 @@ export function pageMetadata({
 const fullAddress = {
   "@type": "PostalAddress",
   streetAddress: contact.addressLine,
-  addressLocality: contact.addressCity,
+  addressLocality: contact.addressLocality,
+  addressRegion: contact.addressRegion,
   postalCode: contact.addressZip,
   addressCountry: "BR",
 };
 
-/** Organization + LegalService na home (padroes-de-projeto.md §8). */
+/** LegalService (subtipo de LocalBusiness) na home (padroes-de-projeto.md §8). */
 export function legalServiceJsonLd() {
   return {
     "@context": "https://schema.org",
-    "@type": "LegalService",
+    "@type": ["LegalService", "LocalBusiness"],
     name: siteConfig.name,
     description: siteConfig.description,
     url: siteConfig.url,
     slogan: siteConfig.tagline,
-    telephone: contact.phone,
+    telephone: contact.phoneE164,
     email: contact.email,
     address: fullAddress,
     areaServed: "BR",
-    sameAs: social.map((s) => s.href).filter((h) => h !== "#"),
+    sameAs: social.map((s) => s.href).filter(Boolean),
   };
 }
 

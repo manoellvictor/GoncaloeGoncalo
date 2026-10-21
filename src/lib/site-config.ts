@@ -1,9 +1,9 @@
 /**
  * Configuração central do site.
  *
- * Dados de contato vêm de variáveis de ambiente: os valores do mockup são
- * explicitamente fictícios (prd.md §11) e NÃO devem ir para produção.
- * Ver .env.example.
+ * Única fonte dos dados institucionais e de contato: header, home, rodapé,
+ * /contato, /localizacao, botões de WhatsApp e dados estruturados (seo.ts)
+ * leem daqui. Para mudar telefone, e-mail ou endereço, altere só este arquivo.
  */
 
 export const siteConfig = {
@@ -12,32 +12,49 @@ export const siteConfig = {
   tagline: "Mais que Direito. Resultados Duradouros.",
   description:
     "Escritório boutique que une tradição jurídica e visão contemporânea. Consultoria e contencioso para empresas e pessoas físicas.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://advocaciagoncalo.vercel.app",
 } as const;
 
-/** Contato — placeholders até o escritório fornecer os dados reais (prd.md §11). */
+/** Dados de contato oficiais do escritório. */
 export const contact = {
-  phone: process.env.NEXT_PUBLIC_PHONE ?? "(11) 4000-0000",
-  phoneHref: `tel:+55${(process.env.NEXT_PUBLIC_PHONE ?? "1140000000").replace(/\D/g, "")}`,
-  email: process.env.NEXT_PUBLIC_EMAIL ?? "contato@goncaloegoncalo.com.br",
-  addressLine: process.env.NEXT_PUBLIC_ADDRESS ?? "Av. Paulista, 1000 — Bela Vista",
-  addressCity: process.env.NEXT_PUBLIC_ADDRESS_CITY ?? "São Paulo — SP",
-  addressZip: process.env.NEXT_PUBLIC_ADDRESS_ZIP ?? "01310-100",
-  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP ?? "5511900000000",
+  phone: "(98) 98590-7369",
+  phoneHref: "tel:+5598985907369",
+  /** Formato internacional, usado nos dados estruturados (schema.org). */
+  phoneE164: "+55 98 98590-7369",
+  email: "advocacia@goncaloegoncalo.com",
+  addressLine: "R. Enxovas, 41 - Calhau",
+  addressStreet: "R. Enxovas, 41",
+  addressDistrict: "Calhau",
+  addressCity: "São Luís - MA",
+  addressLocality: "São Luís",
+  addressRegion: "MA",
+  addressZip: "65071-530",
+  whatsappNumber: "5598985907369",
   whatsappMessage: "Olá! Gostaria de falar com um especialista.",
-  mapsEmbedQuery:
-    process.env.NEXT_PUBLIC_MAPS_QUERY ?? "Av. Paulista, 1000, São Paulo, SP",
+  mapsEmbedQuery: "R. Enxovas, 41 - Calhau, São Luís - MA, 65071-530",
 } as const;
 
 export const whatsappUrl = `https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(
   contact.whatsappMessage,
 )}`;
 
-export const social = [
-  { name: "LinkedIn", href: process.env.NEXT_PUBLIC_LINKEDIN ?? "#" },
-  { name: "Instagram", href: process.env.NEXT_PUBLIC_INSTAGRAM ?? "#" },
-  { name: "YouTube", href: process.env.NEXT_PUBLIC_YOUTUBE ?? "#" },
-] as const;
+/** Link para abrir o endereço no Google Maps (rodapé, CTA). */
+export const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  contact.mapsEmbedQuery,
+)}`;
+
+/**
+ * Redes sociais — preencha a URL completa de cada perfil. Rede com `href`
+ * vazio não é exibida (nem no rodapé, nem no schema.org).
+ */
+export const social: readonly {
+  name: "LinkedIn" | "Instagram" | "YouTube";
+  href: string;
+}[] = [
+  { name: "LinkedIn", href: "" },
+  { name: "Instagram", href: "" },
+  { name: "YouTube", href: "" },
+];
 
 /**
  * Áreas de atuação — fallback estático usado quando o Supabase não responde.

@@ -15,12 +15,13 @@ const playfair = Playfair_Display({
   weight: ["500", "600", "700"],
 });
 
-/* Serifada leve, exclusiva do título do Hero (estilo editorial). */
+/* Serifada editorial: títulos e citações da home (Hero, Quem Somos, CTA). */
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
   display: "swap",
-  weight: ["300", "400"],
+  weight: ["300", "400", "500"],
+  style: ["normal", "italic"],
 });
 
 const inter = Inter({

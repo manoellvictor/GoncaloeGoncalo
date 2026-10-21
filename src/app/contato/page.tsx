@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/Icons";
 import { pageMetadata } from "@/lib/seo";
 import { contact, whatsappUrl } from "@/lib/site-config";
+import { EmailText } from "@/components/ui/EmailText";
 
 export const metadata = pageMetadata({
   title: "Fale Conosco",
@@ -62,14 +63,14 @@ export default function ContatoPage() {
                 <li>
                   <a
                     href={`mailto:${contact.email}`}
-                    className="flex items-start gap-4 break-all text-neutral-700 transition-colors duration-200 ease-brand hover:text-primary-900"
+                    className="flex items-start gap-4 text-neutral-700 transition-colors duration-200 ease-brand hover:text-primary-900"
                   >
                     <MailIcon width={22} height={22} className="mt-0.5 shrink-0 text-gold-700" />
                     <span>
                       <span className="block text-small font-semibold uppercase tracking-[0.1em] text-primary-900">
                         E-mail
                       </span>
-                      {contact.email}
+                      <EmailText email={contact.email} />
                     </span>
                   </a>
                 </li>

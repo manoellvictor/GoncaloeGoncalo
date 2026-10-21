@@ -53,8 +53,8 @@ export default function EstruturaPage() {
         <div className="container-site">
           <div className="grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-20">
             <ImageFrame
-              src={null}
-              alt=""
+              src="/images/estrutura-ambiente-recepcao.jpg"
+              alt="Recepção do escritório, com painel de madeira, a marca Gonçalo & Gonçalo e o balcão de mármore"
               ratio="landscape"
               className="rounded-lg"
               sizes="(min-width: 1024px) 50vw, 100vw"

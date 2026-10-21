@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
+import { EmailText } from "@/components/ui/EmailText";
 import {
   InstagramIcon,
   LinkedInIcon,
@@ -11,6 +12,7 @@ import {
 import {
   contact,
   footerNav,
+  mapsUrl,
   practiceAreaFallback,
   siteConfig,
   social,
@@ -28,7 +30,7 @@ const socialIcons = {
 } as const;
 
 const columnLink =
-  "text-sm text-white/70 transition-colors duration-200 ease-brand hover:text-gold-300";
+  "text-sm text-white/70 transition-colors duration-200 ease-brand hover:text-gold-400";
 
 function Column({
   title,
@@ -39,7 +41,7 @@ function Column({
 }) {
   return (
     <div>
-      <h2 className="mb-5 text-eyebrow font-semibold uppercase text-gold-300">
+      <h2 className="mb-5 text-eyebrow font-semibold uppercase text-gold-400">
         {title}
       </h2>
       <ul className="flex flex-col gap-3">
@@ -57,33 +59,37 @@ function Column({
 
 export function Footer() {
   const year = new Date().getFullYear();
+  // Rede sem URL preenchida em site-config.ts não aparece (nunca link "#").
+  const socialLinks = social.filter((item) => item.href);
 
   return (
     <footer className="bg-primary-900 text-white">
       <div className="container-site py-16 lg:py-20">
-        <div className="grid gap-12 lg:grid-cols-[1.2fr_repeat(4,1fr)]">
+        <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1.2fr_1fr_1.5fr]">
           {/* Marca + tagline + redes */}
           <div>
             <Logo showTagline />
 
-            <ul className="mt-8 flex gap-3">
-              {social.map((item) => {
-                const SocialIcon = socialIcons[item.name];
-                return (
-                  <li key={item.name}>
-                    <a
-                      href={item.href}
-                      aria-label={`${siteConfig.shortName} no ${item.name}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex size-10 items-center justify-center rounded-sm border border-white/25 text-white transition-colors duration-200 ease-brand hover:border-gold-500 hover:text-gold-300"
-                    >
-                      <SocialIcon width={20} height={20} />
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
+            {socialLinks.length > 0 ? (
+              <ul className="mt-8 flex gap-3">
+                {socialLinks.map((item) => {
+                  const SocialIcon = socialIcons[item.name];
+                  return (
+                    <li key={item.name}>
+                      <a
+                        href={item.href}
+                        aria-label={`${siteConfig.shortName} no ${item.name}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex size-10 items-center justify-center rounded-sm border border-white/25 text-white transition-colors duration-200 ease-brand hover:border-gold-500 hover:text-gold-400"
+                      >
+                        <SocialIcon width={20} height={20} />
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : null}
           </div>
 
           <Column title="Navegação" links={footerNav.navegacao} />
@@ -100,14 +106,14 @@ export function Footer() {
 
           {/* Contato */}
           <div>
-            <h2 className="mb-5 text-eyebrow font-semibold uppercase text-gold-300">
+            <h2 className="mb-5 text-eyebrow font-semibold uppercase text-gold-400">
               Contato
             </h2>
             <ul className="flex flex-col gap-4 text-sm text-white/70">
               <li>
                 <a
                   href={contact.phoneHref}
-                  className="flex items-start gap-3 transition-colors duration-200 ease-brand hover:text-gold-300"
+                  className="flex items-start gap-3 transition-colors duration-200 ease-brand hover:text-gold-400"
                 >
                   <PhoneIcon width={18} height={18} className="mt-0.5 shrink-0 text-gold-500" />
                   {contact.phone}
@@ -116,21 +122,30 @@ export function Footer() {
               <li>
                 <a
                   href={`mailto:${contact.email}`}
-                  className="flex items-start gap-3 break-all transition-colors duration-200 ease-brand hover:text-gold-300"
+                  className="flex items-start gap-3 transition-colors duration-200 ease-brand hover:text-gold-400"
                 >
                   <MailIcon width={18} height={18} className="mt-0.5 shrink-0 text-gold-500" />
-                  {contact.email}
+                  <span>
+                    <EmailText email={contact.email} />
+                  </span>
                 </a>
               </li>
-              <li className="flex items-start gap-3">
-                <MapPinIcon width={18} height={18} className="mt-0.5 shrink-0 text-gold-500" />
-                <span>
-                  {contact.addressLine}
-                  <br />
-                  {contact.addressCity}
-                  <br />
-                  CEP {contact.addressZip}
-                </span>
+              <li>
+                <a
+                  href={mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 transition-colors duration-200 ease-brand hover:text-gold-400"
+                >
+                  <MapPinIcon width={18} height={18} className="mt-0.5 shrink-0 text-gold-500" />
+                  <span>
+                    {contact.addressLine}
+                    <br />
+                    {contact.addressCity}
+                    <br />
+                    CEP {contact.addressZip}
+                  </span>
+                </a>
               </li>
             </ul>
           </div>
@@ -148,7 +163,7 @@ export function Footer() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="transition-colors duration-200 ease-brand hover:text-gold-300"
+                  className="transition-colors duration-200 ease-brand hover:text-gold-400"
                 >
                   {link.label}
                 </Link>

@@ -81,3 +81,39 @@ Ambos definidos em `src/app/globals.css`:
 - [ ] Comunicar a criação de `gold-700` e `neutral-600` a quem mantém o design
       system, para que voltem ao documento de origem.
 - [ ] Revalidar todos os pares se a paleta mudar após a conferência com a marca.
+
+
+---
+
+## Paleta champanhe (outubro/2026)
+
+A paleta foi trocada para um dourado champanhe/bronze, um navy mais profundo e um
+off-white neutro. Valores em `src/app/globals.css`:
+
+| Token | Antes | Agora |
+|---|---|---|
+| `primary-900` | `#0B1E33` | `#0A1526` |
+| `gold-500` | `#C9A227` | `#C5A46D` |
+| `gold-600` (novo, hover) | — | `#B8935A` |
+| `gold-400` (substitui `gold-300`) | `#D8BE6E` | `#D4B98A` |
+| `gold-700` (texto dourado sobre claro) | `#856814` | `#7C6237` |
+| `cream-100` (fundo claro) | `#F8F5EF` | `#FAFAF8` |
+
+| Texto | Fundo | Razão |
+|---|---|---|
+| gold-500 `#C5A46D` | primary-900 `#0A1526` | **7,76:1** |
+| gold-400 `#D4B98A` | primary-900 | **9,67:1** |
+| gold-600 `#B8935A` | primary-900 | **6,41:1** |
+| white | primary-900 | **18,29:1** |
+| primary-900 | gold-500 (botão preenchido) | **7,76:1** |
+| primary-900 | gold-600 (hover do botão) | **6,41:1** |
+| gold-700 `#7C6237` | cream-100 `#FAFAF8` | **5,49:1** |
+| gold-700 | white | **5,74:1** |
+| white | gold-700 (hover do botão sobre claro) | **5,74:1** |
+| neutral-700 `#4A4A4A` | cream-100 | **8,48:1** |
+| neutral-600 `#6B6B6B` | cream-100 | **5,10:1** |
+| **gold-500** | **cream-100** | **2,26:1** |
+
+Continua valendo a regra do item 4: **dourado claro (`gold-400/500/600`) só como
+texto sobre navy**. Sobre fundo claro, texto dourado usa `gold-700`, que foi
+reajustado para o mesmo tom bronze e passa AA com folga.
