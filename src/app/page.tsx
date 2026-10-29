@@ -82,7 +82,7 @@ export default async function HomePage() {
                 <p>
                   O Gonçalo &amp; Gonçalo é um escritório de advocacia que existe para
                   tirar o problema das mãos do cliente. Atuamos em Direito Tributário,
-                  Cível, Contratual, Empresarial, Administrativo, Previdenciário e do
+                  Cível, Contratual, Empresarial, Administrativo, Trabalhista e do
                   Agronegócio, com soluções jurídicas estratégicas e personalizadas.
                 </p>
                 <p>

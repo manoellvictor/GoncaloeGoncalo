@@ -96,10 +96,10 @@ export const practiceAreas = [
     icon: "landmark",
   },
   {
-    slug: "direito-previdenciario",
-    title: "Direito Previdenciário",
-    shortDescription: "Benefícios, aposentadorias e revisões junto ao INSS.",
-    icon: "users",
+    slug: "direito-trabalhista",
+    title: "Direito Trabalhista",
+    shortDescription: "Consultoria preventiva e defesa nas relações de trabalho.",
+    icon: "hard-hat",
   },
   {
     slug: "direito-do-agronegocio",

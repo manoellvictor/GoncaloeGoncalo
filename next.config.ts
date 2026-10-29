@@ -19,6 +19,16 @@ const nextConfig: NextConfig = {
       : [],
     formats: ["image/avif", "image/webp"],
   },
+  redirects() {
+    return [
+      // Área retirada do site; links antigos caem na lista de áreas.
+      {
+        source: "/areas-de-atuacao/direito-previdenciario",
+        destination: "/areas-de-atuacao",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
