@@ -165,6 +165,13 @@ export const TargetIcon = (p: IconProps) => (
   </Icon>
 );
 
+export const SproutIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M7 20h10M12 20v-9" />
+    <path d="M12 11c0-3.5-2.5-6-7-6 0 3.5 2.5 6 7 6ZM12 13c0-3.5 2.5-6 7-6 0 3.5-2.5 6-7 6Z" />
+  </Icon>
+);
+
 export const ScaleIcon = (p: IconProps) => (
   <Icon {...p}>
     <path d="M12 4v16M7 20h10M12 6l-6 2M12 6l6 2" />
@@ -303,6 +310,7 @@ export const iconRegistry = {
   users: UsersIcon,
   target: TargetIcon,
   scale: ScaleIcon,
+  sprout: SproutIcon,
   sparkle: SparkleIcon,
   award: AwardIcon,
   compass: CompassIcon,

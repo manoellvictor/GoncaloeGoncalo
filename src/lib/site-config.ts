@@ -101,13 +101,19 @@ export const practiceAreas = [
     shortDescription: "Benefícios, aposentadorias e revisões junto ao INSS.",
     icon: "users",
   },
+  {
+    slug: "direito-do-agronegocio",
+    title: "Direito do Agronegócio",
+    shortDescription: "Segurança jurídica para o produtor rural e toda a cadeia do agro.",
+    icon: "sprout",
+  },
 ] as const;
 
 /** Menu principal — ordem fixa em todas as páginas (padroes-de-projeto.md §4). */
 export type NavItem = {
   label: string;
   href: string;
-  /** Só "Áreas de Atuação" abre submenu com as 8 especialidades (padroes §4). */
+  /** Só "Áreas de Atuação" abre submenu com as especialidades (padroes §4). */
   hasDropdown?: boolean;
 };
 

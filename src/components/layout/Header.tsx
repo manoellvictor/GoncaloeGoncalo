@@ -13,7 +13,7 @@ import { mainNav, practiceAreas } from "@/lib/site-config";
  * (padroes-de-projeto.md §2).
  *
  * Ordem do menu fixa em todas as páginas (padroes §4). O dropdown de Áreas
- * lista as 8 especialidades. Mobile usa hambúrguer com overlay (padroes §6).
+ * lista as especialidades. Mobile usa hambúrguer com overlay (padroes §6).
  *
  * A busca do header (prd.md §6.1) não tem página própria no sitemap, então
  * consulta o hub de artigos via `/artigos?q=`.
