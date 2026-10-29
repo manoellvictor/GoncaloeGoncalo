@@ -36,7 +36,7 @@ export function Logo({
       <span className="flex flex-col leading-tight">
         <span
           className={[
-            "font-display text-base tracking-wide",
+            "font-display xl:whitespace-nowrap text-base tracking-wide",
             onDark ? "text-white" : "text-primary-900",
           ].join(" ")}
         >
@@ -44,7 +44,7 @@ export function Logo({
         </span>
         <span
           className={[
-            "text-[0.6875rem] uppercase tracking-[0.18em]",
+            "text-[0.6875rem] xl:whitespace-nowrap uppercase tracking-[0.18em]",
             onDark ? "text-white/60" : "text-neutral-600",
           ].join(" ")}
         >

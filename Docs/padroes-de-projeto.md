@@ -94,7 +94,7 @@ Regra: números sempre com "+" quando forem mínimos aproximados (ex.: "+20", "+
 
 ## 4. Padrões de Navegação
 
-- **Menu principal fixo:** Início, Quem Somos, Áreas de Atuação (dropdown), Conteúdo Jurídico, Contato — nesta ordem, em todas as páginas.
+- **Menu principal fixo:** Início, Quem Somos, Áreas de Atuação (dropdown), Nosso Time, Conteúdo Jurídico, Contato — nesta ordem, em todas as páginas.
 - **Dropdown "Áreas de Atuação":** deve listar Direito Empresarial, Direito Civil e as 6 áreas da página "Demais Áreas", cada uma linkando diretamente à respectiva página/seção.
 - **Migalhas (breadcrumbs):** recomendado nas páginas de área de atuação e artigos individuais (ex.: Início / Áreas de Atuação / Direito Empresarial), não presente no mockup mas recomendado para SEO e orientação do usuário.
 - **Links "Ver todos/todas":** sempre no canto superior direito da seção correspondente, estilo texto + seta (`→`), nunca como botão sólido.

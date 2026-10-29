@@ -115,6 +115,7 @@ export const mainNav: readonly NavItem[] = [
   { label: "Início", href: "/" },
   { label: "Quem Somos", href: "/quem-somos" },
   { label: "Áreas de Atuação", href: "/areas-de-atuacao", hasDropdown: true },
+  { label: "Nosso Time", href: "/equipe" },
   { label: "Conteúdo Jurídico", href: "/artigos" },
   { label: "Contato", href: "/contato" },
 ];
@@ -124,7 +125,7 @@ export const footerNav = {
   navegacao: [
     { label: "Início", href: "/" },
     { label: "Quem Somos", href: "/quem-somos" },
-    { label: "Equipe", href: "/equipe" },
+    { label: "Nosso Time", href: "/equipe" },
     { label: "Estrutura do Escritório", href: "/estrutura" },
     { label: "Áreas de Atuação", href: "/areas-de-atuacao" },
     { label: "Contato", href: "/contato" },

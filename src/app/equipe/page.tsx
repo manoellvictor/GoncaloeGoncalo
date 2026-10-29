@@ -5,9 +5,9 @@ import { pageMetadata } from "@/lib/seo";
 import { getTeamMembers } from "@/lib/supabase/queries";
 
 export const metadata = pageMetadata({
-  title: "Equipe",
+  title: "Nosso Time",
   description:
-    "Conheça os sócios e advogados associados do Gonçalo & Gonçalo: uma equipe enxuta, especializada e acessível, com um responsável dedicado a cada caso.",
+    "Conheça os sócios e advogados associados do Gonçalo & Gonçalo: um time enxuto, especializado e acessível, com um responsável dedicado a cada caso.",
   path: "/equipe",
 });
 
@@ -21,7 +21,7 @@ export default async function EquipePage() {
   return (
     <>
       <PageTitleBlock
-        eyebrow="Nossa Equipe"
+        eyebrow="Nosso Time"
         title="Quem vai cuidar do seu caso"
         description="Cada cliente tem um advogado responsável do começo ao fim — não um número de protocolo."
       />
@@ -30,7 +30,7 @@ export default async function EquipePage() {
         <section className="section-y bg-cream-100">
           <div className="container-site">
             <p className="text-neutral-700">
-              As informações da equipe estarão disponíveis em breve.
+              As informações do time estarão disponíveis em breve.
             </p>
           </div>
         </section>

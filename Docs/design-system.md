@@ -122,7 +122,7 @@
 
 ### 7.1 Header / Navegação
 - Logo à esquerda (monograma "G" + nome por extenso).
-- Menu horizontal centralizado/à direita: Início, Quem Somos, Áreas de Atuação (dropdown), Conteúdo Jurídico, Contato.
+- Menu horizontal centralizado/à direita: Início, Quem Somos, Áreas de Atuação (dropdown), Nosso Time, Conteúdo Jurídico, Contato.
 - Ícone de busca.
 - Botão CTA primário destacado (dourado ou contornado): "Fale Conosco".
 - Fundo navy sólido, fixo/sticky ao rolar (recomendado).

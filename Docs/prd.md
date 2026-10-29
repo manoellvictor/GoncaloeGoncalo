@@ -63,7 +63,7 @@ O escopo cobre o design e a estrutura de conteúdo de **1 homepage** e **12 pág
 ## 6. Requisitos Funcionais
 
 ### 6.1 Homepage
-- Header fixo com navegação: Início, Quem Somos, Áreas de Atuação (dropdown), Conteúdo Jurídico, Contato; busca; CTA "Fale Conosco".
+- Header fixo com navegação: Início, Quem Somos, Áreas de Atuação (dropdown), Nosso Time, Conteúdo Jurídico, Contato; busca; CTA "Fale Conosco".
 - Seção hero com imagem de destaque, headline, subheadline, CTA "Fale com um especialista" e tags de posicionamento (Tradição, Estratégia, Confiança, Resultados).
 - Seção institucional resumida com CTA "Conheça Nossa História" (link para Quem Somos) e citação institucional.
 - Faixa de 4 valores/diferenciais (Excelência Técnica, Atendimento Personalizado, Atuação Estratégica, Ética e Transparência).

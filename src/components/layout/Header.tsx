@@ -94,7 +94,7 @@ export function Header() {
   }
 
   const linkBase =
-    "text-sm transition-colors duration-200 ease-brand hover:text-gold-400";
+    "whitespace-nowrap text-sm transition-colors duration-200 ease-brand hover:text-gold-400";
 
   // Item ativo: dourado com sublinhado fino abaixo do rótulo.
   const activeUnderline =
@@ -103,12 +103,12 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-primary-900">
       <div className="container-site">
-        <div className="flex h-20 items-center justify-between gap-6">
+        <div className="flex h-20 items-center justify-between gap-4 2xl:gap-6">
           <Logo />
 
           {/* --- Navegação desktop --- */}
-          <nav aria-label="Navegação principal" className="hidden lg:block">
-            <ul className="flex items-center gap-8">
+          <nav aria-label="Navegação principal" className="hidden xl:block">
+            <ul className="flex items-center gap-4 2xl:gap-8">
               {mainNav.map((item) =>
                 item.hasDropdown ? (
                   <li key={item.href} ref={dropdownRef} className="relative">
@@ -177,7 +177,7 @@ export function Header() {
           </nav>
 
           {/* --- Ações --- */}
-          <div className="flex items-center gap-3">
+          <div className="flex shrink-0 items-center gap-3">
             <button
               type="button"
               onClick={() => setSearchOpen((open) => !open)}
@@ -206,7 +206,7 @@ export function Header() {
               aria-expanded={mobileOpen}
               aria-controls={mobileId}
               aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
-              className="rounded-sm p-2 text-white transition-colors duration-200 ease-brand hover:text-gold-400 lg:hidden"
+              className="rounded-sm p-2 text-white transition-colors duration-200 ease-brand hover:text-gold-400 xl:hidden"
             >
               {mobileOpen ? <CloseIcon /> : <MenuIcon />}
             </button>
@@ -238,7 +238,7 @@ export function Header() {
       <div
         id={mobileId}
         hidden={!mobileOpen}
-        className="fixed inset-x-0 bottom-0 top-20 z-40 overflow-y-auto bg-primary-900 lg:hidden"
+        className="fixed inset-x-0 bottom-0 top-20 z-40 overflow-y-auto bg-primary-900 xl:hidden"
       >
         <nav aria-label="Navegação principal (mobile)" className="container-site py-8">
           <ul className="flex flex-col gap-1">
