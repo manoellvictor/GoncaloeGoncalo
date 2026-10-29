@@ -93,8 +93,16 @@ export default async function PracticeAreaPage({
               <h2 className="mt-8 text-h2">Como atuamos</h2>
               <div aria-hidden="true" className="mt-6 h-px w-16 bg-gold-500" />
 
+              {/* Parágrafos separados por linha em branco no `body` do banco. */}
               {area.body ? (
-                <p className="mt-8 texto-padrao">{area.body}</p>
+                <div className="mt-8 texto-padrao">
+                  {area.body
+                    .split(/\n\s*\n/)
+                    .filter(Boolean)
+                    .map((paragraph, index) => (
+                      <p key={index}>{paragraph.trim()}</p>
+                    ))}
+                </div>
               ) : null}
 
               {area.services.length > 0 ? (

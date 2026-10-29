@@ -27,5 +27,21 @@ export function getSupabaseClient() {
 
   return createClient<Database>(url, key, {
     auth: { persistSession: false },
+    global: { fetch: fetchWithRevalidate },
   });
 }
+
+/** Intervalo, em segundos, para conteúdo editado no Supabase aparecer no site. */
+const CONTENT_REVALIDATE_SECONDS = 300;
+
+/**
+ * Leituras (GET) revalidam a cada 5 minutos. Sem isso, o Next guarda a resposta
+ * do build por tempo indeterminado e reaproveita esse cache nos builds
+ * seguintes — edições no banco nunca chegariam ao site. Escritas (ex.: o
+ * formulário de contato) passam direto, sem cache.
+ */
+const fetchWithRevalidate: typeof fetch = (input, init) => {
+  const method = (init?.method ?? "GET").toUpperCase();
+  if (method !== "GET") return fetch(input, init);
+  return fetch(input, { ...init, next: { revalidate: CONTENT_REVALIDATE_SECONDS } });
+};
