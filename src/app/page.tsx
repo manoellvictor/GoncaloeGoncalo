@@ -169,7 +169,7 @@ export default async function HomePage() {
               <li key={area.slug}>
                 <article className="group relative flex h-full flex-col overflow-hidden rounded-sm border border-border-light bg-white transition-shadow duration-200 ease-brand hover:shadow-elevated">
                   <ImageFrame
-                    src={null}
+                    src={area.image}
                     alt=""
                     ratio="landscape"
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"

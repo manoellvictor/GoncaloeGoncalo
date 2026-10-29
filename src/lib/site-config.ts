@@ -63,6 +63,8 @@ export const social: readonly {
  * O Supabase (`practice_areas`) só complementa o conteúdo de cada área (texto,
  * serviços, imagem) quando houver uma linha com o mesmo slug; área do banco que
  * não está nesta lista não é exibida. Sem banco, as páginas usam os dados daqui.
+ *
+ * `image` é a arte do card na home (4:3, em public/images).
  */
 export const practiceAreas = [
   {
@@ -70,42 +72,49 @@ export const practiceAreas = [
     title: "Direito Tributário",
     shortDescription: "Planejamento e defesa fiscal para empresas e pessoas físicas.",
     icon: "receipt",
+    image: "/images/home-areas-direito-tributario.jpg",
   },
   {
     slug: "direito-civil",
     title: "Direito Cível",
     shortDescription: "Obrigações, responsabilidade civil e proteção patrimonial.",
     icon: "scale",
+    image: "/images/home-areas-direito-civil.jpg",
   },
   {
     slug: "direito-contratual",
     title: "Direito Contratual",
     shortDescription: "Elaboração, revisão e negociação de contratos.",
     icon: "shield-check",
+    image: "/images/home-areas-direito-contratual.jpg",
   },
   {
     slug: "direito-empresarial",
     title: "Direito Empresarial",
     shortDescription: "Societário, governança e o dia a dia jurídico da empresa.",
     icon: "briefcase",
+    image: "/images/home-areas-direito-empresarial.jpg",
   },
   {
     slug: "direito-administrativo",
     title: "Direito Administrativo",
     shortDescription: "Atuação perante a administração pública e em licitações.",
     icon: "landmark",
+    image: "/images/home-areas-direito-administrativo.jpg",
   },
   {
     slug: "direito-trabalhista",
     title: "Direito Trabalhista",
     shortDescription: "Consultoria preventiva e defesa nas relações de trabalho.",
     icon: "hard-hat",
+    image: "/images/home-areas-direito-trabalhista.jpg",
   },
   {
     slug: "direito-do-agronegocio",
     title: "Direito do Agronegócio",
     shortDescription: "Segurança jurídica para o produtor rural e toda a cadeia do agro.",
     icon: "sprout",
+    image: "/images/home-areas-direito-do-agronegocio.jpg",
   },
 ] as const;
 
