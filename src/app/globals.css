@@ -111,6 +111,41 @@
 }
 
 /* =============================================================================
+   Texto corrido
+   ========================================================================== */
+
+/*
+ * Padrão dos parágrafos de texto corrido do site (referência: "Quem Somos").
+ * Vai num <p> isolado ou no contêiner de um bloco — aí formata só os <p>
+ * filhos, deixando títulos, listas e botões do bloco como estão.
+ *
+ * Justificado com hifenização (depende do lang="pt-BR" do <html>); abaixo de
+ * 640px fica alinhado à esquerda, porque coluna estreita justificada abre
+ * buracos entre as palavras. Em camada `components`, para utilitários do
+ * Tailwind (ex.: cor sobre fundo escuro, margens) continuarem valendo.
+ */
+@layer components {
+  p.texto-padrao,
+  .texto-padrao > p {
+    font-family: var(--font-sans);
+    font-size: var(--text-body-lg);
+    line-height: 1.7;
+    color: var(--color-neutral-700);
+    text-align: left;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+
+    @media (width >= 40rem) {
+      text-align: justify;
+    }
+  }
+
+  .texto-padrao > p + p {
+    margin-top: 1.25rem;
+  }
+}
+
+/* =============================================================================
    Utilitários de composição
    ========================================================================== */
 

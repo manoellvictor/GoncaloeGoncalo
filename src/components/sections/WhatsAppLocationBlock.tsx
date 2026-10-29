@@ -68,7 +68,7 @@ export function WhatsAppLocationBlock() {
                 </span>
               </address>
 
-              <p className="mt-8 text-neutral-700">
+              <p className="mt-8 texto-padrao">
                 Recebemos com hora marcada. Recomendamos agendar previamente pelo
                 telefone ou WhatsApp para garantir o atendimento com o advogado
                 responsável pela sua área.

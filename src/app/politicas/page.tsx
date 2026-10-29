@@ -28,7 +28,7 @@ function Section({
   return (
     <section className="mt-10 first:mt-0">
       <h3 className="text-h3">{title}</h3>
-      <div className="mt-4 flex flex-col gap-4 text-neutral-700">{children}</div>
+      <div className="mt-4 texto-padrao">{children}</div>
     </section>
   );
 }

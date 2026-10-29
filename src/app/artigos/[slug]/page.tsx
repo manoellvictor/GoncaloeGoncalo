@@ -105,7 +105,7 @@ export default async function ArticlePage({ params }: PageProps<"/artigos/[slug]
             </p>
 
             {article.content ? (
-              <div className="mt-8 flex flex-col gap-6 text-body-lg text-neutral-700">
+              <div className="mt-8 texto-padrao">
                 {article.content
                   .split("\n\n")
                   .filter(Boolean)

@@ -62,7 +62,7 @@ export default function QuemSomosPage() {
               <h2 className="mt-4 text-h2">Visão estratégica para decisões importantes</h2>
               <div aria-hidden="true" className="mt-6 h-px w-16 bg-gold-500" />
 
-              <div className="mt-8 flex flex-col gap-6 text-body-lg text-neutral-700">
+              <div className="mt-8 texto-padrao">
                 <p>
                   O Gonçalo &amp; Gonçalo é um escritório de advocacia que existe para
                   tirar o problema das mãos do cliente. Atuamos em Direito Tributário,
@@ -80,7 +80,7 @@ export default function QuemSomosPage() {
               </div>
 
               <h2 className="mt-14 text-h3">Missão</h2>
-              <p className="mt-4 text-neutral-700">
+              <p className="mt-4 texto-padrao">
                 Transformar complexidade jurídica em decisões claras, oferecendo
                 a cada cliente a segurança de saber exatamente onde está e quais
                 são os caminhos possíveis.

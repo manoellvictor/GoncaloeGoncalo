@@ -67,7 +67,7 @@ export default function EstruturaPage() {
               </h2>
               <div aria-hidden="true" className="mt-6 h-px w-16 bg-gold-500" />
 
-              <div className="mt-8 flex flex-col gap-6 text-body-lg text-neutral-700">
+              <div className="mt-8 texto-padrao">
                 <p>
                   Nossa sede foi projetada para dois propósitos que raramente
                   convivem: concentração para o trabalho técnico e acolhimento

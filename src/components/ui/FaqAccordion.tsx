@@ -91,8 +91,8 @@ export function FaqAccordion({
               <div className="overflow-hidden">
                 <p
                   className={[
-                    "pb-6 pr-10",
-                    onDark ? "text-white/75" : "text-neutral-700",
+                    "texto-padrao pb-6 pr-10",
+                    onDark ? "text-white/75" : "",
                   ].join(" ")}
                 >
                   {item.answer}

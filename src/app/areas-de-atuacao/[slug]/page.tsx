@@ -94,7 +94,7 @@ export default async function PracticeAreaPage({
               <div aria-hidden="true" className="mt-6 h-px w-16 bg-gold-500" />
 
               {area.body ? (
-                <p className="mt-8 text-body-lg text-neutral-700">{area.body}</p>
+                <p className="mt-8 texto-padrao">{area.body}</p>
               ) : null}
 
               {area.services.length > 0 ? (

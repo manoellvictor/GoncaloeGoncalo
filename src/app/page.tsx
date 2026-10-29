@@ -78,7 +78,7 @@ export default async function HomePage() {
                 <span className="block">Advogados Associados</span>
               </h2>
 
-              <div className="mt-8 flex flex-col gap-5 text-body-lg text-neutral-700">
+              <div className="mt-8 texto-padrao">
                 <p>
                   O Gonçalo &amp; Gonçalo é um escritório de advocacia que existe para
                   tirar o problema das mãos do cliente. Atuamos em Direito Tributário,
