@@ -35,7 +35,7 @@ Storage, com a URL pública gravada na coluna indicada.
 
 | Conteúdo | Tabela / coluna | Quantidade | Requisito |
 |---|---|---|---|
-| Retratos da equipe | `team_members.photo_url` | 6 | **Enquadramento padronizado**: busto, fundo neutro/escuro, mesma iluminação e proporção 1:1 para todos (design-system.md §6). Um retrato fora do padrão quebra a grade inteira. |
+| Retratos da equipe | `team_members.photo_url` → bucket público `equipe` | 8 (2 enviados: Maira Pacheco e Raimundo Cardozo) | **Enquadramento padronizado**: 3:4 (900x1200), da cabeça ao quadril, mesma escala para todos — é a proporção do card (`ImageFrame` portrait). Um retrato fora do padrão quebra a grade inteira. |
 | Capas de artigos | `articles.cover_image_url` | 6 | Proporção 16:9. |
 | Imagens das áreas | `practice_areas.image_url` | 8 | Proporção 4:3. Só usada na variante com imagem (cards da home). |
 
