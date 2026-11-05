@@ -64,18 +64,21 @@ export default function QuemSomosPage() {
 
               <div className="mt-8 texto-padrao">
                 <p>
-                  O Gonçalo &amp; Gonçalo é um escritório de advocacia que existe para
-                  tirar o problema das mãos do cliente. Atuamos em Direito Tributário,
-                  Cível, Contratual, Empresarial, Administrativo, Trabalhista e do
-                  Agronegócio, com soluções jurídicas estratégicas e personalizadas.
+                  No Gonçalo &amp; Gonçalo, assumimos a condução do seu caso para que
+                  você possa seguir com sua rotina com mais tranquilidade. Desde a
+                  primeira conversa, ouvimos suas preocupações, avaliamos os caminhos
+                  possíveis e explicamos o que cada um significa para você.
                 </p>
                 <p>
-                  Nosso diferencial é a atuação técnica e presencial junto ao Tribunal
-                  de Justiça do Maranhão (TJMA) e ao Tribunal Regional Federal (TRF).
-                  Temos ampla experiência em despachos com desembargadores e
-                  interlocução qualificada com os gabinetes. Essa proximidade nos
-                  permite antecipar riscos, agir com agilidade e aumentar as chances
-                  de êxito.
+                  Nossa equipe cuida das providências jurídicas, acompanha os prazos e
+                  mantém você a par do que importa. Quando uma decisão depende de você,
+                  esclarecemos as opções e orientamos os próximos passos.
+                </p>
+                <p>
+                  Atuamos nas áreas de Direito Tributário, Cível, Contratual,
+                  Empresarial, Administrativo, Trabalhista e do Agronegócio, com uma
+                  estratégia definida a partir das particularidades de cada caso e das
+                  prioridades de cada cliente.
                 </p>
               </div>
 
