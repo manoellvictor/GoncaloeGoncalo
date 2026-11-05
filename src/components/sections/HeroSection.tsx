@@ -11,11 +11,14 @@ import heroMobile from "../../../public/images/home-hero-recepcao-mobile.jpg";
  * Estrutura: linha dourada + H1 + subtítulo + CTA (WhatsApp) + tags de
  * posicionamento.
  *
+ * Fundo marfim (ivory-100), em harmonia com a madeira e a pedra da recepção;
+ * texto em navy, destaque e tags em bronze, filetes em dourado.
+ *
  * Fotografia: recepção do escritório em cores naturais, com dois recortes da
- * mesma foto (art direction via <picture>). No desktop o recorte largo ocupa
- * a direita da seção, sob um degradê navy que é sólido atrás do texto e
- * transparente antes do logotipo da parede. No celular o conteúdo vem primeiro
- * e a foto, num recorte fechado no logotipo e no balcão, vem logo abaixo.
+ * mesma foto (art direction via <picture>). No desktop o recorte largo ocupa a
+ * direita da seção; o marfim é sólido até a última letra do título e se
+ * dissolve na foto antes do monograma da parede. No celular o conteúdo vem
+ * primeiro e a foto, num recorte fechado no logotipo e no balcão, vem abaixo.
  */
 const POSITIONING_TAGS = ["Tradição", "Estratégia", "Confiança", "Resultados"];
 
@@ -37,7 +40,7 @@ function HeroPhoto() {
         alt=""
         fetchPriority="high"
         loading="eager"
-        className="object-cover object-center lg:object-[30%_30%]"
+        className="object-cover object-center lg:object-[40%_30%] xl:object-[30%_30%] 2xl:object-[15%_30%]"
       />
     </picture>
   );
@@ -45,20 +48,31 @@ function HeroPhoto() {
 
 export function HeroSection() {
   return (
-    <section className="relative isolate overflow-hidden bg-primary-900">
+    <section className="relative isolate overflow-hidden bg-ivory-100">
       <div className="container-site">
-        <div className="flex max-w-3xl flex-col py-16 sm:py-20 lg:min-h-[720px] lg:justify-center lg:py-28">
+        {/* `lg:w-fit`: a coluna termina na última letra do título, e é dali
+            que o marfim começa a se dissolver na fotografia. */}
+        <div className="relative flex max-w-3xl flex-col py-16 sm:py-20 lg:min-h-[720px] lg:w-fit lg:justify-center lg:py-28">
+          <div
+            aria-hidden="true"
+            className="absolute inset-y-0 right-0 -left-[100vw] -z-[5] hidden bg-ivory-100 lg:block"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-y-0 left-[calc(100%-1px)] -z-[5] hidden w-[var(--hero-fade)] bg-gradient-to-r from-ivory-100 via-ivory-100/70 via-40% to-transparent lg:block [--hero-fade:3.5rem] xl:[--hero-fade:6rem] 2xl:[--hero-fade:8rem]"
+          />
+
           <span aria-hidden="true" className="block h-px w-14 bg-gold-500" />
 
-          <h1 className="mt-8 font-editorial text-[clamp(1.625rem,8.2vw,3rem)] font-normal uppercase leading-[1.08] tracking-[0.03em] text-white lg:text-[clamp(2.75rem,4.4vw,4.5rem)] [&>span]:whitespace-nowrap">
+          <h1 className="mt-8 font-editorial text-[clamp(1.625rem,8.2vw,3rem)] font-normal uppercase leading-[1.08] tracking-[0.03em] text-primary-900 lg:text-[clamp(2.75rem,4.4vw,4.5rem)] [&>span]:whitespace-nowrap">
             <span className="block">Soluções jurídicas</span>
             <span className="block">com estratégia,</span>
             <span className="block">
-              ética e <span className="text-gold-500">resultados.</span>
+              ética e <span className="text-bronze-700">resultados.</span>
             </span>
           </h1>
 
-          <p className="mt-8 max-w-[32rem] font-editorial text-[1.375rem] leading-snug text-white/90 lg:text-[1.625rem]">
+          <p className="mt-8 max-w-[32rem] font-editorial text-[1.375rem] leading-snug text-primary-900 lg:max-w-[28rem] lg:text-[1.625rem] xl:max-w-[32rem]">
             Excelência jurídica para proteger seus interesses e impulsionar seus
             negócios.
           </p>
@@ -87,7 +101,7 @@ export function HeroSection() {
                     •
                   </span>
                 ) : null}
-                <span className="text-[0.6875rem] uppercase tracking-[0.16em] text-gold-400 sm:text-xs sm:tracking-[0.22em]">
+                <span className="text-[0.6875rem] uppercase tracking-[0.16em] text-bronze-700 sm:text-xs sm:tracking-[0.22em]">
                   {tag}
                 </span>
               </li>
@@ -96,13 +110,15 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Foto: abaixo do conteúdo no celular; à direita, sob o texto, no desktop. */}
+      {/* Foto: abaixo do conteúdo no celular; à direita, sob o marfim, no
+          desktop. Sem sobreposição própria no desktop: o degradê da coluna de
+          texto faz a transição e a recepção aparece com as cores originais. */}
       <div
         aria-hidden="true"
-        className="relative aspect-[4/3] sm:aspect-[16/10] lg:absolute lg:inset-y-0 lg:left-[max(33%,calc(50%-120px))] lg:right-0 lg:-z-10 lg:aspect-auto"
+        className="relative aspect-[4/3] sm:aspect-[16/10] lg:absolute lg:inset-y-0 lg:left-[calc(50%-40px)] lg:right-0 lg:-z-10 lg:aspect-auto"
       >
         <HeroPhoto />
-        <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-primary-900 to-transparent lg:inset-0 lg:h-auto lg:bg-gradient-to-r lg:from-primary-900 lg:from-0% lg:via-primary-900/55 lg:via-[15%] lg:to-transparent lg:to-[35%]" />
+        <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-ivory-100 to-transparent lg:hidden" />
       </div>
     </section>
   );

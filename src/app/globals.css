@@ -14,6 +14,8 @@
   --color-gold-500: #c5a46d; /* champanhe/bronze: accent; texto só sobre navy */
   --color-gold-600: #b8935a; /* hover do dourado */
   --color-gold-700: #7c6237; /* bronze escuro: texto dourado sobre fundo claro (5,49:1) */
+  --color-bronze-700: #80602e; /* bronze do hero marfim: destaque e tags sobre ivory */
+  --color-ivory-100: #f6f2ea; /* marfim do hero: harmoniza com a madeira e a pedra da recepção */
 
   /* --- Neutras (design-system.md §2.2) --- */
   --color-cream-100: #fafaf8; /* off-white neutro: fundo de seções claras */
