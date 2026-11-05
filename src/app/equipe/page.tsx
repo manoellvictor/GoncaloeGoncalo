@@ -15,8 +15,23 @@ export const metadata = pageMetadata({
 export default async function EquipePage() {
   const members = await getTeamMembers();
 
-  const partners = members.filter((member) => member.is_partner);
-  const associates = members.filter((member) => !member.is_partner);
+  // Grupos na ordem da página; grupo sem membros publicados não aparece.
+  const groups = [
+    {
+      title: "Sócios",
+      members: members.filter((member) => member.is_partner),
+    },
+    {
+      title: "Advogados Associados",
+      members: members.filter(
+        (member) => !member.is_partner && member.department !== "administrativo",
+      ),
+    },
+    {
+      title: "Administrativo",
+      members: members.filter((member) => member.department === "administrativo"),
+    },
+  ].filter((group) => group.members.length > 0);
 
   return (
     <>
@@ -37,29 +52,17 @@ export default async function EquipePage() {
       ) : (
         <section className="section-y bg-cream-100">
           <div className="container-site flex flex-col gap-20">
-            {partners.length > 0 ? (
-              <div>
-                <h2 className="text-h3">Sócios</h2>
+            {groups.map((group) => (
+              <div key={group.title}>
+                <h2 className="text-h3">{group.title}</h2>
                 <div aria-hidden="true" className="mt-5 h-px w-16 bg-gold-500" />
                 <div className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-                  {partners.map((member) => (
+                  {group.members.map((member) => (
                     <TeamMemberCard key={member.id} member={member} />
                   ))}
                 </div>
               </div>
-            ) : null}
-
-            {associates.length > 0 ? (
-              <div>
-                <h2 className="text-h3">Advogados Associados</h2>
-                <div aria-hidden="true" className="mt-5 h-px w-16 bg-gold-500" />
-                <div className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-                  {associates.map((member) => (
-                    <TeamMemberCard key={member.id} member={member} />
-                  ))}
-                </div>
-              </div>
-            ) : null}
+            ))}
           </div>
         </section>
       )}
