@@ -17,7 +17,7 @@ corporativos e arquitetônicos. Sem imagens "de banco" genéricas ou coloridas d
 | Arquivo esperado | Onde aparece | Observação |
 |---|---|---|
 | ~~`home-hero-advogado-escadaria.jpg`~~ | Hero da homepage | **Fornecida:** `home-hero-recepcao-desktop.jpg` e `home-hero-recepcao-mobile.jpg` (recepção do escritório em cores naturais; recorte largo para desktop e recorte no logotipo e balcão para celular). |
-| `home-institucional-escritorio.jpg` | Seção "Quem Somos" da home | **Fornecida** (sala de espera, 4:3). |
+| `home-institucional-equipe.jpg` | Seção "Quem Somos" da home | **Fornecida** (foto da equipe, recortada em 4:3). |
 | `quem-somos-historia-equipe.jpg` | Página Quem Somos | **Fornecida** (foto da equipe, 3:4). |
 | `estrutura-ambiente-recepcao.jpg` | Página Estrutura | **Fornecida** (recepção, 4:3). |
 | ~~`cta-banner-colunas-classicas.jpg`~~ | Banner de CTA (todas as páginas) | **Fornecida:** `cta-banner-escritorio.jpg` (sala de espera, escurecida sob overlay navy). |

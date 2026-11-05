@@ -13,7 +13,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { legalServiceJsonLd } from "@/lib/seo";
 import { practiceAreas } from "@/lib/site-config";
 import { getArticles, getFaqs } from "@/lib/supabase/queries";
-import escritorio from "../../public/images/home-institucional-escritorio.jpg";
+import equipe from "../../public/images/home-institucional-equipe.jpg";
 
 /** Faixa de valores sobre navy (prd.md §6.1). */
 const VALUES = [
@@ -105,8 +105,8 @@ export default async function HomePage() {
             <figure className="relative pb-28 sm:pb-16">
               <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
                 <Image
-                  src={escritorio}
-                  alt="Sala de espera do escritório, com sofá verde, poltronas de couro e painéis de madeira"
+                  src={equipe}
+                  alt="Equipe do escritório Gonçalo & Gonçalo Advogados Associados: seis advogados em trajes formais, dois sentados em poltronas e quatro em pé"
                   fill
                   placeholder="blur"
                   sizes="(min-width: 1024px) 50vw, 100vw"
