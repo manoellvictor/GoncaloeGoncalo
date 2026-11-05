@@ -64,21 +64,42 @@ export default function QuemSomosPage() {
 
               <div className="mt-8 texto-padrao">
                 <p>
-                  No Gonçalo &amp; Gonçalo, assumimos a condução do seu caso para que
-                  você possa seguir com sua rotina com mais tranquilidade. Desde a
-                  primeira conversa, ouvimos suas preocupações, avaliamos os caminhos
-                  possíveis e explicamos o que cada um significa para você.
+                  O Gonçalo &amp; Gonçalo nasceu com um propósito claro — assumir a
+                  condução das questões jurídicas de seus clientes para que possam
+                  dedicar tempo e atenção à própria vida e aos seus negócios. Para nós,
+                  isso significa compreender cada situação, definir os caminhos
+                  possíveis e cuidar das providências necessárias, com
+                  responsabilidade, proximidade e comunicação clara em cada etapa.
                 </p>
                 <p>
-                  Nossa equipe cuida das providências jurídicas, acompanha os prazos e
-                  mantém você a par do que importa. Quando uma decisão depende de você,
-                  esclarecemos as opções e orientamos os próximos passos.
+                  Fundado há quatro anos por duas sócias que construíram juntas sua
+                  trajetória acadêmica e profissional no Direito, o escritório reúne
+                  formações complementares. Após a graduação, uma das fundadoras
+                  especializou-se em Direito Tributário pelo Mackenzie, e a outra em
+                  Recursos e Processo Civil pelo IDP. Essa combinação sustenta uma
+                  atuação técnica e estratégica, orientada pelas necessidades de cada
+                  cliente.
                 </p>
                 <p>
-                  Atuamos nas áreas de Direito Tributário, Cível, Contratual,
-                  Empresarial, Administrativo, Trabalhista e do Agronegócio, com uma
-                  estratégia definida a partir das particularidades de cada caso e das
-                  prioridades de cada cliente.
+                  Nossa história começou em uma sala alugada, com uma estrutura enxuta
+                  e dedicação a cada caso. O crescimento da carteira de clientes e a
+                  consolidação do escritório nos levaram à sede própria, em uma casa
+                  cuidadosamente adaptada para receber com conforto e discrição. Um
+                  espaço que traduz a proximidade e o cuidado presentes na nossa forma
+                  de trabalhar.
+                </p>
+                <p>
+                  Hoje, contamos com seis advogados especialistas, um setor
+                  administrativo dedicado à gestão de cobranças para empresas e suporte
+                  operacional estruturado. Essa equipe acompanha as demandas, cuida dos
+                  prazos e mantém o cliente informado, oferecendo a orientação
+                  necessária para que cada decisão seja tomada com clareza e segurança.
+                </p>
+                <p>
+                  Nosso compromisso é aliviar o peso das preocupações jurídicas.
+                  Assumimos a responsabilidade pela condução de cada caso, para que
+                  nossos clientes tenham a tranquilidade de contar com uma equipe atenta
+                  aos seus interesses e dedicada à busca de soluções.
                 </p>
               </div>
 
