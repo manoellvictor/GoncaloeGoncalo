@@ -1,17 +1,18 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/Button";
+import { SpecialistCta } from "@/components/ui/SpecialistCta";
 import { EmailText } from "@/components/ui/EmailText";
 import { MailIcon, MapPinIcon, PhoneIcon } from "@/components/ui/Icons";
-import { contact, mapsUrl, whatsappUrl } from "@/lib/site-config";
+import { contact, mapsUrl } from "@/lib/site-config";
 import ctaEscritorio from "../../../public/images/cta-banner-escritorio.jpg";
 
 /**
  * Banner de CTA institucional (padroes-de-projeto.md §3.11).
  *
  * Uma única vez por página, tipicamente antes do footer. Título serifado em
- * caixa alta dourada + parágrafo curto + botão primário (WhatsApp) à esquerda;
- * contato direto à direita, separado por linha vertical fina, sobre foto do
- * escritório escurecida por overlay navy.
+ * caixa alta dourada + parágrafo curto + CTA "Fale com um especialista" (o
+ * mesmo do hero, via SpecialistCta) à esquerda; contato direto à direita,
+ * separado por linha vertical fina, sobre foto do escritório escurecida por
+ * overlay navy.
  *
  * Garante o ponto de conversão que toda página deve ter (padroes §2).
  */
@@ -47,15 +48,7 @@ export function CtaBanner({
             </h2>
             <p className="mt-6 max-w-lg text-body-lg text-white/80">{description}</p>
             <div className="mt-10">
-              <Button
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onDark
-                arrow
-              >
-                Fale com um especialista
-              </Button>
+              <SpecialistCta />
             </div>
           </div>
 

@@ -1,6 +1,5 @@
 import { getImageProps } from "next/image";
-import { ArrowRightIcon } from "@/components/ui/Icons";
-import { whatsappUrl } from "@/lib/site-config";
+import { SpecialistCta } from "@/components/ui/SpecialistCta";
 import heroDesktop from "../../../public/images/home-hero-recepcao-desktop.jpg";
 import heroMobile from "../../../public/images/home-hero-recepcao-mobile.jpg";
 
@@ -78,19 +77,7 @@ export function HeroSection() {
           </p>
 
           <div className="mt-10">
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex min-h-12 items-center gap-4 rounded-[2px] border border-gold-500 bg-primary-900 px-7 py-4 text-[0.8125rem] font-semibold uppercase tracking-[0.14em] text-white transition-colors duration-200 ease-brand hover:bg-gold-500 hover:text-primary-900 sm:px-8 sm:text-sm"
-            >
-              Fale com um especialista
-              <ArrowRightIcon
-                width={20}
-                height={20}
-                className="shrink-0 transition-transform duration-200 ease-brand group-hover:translate-x-1"
-              />
-            </a>
+            <SpecialistCta />
           </div>
 
           <ul className="mt-14 grid grid-cols-2 gap-x-6 gap-y-3 sm:flex sm:flex-wrap sm:items-center sm:gap-x-4 lg:mt-16">
