@@ -25,8 +25,12 @@ export default async function EquipePage() {
     {
       title: "Advogados Associados",
       members: members.filter(
-        (member) => !member.is_partner && member.department !== "administrativo",
+        (member) => !member.is_partner && member.department === "juridico",
       ),
+    },
+    {
+      title: "Acadêmicos",
+      members: members.filter((member) => member.department === "academico"),
     },
     {
       title: "Administrativo",

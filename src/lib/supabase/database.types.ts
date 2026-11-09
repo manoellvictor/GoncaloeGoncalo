@@ -137,7 +137,7 @@ export type Database = {
         Row: {
           bio: string | null;
           created_at: string;
-          department: "juridico" | "administrativo";
+          department: "juridico" | "academico" | "administrativo";
           education: string[];
           experience: string | null;
           full_name: string | null;
@@ -158,7 +158,7 @@ export type Database = {
         };
         Insert: {
           bio?: string | null;
-          department?: "juridico" | "administrativo";
+          department?: "juridico" | "academico" | "administrativo";
           education?: string[];
           experience?: string | null;
           full_name?: string | null;
