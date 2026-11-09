@@ -56,6 +56,13 @@ export const ChevronDownIcon = (p: IconProps) => (
   </Icon>
 );
 
+export const BookIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2V4Z" />
+    <path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7V4Z" />
+  </Icon>
+);
+
 export const ArrowRightIcon = (p: IconProps) => (
   <Icon {...p}>
     <path d="M3 12h18M15 6l6 6-6 6" />

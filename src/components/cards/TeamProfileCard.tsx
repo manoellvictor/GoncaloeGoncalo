@@ -1,8 +1,8 @@
 "use client";
 
-import { useId, useRef, useState } from "react";
+import { useId, useRef, useState, type ReactNode } from "react";
 import { ImageFrame } from "@/components/ui/ImageFrame";
-import { ArrowRightIcon, CloseIcon } from "@/components/ui/Icons";
+import { ArrowRightIcon, BookIcon, CloseIcon } from "@/components/ui/Icons";
 import type { TeamMember } from "@/lib/supabase/database.types";
 
 /** Duração das transições do card e do painel (ms). */
@@ -17,13 +17,20 @@ type ProfileMember = Pick<
   | "oab"
   | "profile_title"
   | "practice_areas"
+  | "practice"
   | "education"
   | "experience"
+  | "interests"
+  | "publication"
 >;
 
-/** "A, B e C." — lista em português, terminada em ponto. */
-function joinAreas(areas: string[]) {
-  return `${new Intl.ListFormat("pt-BR", { type: "conjunction" }).format(areas)}.`;
+function PanelSection({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <section>
+      <h3 className="font-display text-[1.25rem] text-primary-900">{title}</h3>
+      <div className="mt-2 flex flex-col gap-3 text-neutral-700">{children}</div>
+    </section>
+  );
 }
 
 /**
@@ -31,10 +38,11 @@ function joinAreas(areas: string[]) {
  * Usado quando o integrante tem `experience` preenchido no banco.
  *
  * Ao passar o mouse (ou focar pelo teclado), a foto aproxima levemente, ganha
- * borda dourada e um degradê navy na parte de baixo com as áreas, a OAB e o
- * botão "Conheça o perfil". Em telas sem hover (celular) esse bloco fica
- * sempre visível. O botão abre um painel lateral em <dialog> modal: Esc e o
- * clique fora fecham, e o foco volta ao botão.
+ * borda dourada e um degradê navy na parte de baixo com o resumo
+ * (`practice_areas`), a OAB e o botão "Conheça o perfil". Em telas sem hover
+ * (celular) esse bloco fica sempre visível. O botão abre um painel lateral em
+ * <dialog> modal: Esc, o X e o clique no fundo fecham, e o foco volta ao botão.
+ * Cada seção do painel só aparece se o campo correspondente estiver preenchido.
  */
 export function TeamProfileCard({ member }: { member: ProfileMember }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -43,8 +51,24 @@ export function TeamProfileCard({ member }: { member: ProfileMember }) {
   const [visible, setVisible] = useState(false);
   const titleId = useId();
 
-  const areas = member.practice_areas;
+  const summary = member.practice_areas;
   const subtitle = [member.profile_title, member.oab].filter(Boolean).join(" • ");
+
+  // A foto do painel acompanha a primeira seção: Atuação ou, sem ela, Formação.
+  const education =
+    member.education.length > 0 ? (
+      <PanelSection title="Formação">
+        {member.education.map((item) => (
+          <p key={item}>{item}</p>
+        ))}
+      </PanelSection>
+    ) : null;
+  const practice = member.practice ? (
+    <PanelSection title="Atuação">
+      <p>{member.practice}</p>
+    </PanelSection>
+  ) : null;
+  const besidePhoto = practice ?? education;
 
   function open() {
     dialogRef.current?.showModal();
@@ -74,10 +98,10 @@ export function TeamProfileCard({ member }: { member: ProfileMember }) {
         />
 
         <div className="absolute inset-x-0 bottom-0 flex flex-col items-start rounded-b-md bg-gradient-to-t from-primary-900/95 via-primary-900/75 to-transparent px-6 pb-6 pt-24 transition-opacity duration-250 ease-brand [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-focus-within:opacity-100">
-          {areas.length > 0 ? (
+          {summary.length > 0 ? (
             <ul className="font-editorial text-[1.3125rem] leading-snug text-white">
-              {areas.map((area) => (
-                <li key={area}>{area}</li>
+              {summary.map((line) => (
+                <li key={line}>{line}</li>
               ))}
             </ul>
           ) : null}
@@ -123,25 +147,25 @@ export function TeamProfileCard({ member }: { member: ProfileMember }) {
         />
 
         <div
-          className={`absolute inset-y-0 right-0 w-full max-w-md overflow-y-auto bg-white shadow-elevated transition-transform duration-250 ease-brand ${
+          className={`absolute inset-y-0 right-0 w-full max-w-md overflow-y-auto overscroll-contain bg-white shadow-elevated transition-transform duration-250 ease-brand ${
             visible ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <button
-            ref={closeRef}
-            type="button"
-            onClick={close}
-            aria-label="Fechar perfil"
-            className="absolute right-4 top-4 rounded-sm p-2 text-primary-900 transition-colors duration-250 ease-brand hover:text-gold-700"
-          >
-            <CloseIcon width={24} height={24} />
-          </button>
-
-          <div className="px-7 pb-10 pt-14 sm:px-9">
-            <h2
-              id={titleId}
-              className="pr-8 font-display text-[1.75rem] leading-tight text-primary-900"
+          {/* Fixo no topo: o X continua alcançável com o perfil rolado. */}
+          <div className="sticky top-0 z-10 flex justify-end bg-white/95 px-4 pt-4">
+            <button
+              ref={closeRef}
+              type="button"
+              onClick={close}
+              aria-label="Fechar perfil"
+              className="rounded-sm p-2 text-primary-900 transition-colors duration-250 ease-brand hover:text-gold-700"
             >
+              <CloseIcon width={24} height={24} />
+            </button>
+          </div>
+
+          <div className="px-7 pb-10 sm:px-9">
+            <h2 id={titleId} className="font-display text-[1.75rem] leading-tight text-primary-900">
               {member.full_name ?? member.name}
             </h2>
             {subtitle ? (
@@ -159,31 +183,36 @@ export function TeamProfileCard({ member }: { member: ProfileMember }) {
                 sizes="128px"
                 className="w-28 shrink-0 rounded-md sm:w-32"
               />
-              {areas.length > 0 ? (
-                <section>
-                  <h3 className="font-display text-[1.25rem] text-primary-900">Atuação</h3>
-                  <p className="mt-2 text-neutral-700">{joinAreas(areas)}</p>
+              {besidePhoto}
+            </div>
+
+            <div className="mt-8 flex flex-col gap-8">
+              {practice ? education : null}
+
+              {member.experience ? (
+                <PanelSection title="Experiência">
+                  <p>{member.experience}</p>
+                </PanelSection>
+              ) : null}
+
+              {member.interests ? (
+                <PanelSection title="Áreas de interesse">
+                  <p>{member.interests}</p>
+                </PanelSection>
+              ) : null}
+
+              {member.publication ? (
+                <section className="rounded-md border-l-2 border-gold-500 bg-ivory-100 px-5 py-4">
+                  <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-gold-700">
+                    <BookIcon width={18} height={18} className="shrink-0" />
+                    Publicação
+                  </h3>
+                  <p className="mt-2 font-editorial text-[1.1875rem] italic leading-snug text-primary-900">
+                    {member.publication}
+                  </p>
                 </section>
               ) : null}
             </div>
-
-            {member.education.length > 0 ? (
-              <section className="mt-8">
-                <h3 className="font-display text-[1.25rem] text-primary-900">Formação</h3>
-                <div className="mt-2 flex flex-col gap-3 text-neutral-700">
-                  {member.education.map((item) => (
-                    <p key={item}>{item}</p>
-                  ))}
-                </div>
-              </section>
-            ) : null}
-
-            {member.experience ? (
-              <section className="mt-8">
-                <h3 className="font-display text-[1.25rem] text-primary-900">Experiência</h3>
-                <p className="mt-2 text-neutral-700">{member.experience}</p>
-              </section>
-            ) : null}
           </div>
         </div>
       </dialog>
