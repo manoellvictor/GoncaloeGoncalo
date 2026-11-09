@@ -138,10 +138,16 @@ export type Database = {
           bio: string | null;
           created_at: string;
           department: "juridico" | "administrativo";
+          education: string[];
+          experience: string | null;
+          full_name: string | null;
           id: string;
           is_partner: boolean;
           name: string;
           photo_url: string | null;
+          practice_areas: string[];
+          profile_title: string | null;
+          oab: string | null;
           published: boolean;
           role: string;
           sort_order: number;
@@ -150,10 +156,16 @@ export type Database = {
         Insert: {
           bio?: string | null;
           department?: "juridico" | "administrativo";
+          education?: string[];
+          experience?: string | null;
+          full_name?: string | null;
           id?: string;
           is_partner?: boolean;
           name: string;
           photo_url?: string | null;
+          practice_areas?: string[];
+          profile_title?: string | null;
+          oab?: string | null;
           published?: boolean;
           role: string;
           sort_order?: number;

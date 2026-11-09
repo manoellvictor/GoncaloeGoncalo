@@ -1,6 +1,7 @@
 import { PageTitleBlock } from "@/components/sections/PageTitleBlock";
 import { CtaBanner } from "@/components/sections/CtaBanner";
 import { TeamMemberCard } from "@/components/cards/TeamMemberCard";
+import { TeamProfileCard } from "@/components/cards/TeamProfileCard";
 import { pageMetadata } from "@/lib/seo";
 import { getTeamMembers } from "@/lib/supabase/queries";
 
@@ -57,9 +58,13 @@ export default async function EquipePage() {
                 <h2 className="text-h3">{group.title}</h2>
                 <div aria-hidden="true" className="mt-5 h-px w-16 bg-gold-500" />
                 <div className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-                  {group.members.map((member) => (
-                    <TeamMemberCard key={member.id} member={member} />
-                  ))}
+                  {group.members.map((member) =>
+                    member.experience ? (
+                      <TeamProfileCard key={member.id} member={member} />
+                    ) : (
+                      <TeamMemberCard key={member.id} member={member} />
+                    ),
+                  )}
                 </div>
               </div>
             ))}
