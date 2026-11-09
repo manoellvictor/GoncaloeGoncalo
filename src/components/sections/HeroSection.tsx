@@ -1,5 +1,6 @@
 import { getImageProps } from "next/image";
 import { SpecialistCta } from "@/components/ui/SpecialistCta";
+import heroPanorama from "../../../public/images/home-hero-recepcao-panorama.jpg";
 import heroDesktop from "../../../public/images/home-hero-recepcao-desktop.jpg";
 import heroMobile from "../../../public/images/home-hero-recepcao-mobile.jpg";
 
@@ -13,25 +14,32 @@ import heroMobile from "../../../public/images/home-hero-recepcao-mobile.jpg";
  * Fundo marfim (ivory-100), em harmonia com a madeira e a pedra da recepção;
  * texto em navy, destaque e tags em bronze, filetes em dourado.
  *
- * Fotografia: recepção do escritório em cores naturais, com dois recortes da
- * mesma foto (art direction via <picture>). A foto original é retrato; no
- * desktop o recorte vai do lustre à mesa e ocupa um quadro vertical à direita,
- * com a borda esquerda dissolvida no marfim. No celular o conteúdo vem
- * primeiro e a foto, num recorte fechado no logotipo e no balcão, vem abaixo.
+ * Fotografia: recepção do escritório em cores naturais, em três recortes
+ * (art direction via <picture>). A partir de 1280px, a panorâmica cobre o
+ * banner inteiro, sob um marfim sólido atrás do texto que fica translúcido no
+ * centro e some antes da marca na parede. Entre 1024 e 1279px a panorâmica
+ * colocaria a marca sob o título, então vale o recorte retrato (do lustre à
+ * mesa) num quadro vertical à direita, com a borda dissolvida em marfim. No
+ * celular o conteúdo vem primeiro e a foto, num recorte fechado no logotipo e
+ * no balcão, vem abaixo.
  */
 const POSITIONING_TAGS = ["Tradição", "Estratégia", "Confiança", "Resultados"];
 
 function HeroPhoto() {
   const common = { alt: "", fill: true, quality: 82 } as const;
   const {
+    props: { srcSet: panoramaSrcSet },
+  } = getImageProps({ ...common, src: heroPanorama, sizes: "100vw" });
+  const {
     props: { srcSet: desktopSrcSet },
-  } = getImageProps({ ...common, src: heroDesktop, sizes: "100vw" });
+  } = getImageProps({ ...common, src: heroDesktop, sizes: "38rem" });
   const {
     props: { srcSet: mobileSrcSet, ...imgProps },
   } = getImageProps({ ...common, src: heroMobile, sizes: "100vw" });
 
   return (
     <picture>
+      <source media="(min-width: 1280px)" srcSet={panoramaSrcSet} sizes="100vw" />
       <source media="(min-width: 1024px)" srcSet={desktopSrcSet} sizes="38rem" />
       <source srcSet={mobileSrcSet} sizes="100vw" />
       <img
@@ -39,7 +47,7 @@ function HeroPhoto() {
         alt=""
         fetchPriority="high"
         loading="eager"
-        className="object-cover object-center lg:object-[50%_40%]"
+        className="object-cover object-center lg:object-[50%_40%] xl:object-right"
       />
     </picture>
   );
@@ -49,10 +57,10 @@ export function HeroSection() {
   return (
     <section className="relative isolate overflow-hidden bg-ivory-100">
       <div className="container-site">
-        <div className="flex max-w-3xl flex-col py-16 sm:py-20 lg:min-h-[720px] lg:justify-center lg:py-28">
+        <div className="flex max-w-3xl flex-col py-16 sm:py-20 lg:min-h-[720px] lg:justify-center lg:py-28 xl:min-h-[max(600px,42vw)] xl:py-14">
           <span aria-hidden="true" className="block h-px w-14 bg-gold-500" />
 
-          <h1 className="mt-8 font-editorial text-[clamp(1.625rem,8.2vw,3rem)] font-normal uppercase leading-[1.08] tracking-[0.03em] text-primary-900 lg:text-[clamp(2.75rem,4.4vw,4.5rem)] [&>span]:whitespace-nowrap">
+          <h1 className="mt-8 font-editorial text-[clamp(1.625rem,8.2vw,3rem)] font-normal uppercase leading-[1.08] tracking-[0.03em] text-primary-900 lg:text-[clamp(2.75rem,4.4vw,4.5rem)] xl:text-[clamp(2.75rem,3.75vw,4rem)] [&>span]:whitespace-nowrap">
             <span className="block">Soluções jurídicas</span>
             <span className="block">com estratégia,</span>
             <span className="block">
@@ -69,7 +77,7 @@ export function HeroSection() {
             <SpecialistCta />
           </div>
 
-          <ul className="mt-14 grid grid-cols-2 gap-x-6 gap-y-3 sm:flex sm:flex-wrap sm:items-center sm:gap-x-4 lg:mt-16">
+          <ul className="mt-14 grid grid-cols-2 gap-x-6 gap-y-3 sm:flex sm:flex-wrap sm:items-center sm:gap-x-4 lg:mt-16 xl:mt-12">
             {POSITIONING_TAGS.map((tag, index) => (
               <li key={tag} className="flex items-center gap-3 sm:gap-4">
                 {index > 0 ? (
@@ -91,10 +99,10 @@ export function HeroSection() {
           esquerda dissolvida em marfim para não haver corte entre texto e foto. */}
       <div
         aria-hidden="true"
-        className="relative aspect-[4/3] sm:aspect-[16/10] lg:absolute lg:inset-y-0 lg:right-0 lg:-z-10 lg:aspect-auto lg:w-[min(45%,38rem)]"
+        className="relative aspect-[4/3] sm:aspect-[16/10] lg:absolute lg:inset-y-0 lg:right-0 lg:-z-10 lg:aspect-auto lg:w-[min(45%,38rem)] xl:left-0 xl:w-auto"
       >
         <HeroPhoto />
-        <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-ivory-100 to-transparent lg:inset-0 lg:h-auto lg:bg-[linear-gradient(to_right,var(--color-ivory-100)_2rem,color-mix(in_srgb,var(--color-ivory-100)_50%,transparent)_5.5rem,transparent_11rem)]" />
+        <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-ivory-100 to-transparent lg:inset-0 lg:h-auto lg:bg-[linear-gradient(to_right,var(--color-ivory-100)_2rem,color-mix(in_srgb,var(--color-ivory-100)_50%,transparent)_5.5rem,transparent_11rem)] xl:bg-[linear-gradient(to_right,var(--color-ivory-100)_40%,color-mix(in_srgb,var(--color-ivory-100)_85%,transparent)_50%,color-mix(in_srgb,var(--color-ivory-100)_40%,transparent)_56%,transparent_61%)] 2xl:bg-[linear-gradient(to_right,var(--color-ivory-100)_45%,color-mix(in_srgb,var(--color-ivory-100)_85%,transparent)_54%,color-mix(in_srgb,var(--color-ivory-100)_40%,transparent)_59%,transparent_63%)]" />
       </div>
     </section>
   );
