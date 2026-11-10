@@ -24,11 +24,12 @@ type ProfileMember = Pick<
   | "publication"
 >;
 
+/** Seção do painel: título + parágrafos no padrão de texto corrido do site. */
 function PanelSection({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section>
+    <section className="mt-8">
       <h3 className="font-display text-[1.25rem] text-primary-900">{title}</h3>
-      <div className="mt-2 flex flex-col gap-3 text-neutral-700">{children}</div>
+      <div className="mt-2 texto-padrao">{children}</div>
     </section>
   );
 }
@@ -54,21 +55,6 @@ export function TeamProfileCard({ member }: { member: ProfileMember }) {
   const summary = member.practice_areas;
   const subtitle = [member.profile_title, member.oab].filter(Boolean).join(" • ");
 
-  // A foto do painel acompanha a primeira seção: Atuação ou, sem ela, Formação.
-  const education =
-    member.education.length > 0 ? (
-      <PanelSection title="Formação">
-        {member.education.map((item) => (
-          <p key={item}>{item}</p>
-        ))}
-      </PanelSection>
-    ) : null;
-  const practice = member.practice ? (
-    <PanelSection title="Atuação">
-      <p>{member.practice}</p>
-    </PanelSection>
-  ) : null;
-  const besidePhoto = practice ?? education;
 
   function open() {
     dialogRef.current?.showModal();
@@ -165,29 +151,47 @@ export function TeamProfileCard({ member }: { member: ProfileMember }) {
           </div>
 
           <div className="px-7 pb-10 sm:px-9">
-            <h2 id={titleId} className="font-display text-[1.75rem] leading-tight text-primary-900">
-              {member.full_name ?? member.name}
-            </h2>
-            {subtitle ? (
-              <p className="mt-2 text-sm font-semibold tracking-[0.06em] text-gold-700">
-                {subtitle}
-              </p>
-            ) : null}
-            <div aria-hidden="true" className="mt-6 h-px bg-gold-500" />
-
-            <div className="mt-8 flex items-start gap-6">
+            {/* Foto ao lado do nome; as seções abaixo ocupam a largura toda do
+                painel, para o texto justificado não abrir buracos numa coluna
+                estreita. */}
+            <div className="flex items-center gap-5">
               <ImageFrame
                 src={member.photo_url}
                 alt=""
                 ratio="portrait"
-                sizes="128px"
-                className="w-28 shrink-0 rounded-md sm:w-32"
+                sizes="112px"
+                className="w-24 shrink-0 rounded-md sm:w-28"
               />
-              {besidePhoto}
+              <div>
+                <h2
+                  id={titleId}
+                  className="font-display text-[1.625rem] leading-tight text-primary-900"
+                >
+                  {member.full_name ?? member.name}
+                </h2>
+                {subtitle ? (
+                  <p className="mt-2 text-sm font-semibold tracking-[0.06em] text-gold-700">
+                    {subtitle}
+                  </p>
+                ) : null}
+              </div>
             </div>
+            <div aria-hidden="true" className="mt-6 h-px bg-gold-500" />
 
-            <div className="mt-8 flex flex-col gap-8">
-              {practice ? education : null}
+            <div className="mt-8 [&>section:first-child]:mt-0">
+              {member.practice ? (
+                <PanelSection title="Atuação">
+                  <p>{member.practice}</p>
+                </PanelSection>
+              ) : null}
+
+              {member.education.length > 0 ? (
+                <PanelSection title="Formação">
+                  {member.education.map((item) => (
+                    <p key={item}>{item}</p>
+                  ))}
+                </PanelSection>
+              ) : null}
 
               {member.experience ? (
                 <PanelSection title="Experiência">
@@ -208,7 +212,7 @@ export function TeamProfileCard({ member }: { member: ProfileMember }) {
               ) : null}
 
               {member.publication ? (
-                <section className="rounded-md border-l-2 border-gold-500 bg-ivory-100 px-5 py-4">
+                <section className="mt-8 rounded-md border-l-2 border-gold-500 bg-ivory-100 px-5 py-4">
                   <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-gold-700">
                     <BookIcon width={18} height={18} className="shrink-0" />
                     Publicação
