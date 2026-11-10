@@ -29,7 +29,7 @@ export default async function EquipePage() {
       ),
     },
     {
-      title: "Acadêmicos",
+      title: "Estagiários",
       members: members.filter((member) => member.department === "academico"),
     },
     {
