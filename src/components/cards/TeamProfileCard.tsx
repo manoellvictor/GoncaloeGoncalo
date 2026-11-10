@@ -191,7 +191,13 @@ export function TeamProfileCard({ member }: { member: ProfileMember }) {
 
               {member.experience ? (
                 <PanelSection title="Experiência">
-                  <p>{member.experience}</p>
+                  {/* Parágrafos separados por linha em branco no banco. */}
+                  {member.experience
+                    .split(/\n\s*\n/)
+                    .filter(Boolean)
+                    .map((paragraph, index) => (
+                      <p key={index}>{paragraph.trim()}</p>
+                    ))}
                 </PanelSection>
               ) : null}
 
