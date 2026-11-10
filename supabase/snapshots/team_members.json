@@ -212,13 +212,16 @@
     "sort_order": 8,
     "published": true,
     "department": "administrativo",
-    "full_name": null,
+    "full_name": "Raimundo Cardozo",
     "oab": null,
-    "profile_title": null,
-    "practice_areas": [],
+    "profile_title": "Equipe administrativa",
+    "practice_areas": [
+      "Gestão e Conservação do Patrimônio",
+      "Apoio Operacional e Atendimento"
+    ],
     "education": [],
-    "experience": null,
-    "practice": null,
+    "experience": "Destaca-se pela cordialidade, dedicação, responsabilidade, prestatividade e atenção ao bem-estar das pessoas, contribuindo para proporcionar um ambiente agradável, organizado e acolhedor.\n\nSeu perfil profissional é marcado pelo compromisso com a conservação do patrimônio, a qualidade do atendimento e a experiência positiva dos clientes, compreendendo que cada detalhe faz diferença na imagem e no funcionamento da organização.",
+    "practice": "Gestão e conservação do patrimônio, organização e manutenção dos ambientes corporativos, apoio operacional e atendimento.",
     "interests": null,
     "publication": null
   }
