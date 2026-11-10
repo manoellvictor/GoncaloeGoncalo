@@ -162,12 +162,17 @@
     "sort_order": 7,
     "published": true,
     "department": "administrativo",
-    "full_name": null,
+    "full_name": "Maira Pacheco",
     "oab": null,
-    "profile_title": null,
-    "practice_areas": [],
-    "education": [],
-    "experience": null,
+    "profile_title": "Assistente Social",
+    "practice_areas": [
+      "Assistente Social",
+      "Gestão Administrativa e Financeira"
+    ],
+    "education": [
+      "Assistente Social, com formação técnica em Gestão Financeira."
+    ],
+    "experience": "Experiência profissional de 13 anos nas áreas administrativa e financeira.\n\nPossui trajetória profissional voltada às rotinas administrativas, gestão e controle financeiro, organização de documentos, acompanhamento de processos, elaboração de relatórios, controle de receitas e despesas e suporte à gestão organizacional.",
     "practice": null,
     "interests": null,
     "publication": null
