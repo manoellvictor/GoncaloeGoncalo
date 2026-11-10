@@ -1,0 +1,190 @@
+[
+  {
+    "id": "685dedb5-00a0-4e1c-b49c-e8b9d950fb12",
+    "slug": "direito-empresarial",
+    "title": "Direito Empresarial",
+    "short_description": "Sua empresa cresce com segurança jurídica em cada decisão estratégica.",
+    "body": "Oferecemos assessoria jurídica às empresas em diferentes momentos de sua trajetória, desde a estruturação do negócio até o acompanhamento das atividades diárias. Auxiliamos na organização societária, na definição de responsabilidades e na análise jurídica de decisões que possam afetar a continuidade e o desenvolvimento da empresa.\n\nAtuamos em questões envolvendo relações entre sócios, alterações societárias, negociações comerciais e prevenção de conflitos. Nosso trabalho considera as características de cada atividade e os objetivos do empreendimento, oferecendo suporte para que decisões estratégicas sejam tomadas com conhecimento dos riscos e das obrigações envolvidos.",
+    "icon": "briefcase",
+    "image_url": null,
+    "services": [
+      "Consultoria societária",
+      "Fusões e aquisições",
+      "Contratos empresariais",
+      "Governança corporativa",
+      "Recuperação de empresas"
+    ],
+    "is_featured": true,
+    "sort_order": 1,
+    "published": true,
+    "meta_description": "Consultoria societária, fusões e aquisições, contratos e governança corporativa: segurança jurídica para as decisões que definem o futuro da sua empresa."
+  },
+  {
+    "id": "ec24b6e6-a5f7-4f59-b095-5936caeb2c38",
+    "slug": "direito-civil",
+    "title": "Direito Civil",
+    "short_description": "Seus direitos e seu patrimônio protegidos em cada etapa da vida.",
+    "body": "Atuamos na proteção dos direitos e dos interesses pessoais e patrimoniais de pessoas físicas e jurídicas. Oferecemos orientação preventiva e acompanhamento jurídico em questões envolvendo responsabilidade civil, indenizações, cobranças, propriedade e outras situações presentes nas relações do cotidiano.\n\nCada demanda é analisada de forma individual, com atenção aos documentos, aos riscos envolvidos e aos objetivos do cliente. Buscamos soluções por meio do diálogo e da negociação e, quando necessário, conduzimos a defesa de seus interesses em processos judiciais, mantendo uma comunicação clara ao longo de cada etapa.",
+    "icon": "gavel",
+    "image_url": null,
+    "services": [
+      "Contratos",
+      "Responsabilidade civil",
+      "Direito de família e sucessões",
+      "Direitos reais",
+      "Contencioso e consultivo"
+    ],
+    "is_featured": true,
+    "sort_order": 2,
+    "published": true,
+    "meta_description": "Contratos, responsabilidade civil, família e sucessões: proteção do seu patrimônio e dos seus direitos, com a discrição que cada caso pessoal exige."
+  },
+  {
+    "id": "5f97c822-6126-4201-a6ef-98b648be7add",
+    "slug": "direito-trabalhista",
+    "title": "Direito Trabalhista",
+    "short_description": "Relações de trabalho estáveis e passivos sob controle.",
+    "body": "Oferecemos orientação jurídica em questões relacionadas às relações de trabalho, com atenção aos direitos e às obrigações envolvidos em cada situação. Nossa atuação preventiva abrange a análise de contratos, jornadas, remuneração, rotinas profissionais e procedimentos de desligamento, buscando esclarecer dúvidas e reduzir a ocorrência de conflitos.\n\nTambém acompanhamos negociações, acordos e processos judiciais, desde a avaliação inicial da demanda até suas etapas posteriores. Analisamos os documentos e as particularidades de cada caso para definir a condução jurídica adequada, mantendo o cliente informado sobre os riscos, as alternativas e o andamento do trabalho.",
+    "icon": "hard-hat",
+    "image_url": null,
+    "services": [
+      "Consultoria preventiva",
+      "Contencioso trabalhista",
+      "Negociações sindicais",
+      "Auditoria de passivos",
+      "Compliance trabalhista"
+    ],
+    "is_featured": true,
+    "sort_order": 3,
+    "published": true,
+    "meta_description": "Consultoria preventiva, contencioso e negociações sindicais: relações de trabalho estáveis e redução real da exposição a passivos trabalhistas."
+  },
+  {
+    "id": "4c5e2445-28c9-4bfa-8d5f-52209e82d403",
+    "slug": "direito-tributario",
+    "title": "Direito Tributário",
+    "short_description": "Menos carga tributária, dentro da lei e com respaldo técnico.",
+    "body": "Orientamos empresas e pessoas físicas no planejamento e na condução de questões tributárias, com foco na prevenção de riscos, na regularidade fiscal e na proteção patrimonial. Analisamos as obrigações aplicáveis a cada atividade e seus impactos, auxiliando nossos clientes a tomar decisões com maior clareza e segurança jurídica.\n\nNossa atuação abrange a revisão de cobranças, a identificação de tributos pagos indevidamente e o acompanhamento de fiscalizações. Também prestamos assessoria em negociações de débitos e na defesa em processos administrativos e judiciais, considerando a realidade de cada cliente e as possibilidades previstas na legislação.",
+    "icon": "receipt",
+    "image_url": null,
+    "services": [
+      "Planejamento tributário",
+      "Contencioso administrativo e judicial",
+      "Recuperação de créditos",
+      "Consultoria fiscal",
+      "Defesa em autuações"
+    ],
+    "is_featured": true,
+    "sort_order": 4,
+    "published": true,
+    "meta_description": "Planejamento tributário, defesa em autuações e recuperação de créditos fiscais: menos carga tributária para a sua empresa, sempre dentro da legalidade."
+  },
+  {
+    "id": "fcf14e21-3fa8-44bd-bd13-5e92b01ce0d3",
+    "slug": "direito-imobiliario",
+    "title": "Direito Imobiliário",
+    "short_description": "Negócios imobiliários fechados sem surpresas no futuro.",
+    "body": "Analisamos cada operação imobiliária em profundidade antes da assinatura, para que o negócio se sustente muito depois dela.",
+    "icon": "home",
+    "image_url": null,
+    "services": [
+      "Due diligence imobiliária",
+      "Contratos de compra e venda",
+      "Locações",
+      "Incorporação e loteamento",
+      "Regularização de imóveis"
+    ],
+    "is_featured": false,
+    "sort_order": 5,
+    "published": true,
+    "meta_description": "Due diligence, compra e venda, locações e regularização de imóveis: negócios imobiliários fechados com total segurança e sem surpresas no futuro."
+  },
+  {
+    "id": "0e734aec-217d-4c19-9286-c1df79e8b06e",
+    "slug": "direito-administrativo",
+    "title": "Direito Administrativo",
+    "short_description": "Segurança para quem contrata e se relaciona com o poder público.",
+    "body": "Assessoramos pessoas físicas e empresas em suas relações com a Administração Pública, oferecendo orientação sobre procedimentos, exigências e responsabilidades. Atuamos na análise de editais, no acompanhamento de licitações e na orientação sobre a formalização e a execução de contratos públicos.\n\nTambém acompanhamos processos administrativos, elaboramos defesas e recursos e prestamos suporte em situações envolvendo penalidades ou controvérsias com o poder público. Nossa atuação é pautada pela análise dos documentos e das normas aplicáveis, buscando proteger os interesses do cliente e assegurar o respeito aos seus direitos em cada procedimento.",
+    "icon": "landmark",
+    "image_url": null,
+    "services": [
+      "Licitações e contratos administrativos",
+      "Defesa em processos administrativos",
+      "Consultoria a entes públicos",
+      "Improbidade administrativa",
+      "Concessões e parcerias"
+    ],
+    "is_featured": false,
+    "sort_order": 6,
+    "published": true,
+    "meta_description": "Licitações, contratos administrativos e defesa em processos: segurança jurídica para empresas e gestores que se relacionam com o poder público."
+  },
+  {
+    "id": "91f22f2d-c41e-45e7-afbb-0dbf6a3e5389",
+    "slug": "compliance-e-lgpd",
+    "title": "Compliance e LGPD",
+    "short_description": "Sua operação em conformidade antes que a fiscalização chegue.",
+    "body": "Implantamos programas de integridade e adequação à Lei Geral de Proteção de Dados sob medida para o porte e o setor da empresa, transformando obrigação legal em vantagem reputacional.",
+    "icon": "shield-check",
+    "image_url": null,
+    "services": [
+      "Programas de integridade",
+      "Adequação à LGPD",
+      "Mapeamento de dados",
+      "Treinamento de equipes",
+      "Canal de denúncias"
+    ],
+    "is_featured": false,
+    "sort_order": 7,
+    "published": true,
+    "meta_description": "Programas de integridade, adequação à LGPD e mapeamento de dados pessoais: sua operação em conformidade antes que a fiscalização bata à porta."
+  },
+  {
+    "id": "df9c1751-2fbd-4787-93e0-27869a6bd20c",
+    "slug": "direito-do-consumidor",
+    "title": "Direito do Consumidor",
+    "short_description": "Relações de consumo equilibradas e conflitos resolvidos com agilidade.",
+    "body": "Atuamos dos dois lados do balcão: prevenimos litígios revisando práticas comerciais e defendemos o cliente quando a relação de consumo se rompe.",
+    "icon": "cart",
+    "image_url": null,
+    "services": [
+      "Defesa em ações consumeristas",
+      "Adequação de contratos e SAC",
+      "Recall e responsabilidade pelo produto",
+      "Procon e órgãos de defesa",
+      "Consultoria preventiva"
+    ],
+    "is_featured": false,
+    "sort_order": 8,
+    "published": true,
+    "meta_description": "Defesa em ações consumeristas, adequação de contratos e SAC, recall e Procon: relações de consumo equilibradas e conflitos resolvidos com agilidade."
+  },
+  {
+    "id": "ef6764c6-cbfb-49b2-a515-6bffbb3fcf99",
+    "slug": "direito-contratual",
+    "title": "Direito Contratual",
+    "short_description": "Elaboração, revisão e negociação de contratos.",
+    "body": "Assessoramos nossos clientes na elaboração, revisão e negociação de contratos, buscando estabelecer relações jurídicas claras e adequadas às particularidades de cada negócio. Analisamos cláusulas, prazos, garantias e responsabilidades para identificar riscos e reduzir dúvidas que possam gerar conflitos no futuro.\n\nNossa atuação também compreende o acompanhamento da execução contratual, a formalização de alterações e a orientação em situações de rescisão ou descumprimento. Seja em relações pessoais ou empresariais, trabalhamos para que os instrumentos contratuais reflitam o que foi negociado e ofereçam maior segurança às partes envolvidas.",
+    "icon": "shield-check",
+    "image_url": null,
+    "services": [],
+    "is_featured": false,
+    "sort_order": 9,
+    "published": true,
+    "meta_description": null
+  },
+  {
+    "id": "37bcfb94-56ef-46ff-a84e-7bcb0acb6b0e",
+    "slug": "direito-do-agronegocio",
+    "title": "Direito do Agronegócio",
+    "short_description": "Segurança jurídica para o produtor rural e toda a cadeia do agro.",
+    "body": "Prestamos assessoria jurídica a produtores rurais e empresas em questões relacionadas à produção, à propriedade e às relações comerciais no campo. Nosso trabalho considera as particularidades da atividade rural, como os ciclos produtivos, as condições de negociação e os riscos que podem afetar o desenvolvimento do negócio.\n\nAtuamos na elaboração e revisão de contratos rurais, incluindo arrendamento, parceria e comercialização da produção, além de oferecer suporte em operações de crédito e negociações de dívidas. Também acompanhamos conflitos relacionados à atividade, buscando soluções jurídicas adequadas à realidade de cada produtor ou empreendimento.",
+    "icon": "sprout",
+    "image_url": null,
+    "services": [],
+    "is_featured": false,
+    "sort_order": 10,
+    "published": true,
+    "meta_description": null
+  }
+]

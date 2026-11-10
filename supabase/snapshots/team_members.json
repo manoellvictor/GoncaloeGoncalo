@@ -1,0 +1,220 @@
+[
+  {
+    "id": "e19a2583-258d-4a3e-9c81-9b1785330bb0",
+    "name": "Luiza Gonçalo",
+    "role": "Sócia",
+    "photo_url": "https://ungjggbqrtxedbknuadd.supabase.co/storage/v1/object/public/equipe/equipe-luiza-goncalo.jpg",
+    "bio": null,
+    "is_partner": true,
+    "sort_order": 1,
+    "published": true,
+    "department": "juridico",
+    "full_name": "Luiza Gonçalo",
+    "oab": "OAB/MA 22.740",
+    "profile_title": "Advogada",
+    "practice_areas": [
+      "Direito Civil, Contratual e do Agronegócio",
+      "Tribunais e Conciliação"
+    ],
+    "education": [
+      "Graduada em Direito pela Universidade Federal do Maranhão (UFMA).",
+      "Pós-graduada em Recursos nos Tribunais Superiores pelo IDP.",
+      "Pós-graduada em Direito Público pela PUC/RS.",
+      "MBA em Gestão de Negócios pela USP/ESALQ.",
+      "Cursa atualmente pós-graduação em Direito Agrário e do Agronegócio na Associação Brasileira de Direito do Agronegócio."
+    ],
+    "experience": "Sua atuação combina formação jurídica sólida e visão de gestão, com experiência na gestão de cobrança de recebíveis e no acompanhamento de contencioso em Tribunais.\n\nEmpreende no Grupo CVM, que reúne operações de logística, materiais de construção, postos de gasolina e varejo, o que lhe dá experiência prática em gestão e conhecimento da realidade de quem empreende. É sócia do Gonçalo & Gonçalo Advogados Associados.",
+    "practice": "Direito Civil, Direito Contratual, Direito do Agronegócio, Tribunais e Conciliação.",
+    "interests": null,
+    "publication": null
+  },
+  {
+    "id": "af26a0fd-fe8f-48ad-bc19-1c01aa8f08a0",
+    "name": "Paloma Gonçalo",
+    "role": "Sócia",
+    "photo_url": "https://ungjggbqrtxedbknuadd.supabase.co/storage/v1/object/public/equipe/equipe-paloma-goncalo.jpg",
+    "bio": null,
+    "is_partner": true,
+    "sort_order": 2,
+    "published": true,
+    "department": "juridico",
+    "full_name": null,
+    "oab": null,
+    "profile_title": null,
+    "practice_areas": [],
+    "education": [],
+    "experience": null,
+    "practice": null,
+    "interests": null,
+    "publication": null
+  },
+  {
+    "id": "0fef0f0f-cbe3-4f92-9625-75bd9d453752",
+    "name": "Rafaela Felizardo",
+    "role": "Advogada associada",
+    "photo_url": "https://ungjggbqrtxedbknuadd.supabase.co/storage/v1/object/public/equipe/equipe-rafaela-felizardo.jpg",
+    "bio": null,
+    "is_partner": false,
+    "sort_order": 3,
+    "published": true,
+    "department": "juridico",
+    "full_name": "Rafaela de Sousa Felizardo",
+    "oab": "OAB/MA 22.437",
+    "profile_title": "Advogada",
+    "practice_areas": [
+      "Direito do Trabalho",
+      "Controladoria Jurídica"
+    ],
+    "education": [
+      "Pós-graduada em Direito e Processo do Trabalho e Direito Previdenciário pela Escola Superior de Advocacia do Maranhão (ESA/OAB-MA).",
+      "Pós-graduanda em Legal Operations e Gestão Jurídica Estratégica pela Faculdade Damásio."
+    ],
+    "experience": "Atuação especializada em Direito do Trabalho, Controladoria Jurídica e Gestão Estratégica de Operações Jurídicas, com sólida experiência em contencioso de massa, gerenciamento de carteiras processuais e otimização de rotinas jurídicas.\n\nExperiência na estruturação, implementação e aprimoramento de fluxos operacionais, com foco na padronização de procedimentos, definição de responsabilidades, gestão de prazos, distribuição de demandas e acompanhamento de indicadores de desempenho.\n\nPrática voltada à eficiência operacional, automação de processos, integração de ferramentas tecnológicas e melhoria contínua, contribuindo para a organização das equipes, mitigação de riscos e maior previsibilidade, produtividade e qualidade na prestação dos serviços jurídicos.",
+    "practice": "Direito do Trabalho e Controladoria Jurídica.",
+    "interests": null,
+    "publication": null
+  },
+  {
+    "id": "04523ac9-cd02-462e-84e8-e7b724a2b6fb",
+    "name": "Gabriel Veloso",
+    "role": "Advogado associado",
+    "photo_url": "https://ungjggbqrtxedbknuadd.supabase.co/storage/v1/object/public/equipe/equipe-gabriel-veloso.jpg",
+    "bio": null,
+    "is_partner": false,
+    "sort_order": 4,
+    "published": true,
+    "department": "juridico",
+    "full_name": "Gabriel Ferreira Veloso",
+    "oab": "OAB/MA 26.449",
+    "profile_title": "Advogado",
+    "practice_areas": [
+      "Direito Civil, Administrativo e Municipal",
+      "Contencioso Cível e Pesquisa Patrimonial"
+    ],
+    "education": [
+      "Graduado em Direito pela Universidade Federal do Maranhão (UFMA).",
+      "Pós-graduado em Direito Eleitoral pela Faculdade Ensino Superior (SVT) e pela Escola Superior de Advocacia do Maranhão (ESA/OAB-MA)."
+    ],
+    "experience": "Atuação com ênfase em contencioso cível, pesquisa patrimonial e estratégias de localização de bens e ativos voltadas à efetividade de execuções judiciais.",
+    "practice": "Direito Civil, Direito Processual Civil, Direito Administrativo e Direito Municipal.",
+    "interests": null,
+    "publication": "Autor do livro “Regulação, Vacinação e Covid-19: uma análise sobre a decisão da ANVISA sobre a importação da vacina Sputnik V”."
+  },
+  {
+    "id": "4acd7e5d-acb9-4fd3-a180-9cfbf4b3b670",
+    "name": "Gustavo Morais",
+    "role": "Advogado associado",
+    "photo_url": "https://ungjggbqrtxedbknuadd.supabase.co/storage/v1/object/public/equipe/equipe-gustavo-morais.jpg",
+    "bio": null,
+    "is_partner": false,
+    "sort_order": 5,
+    "published": true,
+    "department": "juridico",
+    "full_name": "Gustavo Morais",
+    "oab": "OAB/MA 21.723",
+    "profile_title": "Advogado",
+    "practice_areas": [
+      "Direito Civil e Processual Civil",
+      "Direito do Agronegócio"
+    ],
+    "education": [
+      "Pós-graduado em Direito Civil Aplicado pela PUC Minas.",
+      "Pós-graduando em Direito do Agronegócio pela ABRADA – Academia Brasileira de Direito do Agronegócio."
+    ],
+    "experience": "Presta assessoria jurídica a produtores rurais, abrangendo ações possessórias, como reintegração e manutenção de posse, e a prorrogação e a revisão de contratos rurais, voltada à proteção do patrimônio do produtor, à continuidade da atividade produtiva e à prevenção de litígios decorrentes de inadimplementos e riscos contratuais.",
+    "practice": "Direito Civil, Direito Processual Civil e Direito do Agronegócio, com ênfase em responsabilidade civil, obrigações e contencioso cível.",
+    "interests": null,
+    "publication": null
+  },
+  {
+    "id": "ea30d009-9fe3-45c2-a2b9-75869ca7a537",
+    "name": "Brenda Frazão",
+    "role": "Advogada associada",
+    "photo_url": "https://ungjggbqrtxedbknuadd.supabase.co/storage/v1/object/public/equipe/equipe-brenda-frazao.jpg",
+    "bio": null,
+    "is_partner": false,
+    "sort_order": 6,
+    "published": true,
+    "department": "juridico",
+    "full_name": "Brenda Rhuana dos Santos Frazão",
+    "oab": "OAB/MA 29.763",
+    "profile_title": "Advogada",
+    "practice_areas": [
+      "Direito Civil e Empresarial",
+      "Contratos e Assessoria Jurídica a Empresas"
+    ],
+    "education": [
+      "Pós-graduada em Direito Processual Integrado: Trabalhista, Civil e Penal pela Escola Superior de Advocacia do Maranhão (ESA/OAB-MA).",
+      "Pós-graduada em Direito Civil: Negócios, Obrigações e Contratos pela Legale Educacional."
+    ],
+    "experience": "Sua atuação é focada na assessoria jurídica de empresas, abrangendo a elaboração e análise de contratos, a gestão estratégica de demandas cíveis e trabalhistas e a prevenção de litígios ligados a obrigações, inadimplemento e responsabilidade civil.",
+    "practice": "Especialista em Direito Civil e Empresarial, com sólida experiência nas esferas consultiva e contenciosa.",
+    "interests": null,
+    "publication": null
+  },
+  {
+    "id": "af9724f5-be06-4790-9bfe-011b3724baf7",
+    "name": "Maira Pacheco",
+    "role": "Equipe administrativa",
+    "photo_url": "https://ungjggbqrtxedbknuadd.supabase.co/storage/v1/object/public/equipe/equipe-maira-pacheco.jpg",
+    "bio": null,
+    "is_partner": false,
+    "sort_order": 7,
+    "published": true,
+    "department": "administrativo",
+    "full_name": null,
+    "oab": null,
+    "profile_title": null,
+    "practice_areas": [],
+    "education": [],
+    "experience": null,
+    "practice": null,
+    "interests": null,
+    "publication": null
+  },
+  {
+    "id": "ab264277-e364-4c37-b7f6-ff544a6d7491",
+    "name": "Maria Clara Bispo Coelho",
+    "role": "Acadêmica de Direito",
+    "photo_url": "https://ungjggbqrtxedbknuadd.supabase.co/storage/v1/object/public/equipe/equipe-maria-clara.jpg",
+    "bio": null,
+    "is_partner": false,
+    "sort_order": 7,
+    "published": true,
+    "department": "academico",
+    "full_name": "Maria Clara Bispo Coelho",
+    "oab": null,
+    "profile_title": "Acadêmica de Direito • UFMA",
+    "practice_areas": [
+      "Acadêmica de Direito • UFMA",
+      "Análise Processual e Documentos Jurídicos"
+    ],
+    "education": [
+      "Acadêmica de Direito pela Universidade Federal do Maranhão (UFMA)."
+    ],
+    "experience": "Experiência na área jurídica, especialmente em análise processual e elaboração de documentos jurídicos.",
+    "practice": null,
+    "interests": "Direito Tributário e Direito Administrativo, com foco no aprofundamento técnico e no desenvolvimento de soluções jurídicas estratégicas voltadas às demandas empresariais e institucionais.",
+    "publication": null
+  },
+  {
+    "id": "5fe48f72-e614-4650-a034-d93741c9afbc",
+    "name": "Raimundo Cardozo",
+    "role": "Equipe administrativa",
+    "photo_url": "https://ungjggbqrtxedbknuadd.supabase.co/storage/v1/object/public/equipe/equipe-raimundo-cardozo.jpg",
+    "bio": null,
+    "is_partner": false,
+    "sort_order": 8,
+    "published": true,
+    "department": "administrativo",
+    "full_name": null,
+    "oab": null,
+    "profile_title": null,
+    "practice_areas": [],
+    "education": [],
+    "experience": null,
+    "practice": null,
+    "interests": null,
+    "publication": null
+  }
+]
