@@ -38,13 +38,19 @@
     "sort_order": 2,
     "published": true,
     "department": "juridico",
-    "full_name": null,
-    "oab": null,
-    "profile_title": null,
-    "practice_areas": [],
-    "education": [],
-    "experience": null,
-    "practice": null,
+    "full_name": "Paloma Gonçalo",
+    "oab": "OAB/MA 23.308",
+    "profile_title": "Advogada",
+    "practice_areas": [
+      "Direito Tributário",
+      "Contencioso e Consultivo Fiscal"
+    ],
+    "education": [
+      "Graduada em Direito pela Universidade Federal do Maranhão (UFMA).",
+      "Pós-graduada em Direito Tributário pelo Mackenzie (São Paulo)."
+    ],
+    "experience": "Sócia do escritório Gonçalo e Gonçalo Advogados Associados, onde é responsável pela gestão operacional.\n\nAtua no contencioso e no consultivo tributário, nas esferas federal, estadual e municipal, com ênfase na defesa em execuções fiscais, recuperação de créditos tributários, parcelamentos, transação tributária e planejamento tributário. Seu trabalho tem como foco a regularidade fiscal e a redução de passivos.",
+    "practice": "Direito Tributário, contencioso e consultivo, nas esferas federal, estadual e municipal.",
     "interests": null,
     "publication": null
   },
