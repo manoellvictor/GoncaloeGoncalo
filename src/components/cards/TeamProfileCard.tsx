@@ -3,6 +3,7 @@
 import { useId, useRef, useState, type ReactNode } from "react";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { ArrowRightIcon, BookIcon, CloseIcon } from "@/components/ui/Icons";
+import { slugify } from "@/lib/format";
 import type { TeamMember } from "@/lib/supabase/database.types";
 
 /** Duração das transições do card e do painel (ms). */
@@ -73,7 +74,7 @@ export function TeamProfileCard({ member }: { member: ProfileMember }) {
   }
 
   return (
-    <article className="group">
+    <article id={slugify(member.name)} className="group scroll-mt-28">
       <div className="relative rounded-md ring-1 ring-transparent transition-shadow duration-250 ease-brand group-hover:ring-gold-500 group-focus-within:ring-gold-500">
         <ImageFrame
           src={member.photo_url}

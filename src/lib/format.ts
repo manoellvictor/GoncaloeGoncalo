@@ -39,3 +39,16 @@ export function isoDate(value: string | Date): string {
 export function categoryLabel(category: string): string {
   return category === "noticia" ? "Notícia" : "Artigo";
 }
+
+/**
+ * Âncora a partir de um nome ("Paloma Gonçalo" → "paloma-goncalo"): usada nos
+ * cards de /equipe e nos links de autor das publicações.
+ */
+export function slugify(text: string): string {
+  return text
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}

@@ -28,11 +28,14 @@ export function pageMetadata({
   description,
   path,
   image,
+  article,
 }: {
   title: string;
   description: string;
   path: string;
   image?: string;
+  /** Publicação: Open Graph do tipo `article`, com datas e autor. */
+  article?: { publishedTime: string; modifiedTime?: string; authors?: string[] };
 }): Metadata {
   const url = `${siteConfig.url}${path}`;
 
@@ -55,7 +58,7 @@ export function pageMetadata({
       url,
       siteName: siteConfig.name,
       locale: "pt_BR",
-      type: "website",
+      ...(article ? { type: "article", ...article } : { type: "website" }),
       ...(image ? { images: [{ url: image }] } : {}),
     },
   };
@@ -100,13 +103,20 @@ export function faqJsonLd(items: { question: string; answer: string }[]) {
   };
 }
 
+/** Caminho local (/videos/capas/x.jpg) vira URL absoluta; URL completa fica igual. */
+function absoluteUrl(src: string): string {
+  return src.startsWith("/") ? `${siteConfig.url}${src}` : src;
+}
+
 /** Article nas páginas de artigo individual. */
 export function articleJsonLd(article: {
   title: string;
   excerpt: string;
   slug: string;
   publishedAt: string;
+  modifiedAt?: string | null;
   image?: string | null;
+  author?: { name: string; path: string } | null;
 }) {
   return {
     "@context": "https://schema.org",
@@ -114,8 +124,18 @@ export function articleJsonLd(article: {
     headline: article.title,
     description: article.excerpt,
     datePublished: article.publishedAt,
+    ...(article.modifiedAt ? { dateModified: article.modifiedAt } : {}),
     url: `${siteConfig.url}/artigos/${article.slug}`,
-    ...(article.image ? { image: article.image } : {}),
+    ...(article.image ? { image: absoluteUrl(article.image) } : {}),
+    ...(article.author
+      ? {
+          author: {
+            "@type": "Person",
+            name: article.author.name,
+            url: `${siteConfig.url}${article.author.path}`,
+          },
+        }
+      : {}),
     publisher: {
       "@type": "Organization",
       name: siteConfig.name,

@@ -1,4 +1,5 @@
 import { ImageFrame } from "@/components/ui/ImageFrame";
+import { slugify } from "@/lib/format";
 import type { TeamMember } from "@/lib/supabase/database.types";
 
 /**
@@ -14,7 +15,7 @@ export function TeamMemberCard({
   member: Pick<TeamMember, "name" | "role" | "photo_url" | "bio">;
 }) {
   return (
-    <article className="group">
+    <article id={slugify(member.name)} className="group scroll-mt-28">
       <ImageFrame
         src={member.photo_url}
         alt={`Retrato de ${member.name}, ${member.role}`}

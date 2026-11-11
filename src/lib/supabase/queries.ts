@@ -1,6 +1,14 @@
 import { getSupabaseClient } from "./server";
-import type { Article, Faq, PracticeArea, TeamMember } from "./database.types";
+import type { Article, Faq, Json, PracticeArea, TeamMember } from "./database.types";
 import { practiceAreas } from "@/lib/site-config";
+import { slugify } from "@/lib/format";
+import {
+  areaPorSlug,
+  calcularTempoLeitura,
+  tipoPublicacao,
+  type Fonte,
+  type Publicacao,
+} from "@/lib/publicacoes";
 
 /**
  * Consultas de leitura do conteúdo público.
@@ -98,6 +106,16 @@ export async function getPracticeAreaBySlug(
 
 /* -------------------------------------------------------------------- Artigos */
 
+/**
+ * Filtro de busca por título e resumo. Escapa os curingas do LIKE para que o
+ * termo do usuário seja tratado como texto literal, e as vírgulas, que
+ * separariam os filtros do `or`.
+ */
+function searchFilter(query: string): string {
+  const safe = query.replace(/[%_\\]/g, "\\$&").replace(/,/g, " ");
+  return `title.ilike.%${safe}%,excerpt.ilike.%${safe}%`;
+}
+
 /** Ordenação: mais recente primeiro (padroes-de-projeto.md §3.4). */
 export async function getArticles({
   limit,
@@ -112,12 +130,7 @@ export async function getArticles({
     .eq("published", true)
     .order("published_at", { ascending: false });
 
-  if (query) {
-    // Escapa os curingas do LIKE para que o termo do usuário seja tratado
-    // como texto literal, e as vírgulas, que separariam os filtros do `or`.
-    const safe = query.replace(/[%_\\]/g, "\\$&").replace(/,/g, " ");
-    request = request.or(`title.ilike.%${safe}%,excerpt.ilike.%${safe}%`);
-  }
+  if (query) request = request.or(searchFilter(query));
   if (limit) request = request.limit(limit);
 
   const { data, error } = await request;
@@ -129,53 +142,166 @@ export async function getArticles({
   return data ?? [];
 }
 
-/**
- * Página de artigos para a listagem do hub (prd.md §6.8).
- * Pagina no banco com `range`, não em memória, para o custo não crescer junto
- * com o acervo. Devolve o total para montar a navegação.
- */
-export async function getArticlesPage({
-  page = 1,
-  pageSize = 9,
-  query,
-}: { page?: number; pageSize?: number; query?: string } = {}): Promise<{
-  articles: Article[];
-  total: number;
-  totalPages: number;
-}> {
-  const supabase = getSupabaseClient();
-  if (!supabase) return { articles: [], total: 0, totalPages: 0 };
+/* ---------------------------------------------------------------- Publicações */
 
-  const from = (page - 1) * pageSize;
+/** Cards por página do feed de /artigos (o destaque fica fora da conta). */
+export const PUBLICACOES_POR_PAGINA = 6;
+
+function parseFontes(value: Json): Fonte[] {
+  if (!Array.isArray(value)) return [];
+  return value.flatMap((item) => {
+    if (!item || typeof item !== "object" || Array.isArray(item)) return [];
+    const { titulo, url } = item;
+    return typeof titulo === "string" && typeof url === "string"
+      ? [{ titulo, url }]
+      : [];
+  });
+}
+
+function toPublicacao(row: Article, autores: Map<string, TeamMember>): Publicacao {
+  const autor = row.author_id ? autores.get(row.author_id) : undefined;
+  return {
+    slug: row.slug,
+    titulo: row.title,
+    resumo: row.excerpt,
+    conteudo: row.content,
+    tipo: tipoPublicacao(row.category),
+    area: areaPorSlug(row.area),
+    dataPublicacao: row.published_at,
+    dataAtualizacao: row.revised_at,
+    autor: autor
+      ? {
+          nome: autor.full_name ?? autor.name,
+          oab: autor.oab,
+          slugPerfil: slugify(autor.name),
+        }
+      : null,
+    tempoLeitura: row.reading_minutes ?? calcularTempoLeitura(row.content),
+    capaTitulo: row.cover_title ?? row.title,
+    capaVideo: row.cover_video_mp4
+      ? {
+          mp4: row.cover_video_mp4,
+          webm: row.cover_video_webm,
+          poster: row.cover_poster,
+        }
+      : null,
+    capaPoster: row.cover_poster,
+    fontes: parseFontes(row.sources),
+    emResumo: row.key_points,
+    destaque: row.featured,
+    metaDescription: row.meta_description,
+  };
+}
+
+/** Autores vêm de team_members; só consulta a equipe se alguém tiver autor. */
+async function toPublicacoes(rows: Article[]): Promise<Publicacao[]> {
+  const autores = rows.some((row) => row.author_id)
+    ? new Map((await getTeamMembers()).map((member) => [member.id, member]))
+    : new Map<string, TeamMember>();
+  return rows.map((row) => toPublicacao(row, autores));
+}
+
+/**
+ * Publicação em destaque: a mais recente marcada como `featured`; sem
+ * nenhuma marcada, a mais recente de todas.
+ */
+async function getPublicacaoDestaque(): Promise<Publicacao | null> {
+  const supabase = getSupabaseClient();
+  if (!supabase) return null;
+
+  const { data, error } = await supabase
+    .from("articles")
+    .select("*")
+    .eq("published", true)
+    .order("featured", { ascending: false })
+    .order("published_at", { ascending: false })
+    .limit(1);
+
+  if (error) {
+    logFailure("getPublicacaoDestaque", error);
+    return null;
+  }
+  const [destaque] = await toPublicacoes(data ?? []);
+  return destaque ?? null;
+}
+
+/**
+ * Feed de /artigos: destaque (só em "Todas", sem busca) + uma página de cards.
+ * O destaque sai do feed em todas as páginas, para a numeração (?pagina=N)
+ * não repetir nem pular publicações. Pagina no banco com `range`.
+ */
+export async function getFeedPublicacoes({
+  area,
+  query,
+  pagina = 1,
+}: {
+  /** Slug da área (practice_areas.slug). */
+  area?: string;
+  query?: string;
+  pagina?: number;
+} = {}): Promise<{
+  destaque: Publicacao | null;
+  itens: Publicacao[];
+  total: number;
+  totalPaginas: number;
+}> {
+  const vazio = { destaque: null, itens: [], total: 0, totalPaginas: 1 };
+  const supabase = getSupabaseClient();
+  if (!supabase) return vazio;
+
+  const destaque = !area && !query ? await getPublicacaoDestaque() : null;
+  const from = (pagina - 1) * PUBLICACOES_POR_PAGINA;
 
   let request = supabase
     .from("articles")
     .select("*", { count: "exact" })
     .eq("published", true)
     .order("published_at", { ascending: false })
-    .range(from, from + pageSize - 1);
+    .range(from, from + PUBLICACOES_POR_PAGINA - 1);
 
-  if (query) {
-    const safe = query.replace(/[%_\\]/g, "\\$&").replace(/,/g, " ");
-    request = request.or(`title.ilike.%${safe}%,excerpt.ilike.%${safe}%`);
-  }
+  if (area) request = request.eq("area", area);
+  if (query) request = request.or(searchFilter(query));
+  if (destaque) request = request.neq("slug", destaque.slug);
 
   const { data, error, count } = await request;
 
   if (error) {
-    logFailure("getArticlesPage", error);
-    return { articles: [], total: 0, totalPages: 0 };
+    // Página além do fim (?pagina=99) responde 416; trata como lista vazia.
+    if (error.code !== "PGRST103") logFailure("getFeedPublicacoes", error);
+    return { ...vazio, destaque };
   }
 
   const total = count ?? 0;
   return {
-    articles: data ?? [],
+    destaque,
+    itens: await toPublicacoes(data ?? []),
     total,
-    totalPages: Math.max(1, Math.ceil(total / pageSize)),
+    totalPaginas: Math.max(1, Math.ceil(total / PUBLICACOES_POR_PAGINA)),
   };
 }
 
-export async function getArticleBySlug(slug: string): Promise<Article | null> {
+/** Quantas publicações cada área tem (slug → total), para os filtros. */
+export async function getContagemPorArea(): Promise<Map<string, number>> {
+  const contagem = new Map<string, number>();
+  const supabase = getSupabaseClient();
+  if (!supabase) return contagem;
+
+  const { data, error } = await supabase
+    .from("articles")
+    .select("area")
+    .eq("published", true);
+
+  if (error) {
+    logFailure("getContagemPorArea", error);
+    return contagem;
+  }
+  for (const { area } of data ?? []) {
+    if (area) contagem.set(area, (contagem.get(area) ?? 0) + 1);
+  }
+  return contagem;
+}
+
+export async function getPublicacaoBySlug(slug: string): Promise<Publicacao | null> {
   const supabase = getSupabaseClient();
   if (!supabase) return null;
 
@@ -187,10 +313,44 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
     .maybeSingle();
 
   if (error) {
-    logFailure(`getArticleBySlug(${slug})`, error);
+    logFailure(`getPublicacaoBySlug(${slug})`, error);
     return null;
   }
-  return data;
+  if (!data) return null;
+  const [publicacao] = await toPublicacoes([data]);
+  return publicacao;
+}
+
+/** "Leia também": da mesma área; completa com as mais recentes. */
+export async function getPublicacoesRelacionadas(
+  publicacao: Publicacao,
+  limite = 2,
+): Promise<Publicacao[]> {
+  const supabase = getSupabaseClient();
+  if (!supabase) return [];
+
+  const base = () =>
+    supabase
+      .from("articles")
+      .select("*")
+      .eq("published", true)
+      .neq("slug", publicacao.slug)
+      .order("published_at", { ascending: false })
+      .limit(limite + 1);
+
+  const [mesmaArea, recentes] = await Promise.all([
+    publicacao.area ? base().eq("area", publicacao.area.slug) : null,
+    base(),
+  ]);
+
+  if (mesmaArea?.error) logFailure("getPublicacoesRelacionadas", mesmaArea.error);
+  if (recentes.error) logFailure("getPublicacoesRelacionadas", recentes.error);
+
+  const vistos = new Set<string>();
+  const rows = [...(mesmaArea?.data ?? []), ...(recentes.data ?? [])]
+    .filter((row) => !vistos.has(row.slug) && vistos.add(row.slug))
+    .slice(0, limite);
+  return toPublicacoes(rows);
 }
 
 /* --------------------------------------------------------------------- Equipe */

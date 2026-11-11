@@ -1,101 +1,171 @@
 import Link from "next/link";
-import { PageTitleBlock } from "@/components/sections/PageTitleBlock";
 import { CtaBanner } from "@/components/sections/CtaBanner";
-import { ArticleCard } from "@/components/cards/ArticleCard";
+import { BotaoPausaVideos } from "@/components/publicacoes/BotaoPausaVideos";
+import { DestaquePublicacao } from "@/components/publicacoes/DestaquePublicacao";
+import { FeedPublicacoes } from "@/components/publicacoes/FeedPublicacoes";
+import { FiltrosArea } from "@/components/publicacoes/FiltrosArea";
 import { pageMetadata } from "@/lib/seo";
-import { getArticlesPage } from "@/lib/supabase/queries";
+import {
+  areaPorChave,
+  areasPublicacao,
+  hrefListagem,
+  paraCard,
+} from "@/lib/publicacoes";
+import { getContagemPorArea, getFeedPublicacoes } from "@/lib/supabase/queries";
 
-export const metadata = pageMetadata({
-  title: "Artigos",
-  description:
-    "Análises e notícias sobre direito empresarial, tributário, civil e proteção de dados, escritas pela equipe do escritório Gonçalo & Gonçalo Advogados.",
-  path: "/artigos",
-});
+type SearchParams = Awaited<PageProps<"/artigos">["searchParams"]>;
 
-/** Página 07 — hub de conteúdo jurídico, com busca vinda do header e paginação. */
-export default async function ArtigosPage({
-  searchParams,
-}: PageProps<"/artigos">) {
-  const params = await searchParams;
+function primeiro(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] : value;
+}
 
-  const rawQuery = Array.isArray(params.q) ? params.q[0] : params.q;
-  const query = rawQuery?.trim() || undefined;
+/**
+ * Lê os filtros da URL. `?page=` é o nome antigo da paginação: links que já
+ * circulam continuam caindo na página certa.
+ */
+function lerFiltros(params: SearchParams) {
+  const query = primeiro(params.q)?.trim() || undefined;
+  const area = areaPorChave(primeiro(params.area));
+  const rawPagina = primeiro(params.pagina) ?? primeiro(params.page);
+  const pagina = Math.max(1, Number.parseInt(rawPagina ?? "1", 10) || 1);
+  return { query, area, pagina };
+}
 
-  const rawPage = Array.isArray(params.page) ? params.page[0] : params.page;
-  const page = Math.max(1, Number.parseInt(rawPage ?? "1", 10) || 1);
+export async function generateMetadata({ searchParams }: PageProps<"/artigos">) {
+  const { area, pagina } = lerFiltros(await searchParams);
+  const titulo = [
+    area ? `Conteúdo Jurídico: ${area.titulo}` : "Conteúdo Jurídico",
+    pagina > 1 ? `página ${pagina}` : null,
+  ]
+    .filter(Boolean)
+    .join(", ");
 
-  const { articles, total, totalPages } = await getArticlesPage({ page, query });
+  return pageMetadata({
+    title: titulo,
+    description:
+      "Artigos e notícias da equipe do Gonçalo & Gonçalo Advogados sobre direito tributário, cível, contratual e empresarial, explicados com clareza e objetividade.",
+    path: hrefListagem({ area: area?.chave, pagina }),
+  });
+}
 
-  function pageHref(target: number) {
-    const search = new URLSearchParams();
-    if (query) search.set("q", query);
-    if (target > 1) search.set("page", String(target));
-    const qs = search.toString();
-    return qs ? `/artigos?${qs}` : "/artigos";
-  }
+/**
+ * Página 07 — hub "Conteúdo Jurídico": destaque, filtros por área e feed com
+ * "Carregar mais". A busca do header chega por ?q= e combina com os filtros.
+ */
+export default async function ArtigosPage({ searchParams }: PageProps<"/artigos">) {
+  const { query, area, pagina } = lerFiltros(await searchParams);
+
+  const [feed, contagem] = await Promise.all([
+    getFeedPublicacoes({ area: area?.slug, query, pagina }),
+    getContagemPorArea(),
+  ]);
+
+  const opcoes = areasPublicacao
+    .filter((opcao) => (contagem.get(opcao.slug) ?? 0) > 0)
+    .map((opcao) => ({ ...opcao, total: contagem.get(opcao.slug) ?? 0 }));
+
+  const destaque = pagina === 1 ? feed.destaque : null;
+  const temVideo = Boolean(destaque?.capaVideo) || feed.itens.some((item) => item.capaVideo);
+  const vazio = feed.itens.length === 0 && !destaque;
 
   return (
     <>
-      <PageTitleBlock
-        eyebrow="Conteúdo Jurídico"
-        title="Artigos"
-        description="Acompanhamos as mudanças que afetam nossos clientes e traduzimos o que elas significam na prática."
-      />
+      <section className="bg-primary-900">
+        <div className="container-site py-12 lg:py-14">
+          <h1 className="text-h2 text-white">Conteúdo Jurídico</h1>
+          <div aria-hidden="true" className="mt-5 h-px w-16 bg-gold-500" />
+          <p className="mt-5 max-w-2xl text-body-lg text-white/80">
+            Informação clara para decisões mais seguras.
+          </p>
+        </div>
+      </section>
 
-      <section className="section-y bg-cream-100">
+      <section className="bg-cream-100 pb-16 pt-8 lg:pb-24 lg:pt-12">
         <div className="container-site">
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
+            <FiltrosArea opcoes={opcoes} ativa={area?.chave ?? null} query={query} />
+            {temVideo ? <BotaoPausaVideos className="self-end lg:self-auto" /> : null}
+          </div>
+
           {query ? (
-            <div className="mb-10 flex flex-wrap items-center gap-4">
+            <div className="mt-8 flex flex-wrap items-center gap-4">
               <p aria-live="polite" className="text-neutral-700">
-                {total === 0
+                {feed.total === 0
                   ? `Nenhum resultado para “${query}”.`
-                  : `${total} ${total === 1 ? "resultado" : "resultados"} para “${query}”.`}
+                  : `${feed.total} ${feed.total === 1 ? "resultado" : "resultados"} para “${query}”.`}
               </p>
               <Link
-                href="/artigos"
-                className="text-small font-semibold text-gold-700 underline underline-offset-2"
+                href={hrefListagem({ area: area?.chave })}
+                className="inline-flex min-h-11 items-center text-small font-semibold text-gold-700 underline underline-offset-2"
               >
                 Limpar busca
               </Link>
             </div>
           ) : null}
 
-          {articles.length > 0 ? (
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {articles.map((article) => (
-                <ArticleCard key={article.slug} article={article} />
-              ))}
+          {destaque ? (
+            <div className="mt-8 lg:mt-10">
+              <DestaquePublicacao publicacao={destaque} />
             </div>
-          ) : (
-            <p className="text-neutral-700">
-              {query
-                ? "Tente outros termos ou consulte todas as publicações."
-                : "Nenhum artigo publicado no momento."}
-            </p>
-          )}
+          ) : null}
 
-          {/* Paginação */}
-          {totalPages > 1 ? (
-            <nav aria-label="Paginação dos artigos" className="mt-16">
+          {feed.itens.length > 0 ? (
+            <>
+              <h2 className="mt-14 text-h3 lg:mt-20">
+                {area ? `Publicações em ${area.titulo}` : "Últimas publicações"}
+              </h2>
+              <div aria-hidden="true" className="mt-4 h-px w-16 bg-gold-500" />
+              <FeedPublicacoes
+                key={`${area?.chave ?? "todas"}|${query ?? ""}|${pagina}`}
+                iniciais={feed.itens.map(paraCard)}
+                pagina={pagina}
+                totalPaginas={feed.totalPaginas}
+                area={area?.chave ?? null}
+                query={query}
+              />
+            </>
+          ) : null}
+
+          {vazio ? (
+            <div className="mt-12">
+              <p className="text-neutral-700">
+                {query
+                  ? "Tente outros termos ou consulte todas as publicações."
+                  : pagina > 1
+                    ? "Esta página não tem publicações."
+                    : "Nenhuma publicação nesta área por enquanto."}
+              </p>
+              <Link
+                href="/artigos"
+                className="mt-4 inline-flex min-h-11 items-center text-small font-semibold text-gold-700 underline underline-offset-2"
+              >
+                Ver todas as publicações
+              </Link>
+            </div>
+          ) : null}
+
+          {/* Páginas numeradas: mantêm todo o acervo acessível por URL. */}
+          {feed.totalPaginas > 1 ? (
+            <nav aria-label="Páginas de publicações" className="mt-10">
               <ul className="flex flex-wrap items-center justify-center gap-2">
-                {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-                  (number) => {
-                    const isCurrent = number === page;
+                {Array.from({ length: feed.totalPaginas }, (_, index) => index + 1).map(
+                  (numero) => {
+                    const atual = numero === pagina;
                     return (
-                      <li key={number}>
+                      <li key={numero}>
                         <Link
-                          href={pageHref(number)}
-                          aria-current={isCurrent ? "page" : undefined}
-                          aria-label={`Página ${number}`}
+                          href={hrefListagem({ area: area?.chave, q: query, pagina: numero })}
+                          aria-current={atual ? "page" : undefined}
+                          aria-label={`Página ${numero}`}
                           className={[
                             "flex size-11 items-center justify-center rounded-sm border text-sm font-semibold",
                             "transition-colors duration-200 ease-brand",
-                            isCurrent
+                            atual
                               ? "border-gold-500 bg-gold-500 text-primary-900"
-                              : "border-border-light text-neutral-700 hover:border-gold-500",
+                              : "border-border-light bg-white text-neutral-700 hover:border-gold-500",
                           ].join(" ")}
                         >
-                          {number}
+                          {numero}
                         </Link>
                       </li>
                     );
@@ -109,7 +179,7 @@ export default async function ArtigosPage({
 
       <CtaBanner
         title="Ficou com alguma dúvida sobre o que leu?"
-        description="Nossos artigos são um ponto de partida. Para orientação sobre o seu caso, fale com a nossa equipe."
+        description="Nossos conteúdos são um ponto de partida. Para orientação sobre o seu caso, fale com a nossa equipe."
       />
     </>
   );

@@ -18,6 +18,7 @@ Fotografia do conteúdo publicado que o site lê do banco, para histórico no Gi
 
 - `team_members.json` — página Nosso Time (cards, perfis e fotos).
 - `practice_areas.json` — textos das áreas de atuação.
+- `articles.json` — publicações do Conteúdo Jurídico (área, capa, destaque).
 
 Gerados pela API pública (só registros publicados), sem `created_at` e
 `updated_at`. **A fonte de verdade é o banco:** editar estes arquivos não muda o
