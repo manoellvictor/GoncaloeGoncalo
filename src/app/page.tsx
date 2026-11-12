@@ -5,7 +5,7 @@ import { CtaBanner } from "@/components/sections/CtaBanner";
 import { Eyebrow } from "@/components/ui/SectionHeading";
 import { ArrowLink } from "@/components/ui/ArrowLink";
 import { Button } from "@/components/ui/Button";
-import { ImageFrame } from "@/components/ui/ImageFrame";
+import { Azulejo } from "@/components/ui/Azulejo";
 import { DynamicIcon } from "@/components/ui/Icons";
 import { FaqAccordion } from "@/components/ui/FaqAccordion";
 import { ArticleCard } from "@/components/cards/ArticleCard";
@@ -154,30 +154,24 @@ export default async function HomePage() {
       {/* --- Áreas de Atuação --- */}
       <section className="section-y bg-cream-100">
         <div className="container-site">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <div className="border-l border-gold-500 pl-8">
-              <Eyebrow>Áreas de Atuação</Eyebrow>
-              <h2 className={sectionTitle}>Soluções jurídicas para cada desafio.</h2>
-            </div>
-            <ArrowLink
-              href="/areas-de-atuacao"
-              className="shrink-0 text-xs uppercase tracking-[0.16em]"
-            >
-              Ver todas as áreas
-            </ArrowLink>
+          <div className="text-center">
+            <Eyebrow>Escritório</Eyebrow>
+            <h2 className={sectionTitle}>Áreas de Atuação</h2>
+            <div aria-hidden="true" className="mx-auto mt-5 h-px w-16 bg-gold-500" />
           </div>
 
-          <ul className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4">
             {practiceAreas.map((area) => (
               <li key={area.slug}>
                 <article className="group relative flex h-full flex-col overflow-hidden rounded-sm border border-border-light bg-white transition-shadow duration-200 ease-brand hover:shadow-elevated">
-                  <ImageFrame
-                    src={area.image}
-                    alt=""
-                    ratio="landscape"
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  <Azulejo
+                    id={area.slug}
+                    padrao={area.azulejo.padrao}
+                    fundo={area.azulejo.fundo}
+                    destaqueDourado={area.azulejo.dourado}
+                    className="block h-24 w-full border-b-2 border-gold-500 sm:h-28"
                   />
-                  <div className="flex flex-1 flex-col p-7">
+                  <div className="flex flex-1 flex-col p-6">
                     <h3 className="font-editorial text-[1.5rem] font-medium leading-tight text-primary-900">
                       <Link
                         href={`/areas-de-atuacao/${area.slug}`}
@@ -191,15 +185,41 @@ export default async function HomePage() {
                     </p>
                     <span
                       aria-hidden="true"
-                      className="mt-5 text-gold-700 transition-transform duration-200 ease-brand group-hover:translate-x-1"
+                      className="mt-5 inline-flex items-center gap-1.5 text-small font-semibold text-gold-700"
                     >
-                      →
+                      Saiba mais
+                      <span className="transition-transform duration-200 ease-brand group-hover:translate-x-1">
+                        →
+                      </span>
                     </span>
                   </div>
                 </article>
               </li>
             ))}
+
+            {/* Oitavo card: fecha a grade de 4 colunas com um ponto de contato. */}
+            <li>
+              <div className="flex h-full flex-col rounded-sm bg-primary-900 p-6 sm:p-7">
+                <div aria-hidden="true" className="h-px w-10 bg-gold-500" />
+                <h3 className="mt-5 font-editorial text-[1.75rem] font-medium leading-tight text-white">
+                  Não encontrou o seu caso?
+                </h3>
+                <p className="mt-3 flex-1 text-small text-white/75">
+                  Fale com a equipe e entenda como podemos ajudar.
+                </p>
+                <Link
+                  href="/contato"
+                  className="mt-8 inline-flex min-h-11 items-center self-start rounded-[2px] border border-white/40 px-5 text-small font-semibold text-white transition-colors duration-200 ease-brand hover:border-gold-500 hover:bg-gold-500 hover:text-primary-900"
+                >
+                  Agendar conversa
+                </Link>
+              </div>
+            </li>
           </ul>
+
+          <p className="mt-10 text-center text-[0.8125rem] text-neutral-600">
+            Padrões inspirados nos azulejos do Centro Histórico de São Luís.
+          </p>
         </div>
       </section>
 
