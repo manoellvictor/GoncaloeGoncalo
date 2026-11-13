@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site-config";
-import { getArticles, getPracticeAreas } from "@/lib/supabase/queries";
+import { getPracticeAreas, getPublicacoesRecentes } from "@/lib/supabase/queries";
 
 /** Sitemap com as rotas estáticas do sitemap do PRD mais o conteúdo dinâmico. */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -19,7 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const [areas, articles] = await Promise.all([
     getPracticeAreas(),
-    getArticles(),
+    getPublicacoesRecentes(),
   ]);
 
   return [
@@ -38,7 +38,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
     ...articles.map((article) => ({
       url: `${siteConfig.url}/artigos/${article.slug}`,
-      lastModified: new Date(article.updated_at),
+      lastModified: new Date(article.dataAtualizacao),
       changeFrequency: "yearly" as const,
       priority: 0.6,
     })),

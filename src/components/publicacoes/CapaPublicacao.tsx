@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import type { CapaVideo } from "@/lib/publicacoes";
+import type { CapaImagem, CapaVideo } from "@/lib/publicacoes";
 import { usePausaCapas, useVideoPermitido } from "./preferencias-video";
 
 /**
@@ -15,8 +15,10 @@ import { usePausaCapas, useVideoPermitido } from "./preferencias-video";
  * reduced-motion, economia de dados, conexão 2G ou pausa global — fica o
  * poster. Overlay navy a 50% garante a leitura do título.
  *
- * Sem vídeo e sem poster: capa tipográfica (navy, título dourado, filetes),
- * para nenhuma publicação ficar sem capa.
+ * Só com imagem (o caso do painel /admin): a foto, com sua descrição.
+ *
+ * Sem vídeo e sem imagem (rascunho na pré-visualização): capa tipográfica
+ * (navy, título dourado, filetes), para nenhuma publicação ficar sem capa.
  */
 
 const VARIANTES = {
@@ -42,15 +44,17 @@ const VARIANTES = {
 
 export function CapaPublicacao({
   capaTitulo,
-  video,
-  poster,
+  imagem,
+  video = null,
   variante = "card",
   prioridade = false,
   className,
 }: {
+  /** Título curto: aparece sobre o vídeo ou na capa tipográfica. */
   capaTitulo: string;
-  video: CapaVideo | null;
-  poster: string | null;
+  /** Foto de capa (e poster do vídeo, quando houver). */
+  imagem: CapaImagem | null;
+  video?: CapaVideo | null;
   variante?: keyof typeof VARIANTES;
   /** Poster acima da dobra (topo do artigo): carrega sem lazy-load. */
   prioridade?: boolean;
@@ -97,6 +101,29 @@ export function CapaPublicacao({
       element.pause();
     }
   }, [tocar]);
+
+  const poster = imagem?.url ?? null;
+
+  // Só a foto: ela é a capa, com a descrição para leitores de tela e sem
+  // texto por cima (o título vem logo abaixo no card).
+  if (imagem && !video) {
+    return (
+      <div
+        className={["relative overflow-hidden bg-primary-900", estilo.caixa, className]
+          .filter(Boolean)
+          .join(" ")}
+      >
+        <Image
+          src={imagem.url}
+          alt={imagem.alt}
+          fill
+          sizes={estilo.sizes}
+          priority={prioridade}
+          className="object-cover"
+        />
+      </div>
+    );
+  }
 
   const capaVisual = Boolean(video || poster);
 

@@ -12,6 +12,24 @@ nome e conteúdo da migração aplicada no Supabase.
 As migrações `seed_*` de setembro trazem o conteúdo de exemplo usado na
 montagem do site; boa parte dele já foi substituída pelo conteúdo real.
 
+## `seed.sql`
+
+Seis artigos de exemplo na tabela `artigos`, **só para ambiente local**: o
+Supabase CLI roda este arquivo em `supabase start` / `supabase db reset`. Ele
+nunca é aplicado no projeto de produção.
+
+## Conta do escritório
+
+O painel `/admin` aceita uma única conta, marcada com
+`app_metadata.escritorio = true` (função `public.e_escritorio()`). Depois de
+criar a conta em Authentication → Users, marque-a no SQL Editor:
+
+```sql
+update auth.users
+set raw_app_meta_data = raw_app_meta_data || '{"escritorio": true}'
+where email = 'EMAIL-DA-CONTA';
+```
+
 ## `snapshots/`
 
 Fotografia do conteúdo publicado que o site lê do banco, para histórico no Git:

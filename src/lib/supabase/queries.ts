@@ -1,14 +1,7 @@
 import { getSupabaseClient } from "./server";
-import type { Article, Faq, Json, PracticeArea, TeamMember } from "./database.types";
+import type { AreaArtigo, Artigo, Faq, PracticeArea, TeamMember } from "./database.types";
 import { practiceAreas } from "@/lib/site-config";
-import { slugify } from "@/lib/format";
-import {
-  areaPorSlug,
-  calcularTempoLeitura,
-  tipoPublicacao,
-  type Fonte,
-  type Publicacao,
-} from "@/lib/publicacoes";
+import { areaPorNome, calcularTempoLeitura, type Publicacao } from "@/lib/publicacoes";
 
 /**
  * Consultas de leitura do conteúdo público.
@@ -104,7 +97,20 @@ export async function getPracticeAreaBySlug(
   return mergeArea(practiceAreas[index], index, row);
 }
 
-/* -------------------------------------------------------------------- Artigos */
+/* ---------------------------------------------------------------- Publicações */
+
+/**
+ * Artigos da tabela `artigos`, escritos no painel /admin. A leitura usa a
+ * chave pública: a regra de acesso do banco só entrega artigos publicados com
+ * data já vencida — rascunhos e agendados nunca chegam aqui.
+ */
+
+/** Cards por página do feed de /artigos (o destaque fica fora da conta). */
+export const PUBLICACOES_POR_PAGINA = 9;
+
+/** Colunas dos cards e listas — sem o corpo, que só a página do artigo usa. */
+const COLUNAS_CARD =
+  "id, slug, titulo, resumo, tipo, area, publicado_em, atualizado_em, capa_url, capa_alt, autor_nome, destaque, video_instagram_url, seo_titulo, seo_descricao, status, criado_em";
 
 /**
  * Filtro de busca por título e resumo. Escapa os curingas do LIKE para que o
@@ -113,116 +119,53 @@ export async function getPracticeAreaBySlug(
  */
 function searchFilter(query: string): string {
   const safe = query.replace(/[%_\\]/g, "\\$&").replace(/,/g, " ");
-  return `title.ilike.%${safe}%,excerpt.ilike.%${safe}%`;
+  return `titulo.ilike.%${safe}%,resumo.ilike.%${safe}%`;
 }
 
-/** Ordenação: mais recente primeiro (padroes-de-projeto.md §3.4). */
-export async function getArticles({
-  limit,
-  query,
-}: { limit?: number; query?: string } = {}): Promise<Article[]> {
-  const supabase = getSupabaseClient();
-  if (!supabase) return [];
+type LinhaArtigo = Omit<Artigo, "conteudo"> & { conteudo?: string };
 
-  let request = supabase
-    .from("articles")
-    .select("*")
-    .eq("published", true)
-    .order("published_at", { ascending: false });
-
-  if (query) request = request.or(searchFilter(query));
-  if (limit) request = request.limit(limit);
-
-  const { data, error } = await request;
-
-  if (error) {
-    logFailure("getArticles", error);
-    return [];
-  }
-  return data ?? [];
-}
-
-/* ---------------------------------------------------------------- Publicações */
-
-/** Cards por página do feed de /artigos (o destaque fica fora da conta). */
-export const PUBLICACOES_POR_PAGINA = 6;
-
-function parseFontes(value: Json): Fonte[] {
-  if (!Array.isArray(value)) return [];
-  return value.flatMap((item) => {
-    if (!item || typeof item !== "object" || Array.isArray(item)) return [];
-    const { titulo, url } = item;
-    return typeof titulo === "string" && typeof url === "string"
-      ? [{ titulo, url }]
-      : [];
-  });
-}
-
-function toPublicacao(row: Article, autores: Map<string, TeamMember>): Publicacao {
-  const autor = row.author_id ? autores.get(row.author_id) : undefined;
+export function toPublicacao(row: LinhaArtigo): Publicacao {
+  const conteudo = row.conteudo ?? "";
   return {
     slug: row.slug,
-    titulo: row.title,
-    resumo: row.excerpt,
-    conteudo: row.content,
-    tipo: tipoPublicacao(row.category),
-    area: areaPorSlug(row.area),
-    dataPublicacao: row.published_at,
-    dataAtualizacao: row.revised_at,
-    autor: autor
-      ? {
-          nome: autor.full_name ?? autor.name,
-          oab: autor.oab,
-          slugPerfil: slugify(autor.name),
-        }
-      : null,
-    tempoLeitura: row.reading_minutes ?? calcularTempoLeitura(row.content),
-    capaTitulo: row.cover_title ?? row.title,
-    capaVideo: row.cover_video_mp4
-      ? {
-          mp4: row.cover_video_mp4,
-          webm: row.cover_video_webm,
-          poster: row.cover_poster,
-        }
-      : null,
-    capaPoster: row.cover_poster,
-    fontes: parseFontes(row.sources),
-    emResumo: row.key_points,
-    destaque: row.featured,
-    metaDescription: row.meta_description,
+    titulo: row.titulo,
+    resumo: row.resumo,
+    conteudo,
+    tipo: row.tipo,
+    area: areaPorNome(row.area),
+    // Rascunho sem data (só na pré-visualização do painel) usa a data de criação.
+    dataPublicacao: row.publicado_em ?? row.criado_em,
+    dataAtualizacao: row.atualizado_em,
+    autor: row.autor_nome?.trim() || null,
+    tempoLeitura: conteudo ? calcularTempoLeitura(conteudo) : null,
+    capa: row.capa_url ? { url: row.capa_url, alt: row.capa_alt ?? "" } : null,
+    videoInstagram: row.video_instagram_url,
+    destaque: row.destaque,
+    seoTitulo: row.seo_titulo,
+    seoDescricao: row.seo_descricao,
   };
 }
 
-/** Autores vêm de team_members; só consulta a equipe se alguém tiver autor. */
-async function toPublicacoes(rows: Article[]): Promise<Publicacao[]> {
-  const autores = rows.some((row) => row.author_id)
-    ? new Map((await getTeamMembers()).map((member) => [member.id, member]))
-    : new Map<string, TeamMember>();
-  return rows.map((row) => toPublicacao(row, autores));
-}
-
 /**
- * Publicação em destaque: a mais recente marcada como `featured`; sem
- * nenhuma marcada, a mais recente de todas.
+ * Publicação em destaque: a marcada no painel; sem nenhuma marcada, a mais
+ * recente.
  */
 async function getPublicacaoDestaque(): Promise<Publicacao | null> {
   const supabase = getSupabaseClient();
   if (!supabase) return null;
 
   const { data, error } = await supabase
-    .from("articles")
-    .select("*")
-    .eq("published", true)
-    .order("featured", { ascending: false })
-    .order("published_at", { ascending: false })
+    .from("artigos")
+    .select(COLUNAS_CARD)
+    .order("destaque", { ascending: false })
+    .order("publicado_em", { ascending: false })
     .limit(1);
 
   if (error) {
     logFailure("getPublicacaoDestaque", error);
     return null;
   }
-  const [destaque] = await toPublicacoes(data ?? []);
-  return destaque ?? null;
+  return data?.[0] ? toPublicacao(data[0]) : null;
 }
 
 /**
@@ -235,8 +178,8 @@ export async function getFeedPublicacoes({
   query,
   pagina = 1,
 }: {
-  /** Slug da área (practice_areas.slug). */
-  area?: string;
+  /** Nome da área como gravado no banco (ex.: "Tributário"). */
+  area?: AreaArtigo;
   query?: string;
   pagina?: number;
 } = {}): Promise<{
@@ -253,10 +196,9 @@ export async function getFeedPublicacoes({
   const from = (pagina - 1) * PUBLICACOES_POR_PAGINA;
 
   let request = supabase
-    .from("articles")
-    .select("*", { count: "exact" })
-    .eq("published", true)
-    .order("published_at", { ascending: false })
+    .from("artigos")
+    .select(COLUNAS_CARD, { count: "exact" })
+    .order("publicado_em", { ascending: false })
     .range(from, from + PUBLICACOES_POR_PAGINA - 1);
 
   if (area) request = request.eq("area", area);
@@ -274,22 +216,38 @@ export async function getFeedPublicacoes({
   const total = count ?? 0;
   return {
     destaque,
-    itens: await toPublicacoes(data ?? []),
+    itens: (data ?? []).map(toPublicacao),
     total,
     totalPaginas: Math.max(1, Math.ceil(total / PUBLICACOES_POR_PAGINA)),
   };
 }
 
-/** Quantas publicações cada área tem (slug → total), para os filtros. */
+/** Publicações mais recentes (seção da home, sitemap). */
+export async function getPublicacoesRecentes(limite?: number): Promise<Publicacao[]> {
+  const supabase = getSupabaseClient();
+  if (!supabase) return [];
+
+  let request = supabase
+    .from("artigos")
+    .select(COLUNAS_CARD)
+    .order("publicado_em", { ascending: false });
+  if (limite) request = request.limit(limite);
+
+  const { data, error } = await request;
+  if (error) {
+    logFailure("getPublicacoesRecentes", error);
+    return [];
+  }
+  return (data ?? []).map(toPublicacao);
+}
+
+/** Quantas publicações cada área tem (nome → total), para os filtros. */
 export async function getContagemPorArea(): Promise<Map<string, number>> {
   const contagem = new Map<string, number>();
   const supabase = getSupabaseClient();
   if (!supabase) return contagem;
 
-  const { data, error } = await supabase
-    .from("articles")
-    .select("area")
-    .eq("published", true);
+  const { data, error } = await supabase.from("artigos").select("area");
 
   if (error) {
     logFailure("getContagemPorArea", error);
@@ -306,9 +264,8 @@ export async function getPublicacaoBySlug(slug: string): Promise<Publicacao | nu
   if (!supabase) return null;
 
   const { data, error } = await supabase
-    .from("articles")
+    .from("artigos")
     .select("*")
-    .eq("published", true)
     .eq("slug", slug)
     .maybeSingle();
 
@@ -316,42 +273,32 @@ export async function getPublicacaoBySlug(slug: string): Promise<Publicacao | nu
     logFailure(`getPublicacaoBySlug(${slug})`, error);
     return null;
   }
-  if (!data) return null;
-  const [publicacao] = await toPublicacoes([data]);
-  return publicacao;
+  return data ? toPublicacao(data) : null;
 }
 
-/** "Leia também": da mesma área; completa com as mais recentes. */
+/** "Leia também": até 3 da mesma área, mais recentes primeiro. */
 export async function getPublicacoesRelacionadas(
-  publicacao: Publicacao,
-  limite = 2,
+  publicacao: Pick<Publicacao, "slug" | "area">,
+  limite = 3,
 ): Promise<Publicacao[]> {
   const supabase = getSupabaseClient();
-  if (!supabase) return [];
+  if (!supabase || !publicacao.area) return [];
 
-  const base = () =>
-    supabase
-      .from("articles")
-      .select("*")
-      .eq("published", true)
-      .neq("slug", publicacao.slug)
-      .order("published_at", { ascending: false })
-      .limit(limite + 1);
+  const { data, error } = await supabase
+    .from("artigos")
+    .select(COLUNAS_CARD)
+    .eq("area", publicacao.area.nome)
+    .neq("slug", publicacao.slug)
+    .order("publicado_em", { ascending: false })
+    .limit(limite);
 
-  const [mesmaArea, recentes] = await Promise.all([
-    publicacao.area ? base().eq("area", publicacao.area.slug) : null,
-    base(),
-  ]);
-
-  if (mesmaArea?.error) logFailure("getPublicacoesRelacionadas", mesmaArea.error);
-  if (recentes.error) logFailure("getPublicacoesRelacionadas", recentes.error);
-
-  const vistos = new Set<string>();
-  const rows = [...(mesmaArea?.data ?? []), ...(recentes.data ?? [])]
-    .filter((row) => !vistos.has(row.slug) && vistos.add(row.slug))
-    .slice(0, limite);
-  return toPublicacoes(rows);
+  if (error) {
+    logFailure("getPublicacoesRelacionadas", error);
+    return [];
+  }
+  return (data ?? []).map(toPublicacao);
 }
+
 
 /* --------------------------------------------------------------------- Equipe */
 

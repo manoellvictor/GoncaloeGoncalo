@@ -116,7 +116,8 @@ export function articleJsonLd(article: {
   publishedAt: string;
   modifiedAt?: string | null;
   image?: string | null;
-  author?: { name: string; path: string } | null;
+  /** Nome do autor como escrito no painel (ex.: "Dra. Fulana – OAB/MA 0000"). */
+  author?: string | null;
 }) {
   return {
     "@context": "https://schema.org",
@@ -127,15 +128,7 @@ export function articleJsonLd(article: {
     ...(article.modifiedAt ? { dateModified: article.modifiedAt } : {}),
     url: `${siteConfig.url}/artigos/${article.slug}`,
     ...(article.image ? { image: absoluteUrl(article.image) } : {}),
-    ...(article.author
-      ? {
-          author: {
-            "@type": "Person",
-            name: article.author.name,
-            url: `${siteConfig.url}${article.author.path}`,
-          },
-        }
-      : {}),
+    ...(article.author ? { author: { "@type": "Person", name: article.author } } : {}),
     publisher: {
       "@type": "Organization",
       name: siteConfig.name,

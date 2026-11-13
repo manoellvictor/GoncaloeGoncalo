@@ -201,15 +201,76 @@ export type Database = {
         Update: Partial<Database["public"]["Tables"]["team_members"]["Insert"]>;
         Relationships: [];
       };
+      artigos: {
+        Row: {
+          area: AreaArtigo | null;
+          atualizado_em: string;
+          autor_nome: string | null;
+          capa_alt: string | null;
+          capa_url: string | null;
+          conteudo: string;
+          criado_em: string;
+          destaque: boolean;
+          id: string;
+          publicado_em: string | null;
+          resumo: string;
+          seo_descricao: string | null;
+          seo_titulo: string | null;
+          slug: string;
+          status: StatusArtigo;
+          tipo: TipoArtigo;
+          titulo: string;
+          video_instagram_url: string | null;
+        };
+        Insert: {
+          area?: AreaArtigo | null;
+          autor_nome?: string | null;
+          capa_alt?: string | null;
+          capa_url?: string | null;
+          conteudo?: string;
+          destaque?: boolean;
+          id?: string;
+          publicado_em?: string | null;
+          resumo?: string;
+          seo_descricao?: string | null;
+          seo_titulo?: string | null;
+          slug: string;
+          status?: StatusArtigo;
+          tipo?: TipoArtigo;
+          titulo?: string;
+          video_instagram_url?: string | null;
+        };
+        Update: Partial<Database["public"]["Tables"]["artigos"]["Insert"]>;
+        Relationships: [];
+      };
     };
     Views: { [_ in never]: never };
-    Functions: { [_ in never]: never };
-    Enums: { [_ in never]: never };
+    Functions: {
+      e_escritorio: { Args: Record<string, never>; Returns: boolean };
+    };
+    Enums: {
+      area_artigo: AreaArtigo;
+      status_artigo: StatusArtigo;
+      tipo_artigo: TipoArtigo;
+    };
     CompositeTypes: { [_ in never]: never };
   };
 };
 
+export type AreaArtigo =
+  | "Tributário"
+  | "Cível"
+  | "Contratual"
+  | "Empresarial"
+  | "Administrativo"
+  | "Trabalhista"
+  | "Agronegócio";
+export type TipoArtigo = "Artigo" | "Notícia";
+export type StatusArtigo = "rascunho" | "publicado";
+
 type PublicTables = Database["public"]["Tables"];
+
+export type Artigo = PublicTables["artigos"]["Row"];
 
 export type Article = PublicTables["articles"]["Row"];
 export type PracticeArea = PublicTables["practice_areas"]["Row"];

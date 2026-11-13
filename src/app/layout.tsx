@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CookieBanner } from "@/components/layout/CookieBanner";
+import { ChromePublico } from "@/components/layout/ChromePublico";
 import { siteConfig } from "@/lib/site-config";
 
 /* Tipografia de design-system.md §3: serifada elegante para display/headings,
@@ -56,12 +57,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <a href="#conteudo" className="skip-link">
           Pular para o conteúdo
         </a>
-        <Header />
+        <ChromePublico>
+          <Header />
+        </ChromePublico>
         <main id="conteudo" className="flex-1">
           {children}
         </main>
-        <Footer />
-        <CookieBanner />
+        <ChromePublico>
+          <Footer />
+          <CookieBanner />
+        </ChromePublico>
       </body>
     </html>
   );

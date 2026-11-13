@@ -16,9 +16,8 @@ export function DestaquePublicacao({ publicacao }: { publicacao: Publicacao }) {
   return (
     <article className="group relative grid overflow-hidden rounded-md border border-border-light bg-white shadow-card transition-shadow duration-200 ease-brand hover:shadow-elevated lg:grid-cols-[1.15fr_1fr]">
       <CapaPublicacao
-        capaTitulo={publicacao.capaTitulo}
-        video={publicacao.capaVideo}
-        poster={publicacao.capaPoster}
+        capaTitulo={titulo}
+        imagem={publicacao.capa}
         variante="destaque"
         prioridade
       />

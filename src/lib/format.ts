@@ -35,10 +35,6 @@ export function isoDate(value: string | Date): string {
   return Number.isNaN(date.getTime()) ? "" : date.toISOString().slice(0, 10);
 }
 
-/** Rótulo de categoria de artigo em caixa alta (padroes §3.4). */
-export function categoryLabel(category: string): string {
-  return category === "noticia" ? "Notícia" : "Artigo";
-}
 
 /**
  * Âncora a partir de um nome ("Paloma Gonçalo" → "paloma-goncalo"): usada nos

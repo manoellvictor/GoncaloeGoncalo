@@ -19,9 +19,12 @@ import ctaEscritorio from "../../../public/images/cta-banner-escritorio.jpg";
 export function CtaBanner({
   title = "Vamos construir a melhor solução para o seu caso.",
   description = "Conte seu caso para a nossa equipe. Avaliamos a situação e apresentamos os caminhos possíveis com clareza, sem compromisso.",
+  ctaHref,
 }: {
   title?: string;
   description?: string;
+  /** Mensagem pronta do WhatsApp (ex.: a página de um artigo). */
+  ctaHref?: string;
 }) {
   const contactLink =
     "flex items-start gap-4 transition-colors duration-200 ease-brand hover:text-gold-400";
@@ -48,7 +51,7 @@ export function CtaBanner({
             </h2>
             <p className="mt-6 max-w-lg text-body-lg text-white/80">{description}</p>
             <div className="mt-10">
-              <SpecialistCta />
+              <SpecialistCta href={ctaHref} />
             </div>
           </div>
 

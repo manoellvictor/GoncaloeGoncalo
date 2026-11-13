@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { CtaBanner } from "@/components/sections/CtaBanner";
-import { BotaoPausaVideos } from "@/components/publicacoes/BotaoPausaVideos";
+import { SpecialistCta } from "@/components/ui/SpecialistCta";
 import { DestaquePublicacao } from "@/components/publicacoes/DestaquePublicacao";
 import { FeedPublicacoes } from "@/components/publicacoes/FeedPublicacoes";
 import { FiltrosArea } from "@/components/publicacoes/FiltrosArea";
@@ -56,16 +56,18 @@ export default async function ArtigosPage({ searchParams }: PageProps<"/artigos"
   const { query, area, pagina } = lerFiltros(await searchParams);
 
   const [feed, contagem] = await Promise.all([
-    getFeedPublicacoes({ area: area?.slug, query, pagina }),
+    getFeedPublicacoes({ area: area?.nome, query, pagina }),
     getContagemPorArea(),
   ]);
 
   const opcoes = areasPublicacao
-    .filter((opcao) => (contagem.get(opcao.slug) ?? 0) > 0)
-    .map((opcao) => ({ ...opcao, total: contagem.get(opcao.slug) ?? 0 }));
+    .filter((opcao) => (contagem.get(opcao.nome) ?? 0) > 0)
+    .map((opcao) => ({ ...opcao, total: contagem.get(opcao.nome) ?? 0 }));
+
+  // Nenhum artigo publicado ainda: só o aviso "Em breve", sem filtros vazios.
+  const semConteudo = [...contagem.values()].reduce((soma, n) => soma + n, 0) === 0;
 
   const destaque = pagina === 1 ? feed.destaque : null;
-  const temVideo = Boolean(destaque?.capaVideo) || feed.itens.some((item) => item.capaVideo);
   const vazio = feed.itens.length === 0 && !destaque;
 
   return (
@@ -80,12 +82,24 @@ export default async function ArtigosPage({ searchParams }: PageProps<"/artigos"
         </div>
       </section>
 
+      {semConteudo ? (
+        <section className="bg-cream-100 py-20 lg:py-28">
+          <div className="container-site text-center">
+            <p className="font-editorial text-[clamp(1.75rem,3vw,2.25rem)] font-medium text-primary-900">
+              Em breve, novos conteúdos.
+            </p>
+            <p className="mx-auto mt-4 max-w-xl text-body-lg text-neutral-700">
+              Enquanto isso, se tiver alguma dúvida, fale com a nossa equipe.
+            </p>
+            <div className="mt-10">
+              <SpecialistCta />
+            </div>
+          </div>
+        </section>
+      ) : (
       <section className="bg-cream-100 pb-16 pt-8 lg:pb-24 lg:pt-12">
         <div className="container-site">
-          <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
-            <FiltrosArea opcoes={opcoes} ativa={area?.chave ?? null} query={query} />
-            {temVideo ? <BotaoPausaVideos className="self-end lg:self-auto" /> : null}
-          </div>
+          <FiltrosArea opcoes={opcoes} ativa={area?.chave ?? null} query={query} />
 
           {query ? (
             <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -176,11 +190,15 @@ export default async function ArtigosPage({ searchParams }: PageProps<"/artigos"
           ) : null}
         </div>
       </section>
+      )}
 
-      <CtaBanner
-        title="Ficou com alguma dúvida sobre o que leu?"
-        description="Nossos conteúdos são um ponto de partida. Para orientação sobre o seu caso, fale com a nossa equipe."
-      />
+      {/* Com a lista vazia, o "Em breve" já traz o contato. */}
+      {semConteudo ? null : (
+        <CtaBanner
+          title="Ficou com alguma dúvida sobre o que leu?"
+          description="Nossos conteúdos são um ponto de partida. Para orientação sobre o seu caso, fale com a nossa equipe."
+        />
+      )}
     </>
   );
 }

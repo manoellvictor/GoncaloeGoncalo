@@ -1,48 +1,32 @@
 import { practiceAreas, siteConfig, contact } from "./site-config";
+import type { AreaArtigo, TipoArtigo } from "./supabase/database.types";
 
 /**
  * Modelo das publicações do hub "Conteúdo Jurídico" (/artigos).
  *
- * O banco guarda os campos em `articles` (snake_case, ver database.types.ts);
+ * O banco guarda os artigos na tabela `artigos` (escrita pelo painel /admin);
  * as páginas e os cards trabalham com `Publicacao`, montada em
  * supabase/queries.ts. Este arquivo não importa nada de servidor: os cards do
  * feed também rodam no cliente ("Carregar mais").
  */
 
-export type TipoPublicacao =
-  | "Artigo"
-  | "Notícia"
-  | "Vídeo"
-  | "Leitura rápida"
-  | "Carrossel";
-
-const TIPOS: Record<string, TipoPublicacao> = {
-  artigo: "Artigo",
-  noticia: "Notícia",
-  video: "Vídeo",
-  "leitura-rapida": "Leitura rápida",
-  carrossel: "Carrossel",
-};
-
-export function tipoPublicacao(category: string): TipoPublicacao {
-  return TIPOS[category] ?? "Artigo";
-}
+export type TipoPublicacao = TipoArtigo;
 
 /**
  * Áreas das publicações — as mesmas de `practiceAreas`, na mesma ordem.
- * `chave` é o valor do filtro na URL (/artigos?area=tributario) e `nome` o
- * rótulo curto do rodapé e dos filtros.
+ * `nome` é o valor gravado no banco (enum area_artigo) e o rótulo curto dos
+ * filtros; `chave` é o valor do filtro na URL (/artigos?area=tributario).
  */
 export type AreaPublicacao = {
-  /** Slug da área de atuação (practice_areas.slug). */
+  /** Slug da área de atuação (/areas-de-atuacao/[slug]). */
   slug: string;
   chave: string;
-  nome: string;
+  nome: AreaArtigo;
   /** Nome completo, ex.: "Direito Tributário". */
   titulo: string;
 };
 
-const NOMES_CURTOS: Record<string, { chave: string; nome: string }> = {
+const NOMES_CURTOS: Record<string, { chave: string; nome: AreaArtigo }> = {
   "direito-tributario": { chave: "tributario", nome: "Tributário" },
   "direito-civil": { chave: "civel", nome: "Cível" },
   "direito-contratual": { chave: "contratual", nome: "Contratual" },
@@ -56,20 +40,13 @@ export const areasPublicacao: readonly AreaPublicacao[] = practiceAreas.map(
   (area) => ({ slug: area.slug, titulo: area.title, ...NOMES_CURTOS[area.slug] }),
 );
 
-export function areaPorSlug(slug: string | null): AreaPublicacao | null {
-  return areasPublicacao.find((area) => area.slug === slug) ?? null;
+export function areaPorNome(nome: string | null): AreaPublicacao | null {
+  return areasPublicacao.find((area) => area.nome === nome) ?? null;
 }
 
 export function areaPorChave(chave: string | undefined): AreaPublicacao | null {
   return areasPublicacao.find((area) => area.chave === chave) ?? null;
 }
-
-export type Autor = {
-  nome: string;
-  oab: string | null;
-  /** Âncora do card em /equipe (ver `slugify` em format.ts). */
-  slugPerfil: string;
-};
 
 export type CapaVideo = {
   mp4: string;
@@ -77,53 +54,54 @@ export type CapaVideo = {
   poster: string | null;
 };
 
-export type Fonte = { titulo: string; url: string };
+export type CapaImagem = { url: string; alt: string };
 
 export type Publicacao = {
   slug: string;
   titulo: string;
   resumo: string;
-  conteudo: string | null;
+  /** HTML do editor, já sanitizado no servidor na hora de exibir. */
+  conteudo: string;
   tipo: TipoPublicacao;
   area: AreaPublicacao | null;
   dataPublicacao: string;
-  dataAtualizacao: string | null;
-  autor: Autor | null;
-  /** Minutos; informado no banco ou calculado a partir do texto. */
+  /** Última alteração (JSON-LD dateModified). */
+  dataAtualizacao: string;
+  /** Texto livre, ex.: "Dra. Fulana – OAB/MA 0000". */
+  autor: string | null;
+  /** Minutos, calculado a partir do texto. */
   tempoLeitura: number | null;
-  capaTitulo: string;
-  capaVideo: CapaVideo | null;
-  /** Poster da capa (com ou sem vídeo); também é a imagem de Open Graph. */
-  capaPoster: string | null;
-  fontes: Fonte[];
-  emResumo: string[];
+  capa: CapaImagem | null;
+  videoInstagram: string | null;
   destaque: boolean;
-  metaDescription: string | null;
+  seoTitulo: string | null;
+  seoDescricao: string | null;
 };
 
 /** Só o que os cards do feed precisam — é o que trafega no "Carregar mais". */
 export type PublicacaoCard = Pick<
   Publicacao,
-  | "slug"
-  | "titulo"
-  | "resumo"
-  | "tipo"
-  | "area"
-  | "dataPublicacao"
-  | "capaTitulo"
-  | "capaVideo"
-  | "capaPoster"
+  "slug" | "titulo" | "resumo" | "tipo" | "area" | "dataPublicacao" | "capa"
 >;
 
 export function paraCard(publicacao: Publicacao): PublicacaoCard {
-  const { slug, titulo, resumo, tipo, area, dataPublicacao, capaTitulo, capaVideo, capaPoster } =
-    publicacao;
-  return { slug, titulo, resumo, tipo, area, dataPublicacao, capaTitulo, capaVideo, capaPoster };
+  const { slug, titulo, resumo, tipo, area, dataPublicacao, capa } = publicacao;
+  return { slug, titulo, resumo, tipo, area, dataPublicacao, capa };
+}
+
+/** Texto puro de um HTML do editor (tempo de leitura, descrições). */
+export function textoDoHtml(html: string): string {
+  return html
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&[a-z]+;|&#\d+;/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 /** Tempo de leitura a ~200 palavras por minuto; vazio se não houver texto. */
-export function calcularTempoLeitura(texto: string | null): number | null {
-  const palavras = texto?.trim().split(/\s+/).filter(Boolean).length ?? 0;
+export function calcularTempoLeitura(html: string): number | null {
+  const palavras = textoDoHtml(html).split(" ").filter(Boolean).length;
   return palavras > 0 ? Math.max(1, Math.round(palavras / 200)) : null;
 }
 
@@ -134,6 +112,12 @@ export function urlPublicacao(slug: string): string {
 /** Compartilhamento pelo WhatsApp: título + URL, sem destinatário definido. */
 export function whatsappCompartilhar(titulo: string, slug: string): string {
   return `https://wa.me/?text=${encodeURIComponent(`${titulo} ${urlPublicacao(slug)}`)}`;
+}
+
+export function linkedinCompartilhar(slug: string): string {
+  return `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+    urlPublicacao(slug),
+  )}`;
 }
 
 /** Conversa com o escritório a partir de uma publicação. */

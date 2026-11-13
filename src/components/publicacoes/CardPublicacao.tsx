@@ -26,9 +26,8 @@ export function CardPublicacao({
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-md border border-border-light bg-white shadow-card transition-shadow duration-200 ease-brand hover:shadow-elevated">
       <CapaPublicacao
-        capaTitulo={publicacao.capaTitulo}
-        video={publicacao.capaVideo}
-        poster={publicacao.capaPoster}
+        capaTitulo={titulo}
+        imagem={publicacao.capa}
       />
 
       <div className="flex flex-1 flex-col p-6 sm:p-7">

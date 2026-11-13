@@ -13,13 +13,11 @@ export async function GET(request: Request) {
   const pagina = Math.max(1, Number.parseInt(params.get("pagina") ?? "1", 10) || 1);
 
   const { itens, totalPaginas } = await getFeedPublicacoes({
-    area: area?.slug,
+    area: area?.nome,
     query,
     pagina,
   });
 
-  return Response.json(
-    { itens: itens.map(paraCard), pagina, totalPaginas },
-    { headers: { "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600" } },
-  );
+  // Sem cache de CDN: o painel revalida esta rota ao publicar (revalidatePath).
+  return Response.json({ itens: itens.map(paraCard), pagina, totalPaginas });
 }

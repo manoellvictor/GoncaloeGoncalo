@@ -12,7 +12,7 @@ import { ArticleCard } from "@/components/cards/ArticleCard";
 import { JsonLd } from "@/components/JsonLd";
 import { legalServiceJsonLd } from "@/lib/seo";
 import { practiceAreas } from "@/lib/site-config";
-import { getArticles, getFaqs } from "@/lib/supabase/queries";
+import { getFaqs, getPublicacoesRecentes } from "@/lib/supabase/queries";
 import equipe from "../../public/images/home-institucional-equipe.jpg";
 
 /** Faixa de valores sobre navy (prd.md §6.1). */
@@ -53,7 +53,7 @@ const DIFFERENTIATORS = [
 
 export default async function HomePage() {
   const [articles, faqs] = await Promise.all([
-    getArticles({ limit: 3 }),
+    getPublicacoesRecentes(3),
     getFaqs({ featuredOnly: true }),
   ]);
 
@@ -251,7 +251,7 @@ export default async function HomePage() {
 
                   <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     {articles.map((article) => (
-                      <ArticleCard key={article.slug} article={article} compact />
+                      <ArticleCard key={article.slug} article={article} />
                     ))}
                   </div>
                 </div>

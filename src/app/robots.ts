@@ -6,6 +6,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      // Painel do escritório: fora dos buscadores (as páginas também têm noindex).
+      disallow: "/admin",
     },
     sitemap: `${siteConfig.url}/sitemap.xml`,
   };
