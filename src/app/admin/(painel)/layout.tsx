@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import logoSelo from "../../../../public/images/logo-selo.png";
 import { sair } from "@/lib/admin/acoes-acesso";
 import { exigirEscritorio } from "@/lib/supabase/sessao";
 
@@ -16,7 +18,15 @@ export default async function PainelLayout({ children }: LayoutProps<"/admin">) 
     <>
       <header className="sticky top-0 z-40 bg-primary-900">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-2 sm:px-6">
-          <Link href="/admin" className="flex min-h-11 items-center gap-2">
+          <Link href="/admin" className="flex min-h-11 items-center gap-3">
+            <Image
+              src={logoSelo}
+              alt=""
+              aria-hidden="true"
+              priority
+              sizes="44px"
+              className="size-11 shrink-0 rounded-full"
+            />
             <span className="font-editorial text-[1.25rem] font-medium text-white">
               Gonçalo &amp; Gonçalo
             </span>

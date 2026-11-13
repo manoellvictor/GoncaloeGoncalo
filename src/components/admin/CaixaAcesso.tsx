@@ -1,4 +1,6 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
+import logoSelo from "../../../public/images/logo-selo.png";
 
 /** Moldura das telas de acesso (entrar, esqueci a senha, nova senha). */
 export function CaixaAcesso({
@@ -13,6 +15,14 @@ export function CaixaAcesso({
   return (
     <div className="flex min-h-screen items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
+        <Image
+          src={logoSelo}
+          alt=""
+          aria-hidden="true"
+          priority
+          sizes="96px"
+          className="mx-auto mb-4 size-24 rounded-full bg-primary-900"
+        />
         <p className="text-center font-editorial text-[1.5rem] font-medium text-primary-900">
           Gonçalo &amp; Gonçalo
         </p>
