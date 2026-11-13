@@ -16,58 +16,6 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      articles: {
-        Row: {
-          area: string | null;
-          author_id: string | null;
-          category: "artigo" | "noticia" | "video" | "leitura-rapida" | "carrossel";
-          content: string | null;
-          cover_image_url: string | null;
-          cover_poster: string | null;
-          cover_title: string | null;
-          cover_video_mp4: string | null;
-          cover_video_webm: string | null;
-          created_at: string;
-          excerpt: string;
-          featured: boolean;
-          id: string;
-          key_points: string[];
-          meta_description: string | null;
-          published: boolean;
-          published_at: string;
-          reading_minutes: number | null;
-          revised_at: string | null;
-          slug: string;
-          sources: Json;
-          title: string;
-          updated_at: string;
-        };
-        Insert: {
-          area?: string | null;
-          author_id?: string | null;
-          category?: "artigo" | "noticia" | "video" | "leitura-rapida" | "carrossel";
-          content?: string | null;
-          cover_image_url?: string | null;
-          cover_poster?: string | null;
-          cover_title?: string | null;
-          cover_video_mp4?: string | null;
-          cover_video_webm?: string | null;
-          excerpt: string;
-          featured?: boolean;
-          key_points?: string[];
-          meta_description?: string | null;
-          id?: string;
-          published?: boolean;
-          published_at?: string;
-          reading_minutes?: number | null;
-          revised_at?: string | null;
-          slug: string;
-          sources?: Json;
-          title: string;
-        };
-        Update: Partial<Database["public"]["Tables"]["articles"]["Insert"]>;
-        Relationships: [];
-      };
       contact_submissions: {
         Row: {
           company: string | null;
@@ -272,7 +220,6 @@ type PublicTables = Database["public"]["Tables"];
 
 export type Artigo = PublicTables["artigos"]["Row"];
 
-export type Article = PublicTables["articles"]["Row"];
 export type PracticeArea = PublicTables["practice_areas"]["Row"];
 export type TeamMember = PublicTables["team_members"]["Row"];
 export type Faq = PublicTables["faqs"]["Row"];
